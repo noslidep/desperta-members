@@ -78,3 +78,4 @@ A plataforma não depende da TechFlix. Cada aula possui `video_provider` e `vide
 5. Importador de alunas/conteúdo da plataforma atual.
 6. E-mails transacionais e notificações.
 7. Deploy de homologação em subdomínio separado antes da migração definitiva.
+V1.1 — correção da persistência da sessão Supabase.
