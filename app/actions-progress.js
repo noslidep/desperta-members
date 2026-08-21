@@ -1,0 +1,3 @@
+'use server'
+import { revalidatePath } from 'next/cache';import { createClient,isDemo } from '../lib/supabase/server'
+export async function completeLesson(formData){const lessonId=String(formData.get('lesson_id'));const programId=String(formData.get('program_id'));if(isDemo())return;const s=await createClient();const{data:{user}}=await s.auth.getUser();if(!user)return;await s.from('lesson_progress').upsert({user_id:user.id,lesson_id:lessonId,program_id:programId,completed:true,completed_at:new Date().toISOString(),last_viewed_at:new Date().toISOString()},{onConflict:'user_id,lesson_id'});revalidatePath('/dashboard');revalidatePath('/programas');revalidatePath(`/aulas/${lessonId}`)}

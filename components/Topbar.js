@@ -1,0 +1,1 @@
+export default function Topbar({title='Área de Membros',profile}){return <header className="topbar"><div><h1>{title}</h1></div><div className="top-actions"><span className="badge">✦ Desperta Empreendedora</span><span className="badge">{profile?.full_name?.split(' ')[0]||'Aluna'}</span></div></header>}

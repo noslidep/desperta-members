@@ -1,0 +1,2 @@
+import ProgramCard from '../../../components/ProgramCard';import {getMyPrograms} from '../../../lib/data'
+export default async function Programs(){const programs=await getMyPrograms();return <div className="page"><div className="section-head"><div><span className="eyebrow">Biblioteca</span><h3 style={{fontSize:30}}>Meus Programas</h3><p>Acesse os programas liberados para sua conta e acompanhe seu progresso.</p></div></div><div className="grid grid-3">{programs.map(p=><ProgramCard key={p.id} program={p}/>)}</div></div>}

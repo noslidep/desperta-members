@@ -1,0 +1,3 @@
+'use server'
+import {revalidatePath} from 'next/cache';import {createAdminClient} from '../../../lib/supabase/admin';import {isDemo} from '../../../lib/supabase/server'
+export async function inviteStudent(formData){if(isDemo())return;const email=String(formData.get('email')||'').trim();const fullName=String(formData.get('full_name')||'').trim();if(!email)return;const admin=createAdminClient();const{data,error}=await admin.auth.admin.inviteUserByEmail(email,{data:{full_name:fullName}});if(error)throw error;if(data?.user)await admin.from('profiles').upsert({id:data.user.id,email,full_name:fullName,role:'student'});revalidatePath('/admin/alunas')}
