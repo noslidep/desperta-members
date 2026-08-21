@@ -20,3 +20,16 @@ Nenhuma migration SQL adicional é necessária para esta versão.
 - A página `/definir-senha` agora conclui sessão via PKCE (`?code=`), token hash ou fluxo implícito (`#access_token=`).
 - Convites administrativos e links de recuperação continuam compatíveis.
 - Links expirados ou já utilizados exibem uma mensagem clara e exigem novo envio.
+
+## V1.7 — recuperação de senha robusta por TokenHash
+
+A recuperação de senha passa a usar um endpoint SSR (`/auth/confirm`) com `token_hash` e `verifyOtp`.
+Isso remove a dependência do `code_verifier` PKCE armazenado no navegador onde o pedido foi iniciado e permite abrir o e-mail em outro navegador/dispositivo.
+
+No Supabase, personalize o template **Reset password / Recovery** para que o botão aponte para:
+
+`{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=recovery&next=/definir-senha`
+
+Para convites, use:
+
+`{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=invite&next=/definir-senha`
