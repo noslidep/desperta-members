@@ -1,7 +1,11 @@
 'use client'
 
-import {useEffect,useState} from 'react'
+import {useEffect,useRef,useState} from 'react'
 import {createClient} from '../lib/supabase/client'
+
+function cleanActivationUrl(){
+ try{window.history.replaceState({},document.title,'/definir-senha')}catch{}
+}
 
 export default function SetPasswordForm(){
  const[supabase]=useState(()=>createClient())
@@ -10,33 +14,81 @@ export default function SetPasswordForm(){
  const[loading,setLoading]=useState(false)
  const[error,setError]=useState('')
  const[success,setSuccess]=useState('')
+ const started=useRef(false)
 
  useEffect(()=>{
   let alive=true
-  let retry
-  async function checkSession(){
-   const{data,error:sessionError}=await supabase.auth.getSession()
+  if(started.current)return
+  started.current=true
+
+  function fail(message){
    if(!alive)return
-   if(data?.session){setReady(true);setChecking(false);setError('');return}
-   if(sessionError)setError(sessionError.message)
-   retry=setTimeout(async()=>{
-    const{data:again}=await supabase.auth.getSession()
-    if(!alive)return
-    setReady(Boolean(again?.session));setChecking(false)
-    if(!again?.session)setError('Este link não está mais válido. Solicite um novo link em “Criar ou recuperar senha”.')
-   },700)
+   setReady(false);setChecking(false);setError(message||'Este link não pôde ser validado. Solicite um novo link.')
   }
-  const{data:listener}=supabase.auth.onAuthStateChange((_event,session)=>{
-   if(session&&alive){setReady(true);setChecking(false);setError('')}
+  function ok(){
+   if(!alive)return
+   setReady(true);setChecking(false);setError('');cleanActivationUrl()
+  }
+
+  const{data:listener}=supabase.auth.onAuthStateChange((event,session)=>{
+   if(!alive)return
+   if(session && ['SIGNED_IN','PASSWORD_RECOVERY','INITIAL_SESSION','TOKEN_REFRESHED','USER_UPDATED'].includes(event))ok()
   })
-  checkSession()
-  return()=>{alive=false;if(retry)clearTimeout(retry);listener?.subscription?.unsubscribe()}
+
+  async function establishSession(){
+   try{
+    const url=new URL(window.location.href)
+    const query=url.searchParams
+    const hash=new URLSearchParams((window.location.hash||'').replace(/^#/,''))
+    const providerError=query.get('error_description')||hash.get('error_description')
+    if(providerError){fail(decodeURIComponent(providerError.replace(/\+/g,' ')));return}
+
+    // SSR/PKCE: Supabase redirects back with ?code=...
+    const code=query.get('code')
+    if(code){
+     const flowId=query.get('sb_flow_id')
+     const{data,error}=await supabase.auth.exchangeCodeForSession(code,flowId?{flowId}:undefined)
+     if(error){fail('Este link expirou, já foi utilizado ou não pôde ser validado. Solicite um novo link para criar sua senha.');return}
+     if(data?.session){ok();return}
+    }
+
+    // Custom/SSR templates may return token_hash + type.
+    const tokenHash=query.get('token_hash')
+    const type=query.get('type')
+    if(tokenHash&&type){
+     const{data,error}=await supabase.auth.verifyOtp({token_hash:tokenHash,type})
+     if(error){fail('Este link expirou, já foi utilizado ou não pôde ser validado. Solicite um novo link para criar sua senha.');return}
+     if(data?.session){ok();return}
+    }
+
+    // Admin invite/recovery links may use the implicit flow and return tokens in #fragment.
+    const accessToken=hash.get('access_token')
+    const refreshToken=hash.get('refresh_token')
+    if(accessToken&&refreshToken){
+     const{data,error}=await supabase.auth.setSession({access_token:accessToken,refresh_token:refreshToken})
+     if(error){fail('Este link expirou ou já foi utilizado. Solicite um novo link para criar sua senha.');return}
+     if(data?.session){ok();return}
+    }
+
+    // If the Supabase client already processed the URL, reuse the resulting session.
+    const{data,error:sessionError}=await supabase.auth.getSession()
+    if(sessionError){fail(sessionError.message);return}
+    if(data?.session){ok();return}
+
+    fail('Este link não está mais válido. Solicite um novo link em “Criar ou recuperar senha”.')
+   }catch(err){
+    fail(err?.message||'Não foi possível validar este link. Solicite um novo link.')
+   }
+  }
+
+  establishSession()
+  return()=>{alive=false;listener?.subscription?.unsubscribe()}
  },[supabase])
 
  async function handleSubmit(event){
   event.preventDefault()
   setError('');setSuccess('')
-  if(!ready){setError('A sessão do link ainda não foi validada. Solicite um novo link se necessário.');return}
+  if(!ready){setError('O link ainda não foi validado. Solicite um novo link se necessário.');return}
   const form=new FormData(event.currentTarget)
   const password=String(form.get('password')||'')
   const confirm=String(form.get('confirm_password')||'')

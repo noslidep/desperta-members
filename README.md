@@ -15,3 +15,8 @@ Atualização da Área de Membros Desperta com foco em gestão de alunas e ativa
 - Erros esperados nas ações administrativas voltam como mensagens na interface, evitando páginas genéricas de erro.
 
 Nenhuma migration SQL adicional é necessária para esta versão.
+
+## V1.6 — ativação compatível com todos os links Supabase
+- A página `/definir-senha` agora conclui sessão via PKCE (`?code=`), token hash ou fluxo implícito (`#access_token=`).
+- Convites administrativos e links de recuperação continuam compatíveis.
+- Links expirados ou já utilizados exibem uma mensagem clara e exigem novo envio.
