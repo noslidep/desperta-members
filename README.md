@@ -21,3 +21,7 @@ Execute uma única vez. Depois faça o commit dos arquivos da V1.3 na branch `ma
 
 ## Regra de acesso
 `active` e `completed` mantêm o acesso enquanto a validade não venceu. `paused`, `cancelled`, ausência de matrícula ou validade vencida bloqueiam o conteúdo.
+
+
+## V1.4 — ativação de senha
+Convites novos redirecionam para a etapa de criação de senha. O login também oferece Criar ou recuperar senha para contas existentes.

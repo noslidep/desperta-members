@@ -18,7 +18,9 @@ export async function inviteStudent(formData){
  const fullName=String(formData.get('full_name')||'').trim()
  if(!email)return
  const admin=createAdminClient()
- const{data,error}=await admin.auth.admin.inviteUserByEmail(email,{data:{full_name:fullName}})
+ const appUrl=(process.env.NEXT_PUBLIC_APP_URL||'').replace(/\/$/,'')
+ const redirectTo=appUrl?`${appUrl}/auth/callback`:undefined
+ const{data,error}=await admin.auth.admin.inviteUserByEmail(email,{data:{full_name:fullName},redirectTo})
  if(error)throw error
  if(data?.user)await admin.from('profiles').upsert({id:data.user.id,email,full_name:fullName,role:'student'})
  revalidatePath('/admin/alunas')

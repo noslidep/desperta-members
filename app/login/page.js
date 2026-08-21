@@ -21,6 +21,7 @@ export default async function Login({ searchParams }) {
         <p>Entre com seus dados de acesso para continuar sua jornada.</p>
         {demo && <div className="alert alert-info"><strong>Modo demonstração ativo.</strong><br />Você pode entrar sem Supabase configurado.</div>}
         <LoginForm demo={demo} initialError={q?.erro || ''} />
+        {!demo && <Link href="/recuperar-senha" style={{ marginTop: 14, fontSize: 13, color: '#0f477d', fontWeight: 800 }}>Criar ou recuperar senha →</Link>}
         <div style={{ marginTop: 20, fontSize: 12, color: '#66758d' }}>O cadastro público está desativado. Acesso liberado pela equipe ou por compra integrada.</div>
         <Link href="/" style={{ marginTop: 20, fontSize: 12, color: '#0f477d' }}>← Voltar</Link>
       </section>
