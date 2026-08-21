@@ -15,7 +15,7 @@ export default function ResetPasswordRequestForm(){
   setLoading(true)
   try{
    const supabase=createClient()
-   const redirectTo=`${window.location.origin}/auth/callback`
+   const redirectTo=`${window.location.origin}/definir-senha`
    const{error:resetError}=await supabase.auth.resetPasswordForEmail(email,{redirectTo})
    if(resetError){setError(resetError.message);return}
    setMessage('Se este e-mail estiver cadastrado, você receberá um link para criar uma nova senha. Verifique também a caixa de spam.')

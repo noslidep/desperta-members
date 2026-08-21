@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import {notFound} from 'next/navigation'
 import {getStudentAccessAdmin} from '../../../../lib/data'
-import {saveStudentAccess,updateStudentProfile} from '../actions'
+import {saveStudentAccess,updateStudentProfile,sendStudentPasswordLink,deleteStudent} from '../actions'
+import DeleteStudentForm from '../../../../components/DeleteStudentForm'
 
 function dateValue(value){
  if(!value)return''
@@ -27,19 +28,26 @@ export default async function StudentAccessPage({params,searchParams}){
  return <div className="page">
   <div className="section-head"><div><Link prefetch={false} href="/admin/alunas" className="badge">← Voltar para alunas</Link><h3 style={{fontSize:30,marginTop:12}}>{student.full_name||'Aluna'}</h3><p>{student.email} • {activeCount} programa(s) ativo(s)</p></div></div>
   {qs?.saved&&<div className="alert alert-success">Acessos atualizados com sucesso.</div>}
+  {qs?.profile&&<div className="alert alert-success">Dados da aluna alterados com sucesso.</div>}
+  {qs?.password&&<div className="alert alert-success">Link para criar ou redefinir a senha enviado para o e-mail da aluna.</div>}
+  {qs?.error&&<div className="alert alert-error">{qs.error}</div>}
 
   <div className="grid grid-2 admin-access-top">
    <form action={updateStudentProfile} className="card form-card">
     <input type="hidden" name="student_id" value={student.id}/>
-    <span className="eyebrow">Perfil</span><h3 style={{color:'#071b3e'}}>Dados da aluna</h3>
+    <span className="eyebrow">Alterar aluna</span><h3 style={{color:'#071b3e'}}>Dados cadastrais</h3>
     <div className="field"><label>Nome completo</label><input name="full_name" defaultValue={student.full_name||''}/></div>
-    <div className="field"><label>E-mail</label><input value={student.email||''} disabled/></div>
+    <div className="field"><label>E-mail</label><input name="email" type="email" defaultValue={student.email||''} required/><small>Ao alterar, o novo e-mail passa a ser usado no login.</small></div>
     <div className="field"><label>Telefone</label><input name="phone" defaultValue={student.phone||''} placeholder="(00) 00000-0000"/></div>
-    <button className="btn btn-secondary">Salvar dados</button>
+    <button className="btn btn-secondary">Salvar alterações</button>
    </form>
    <div className="card form-card">
-    <span className="eyebrow">Segurança</span><h3 style={{color:'#071b3e'}}>Como o bloqueio funciona</h3>
-    <p className="muted">Somente matrículas <strong>Ativas</strong> e dentro da validade liberam curso, módulos, aulas e materiais. Pausar, cancelar, remover ou deixar vencer bloqueia o conteúdo mesmo se a aluna souber a URL direta.</p>
+    <span className="eyebrow">Acesso à conta</span><h3 style={{color:'#071b3e'}}>Senha e segurança</h3>
+    <p className="muted">Envie um novo link quando a aluna ainda não criou a senha ou quando precisar recuperar o acesso. O link abre a tela da Desperta para ela definir a senha pessoal.</p>
+    <form action={sendStudentPasswordLink}>
+     <input type="hidden" name="student_id" value={student.id}/>
+     <button className="btn btn-primary" type="submit">Enviar link para criar / redefinir senha</button>
+    </form>
     <div className="stat access-stat"><strong>{activeCount}</strong><span>programas liberados agora</span></div>
    </div>
   </div>
@@ -62,5 +70,14 @@ export default async function StudentAccessPage({params,searchParams}){
    </div>
    <div className="sticky-save"><span>Alterações só entram em vigor depois de salvar.</span><button className="btn btn-primary">Salvar todos os acessos</button></div>
   </form>
+
+  <section className="section danger-zone">
+   <div className="card form-card danger-card">
+    <span className="eyebrow danger-eyebrow">Zona de segurança</span>
+    <h3 style={{color:'#781f27'}}>Excluir aluna</h3>
+    <p className="muted">Use somente quando desejar remover definitivamente a conta. Matrículas e progresso vinculados também serão removidos.</p>
+    <DeleteStudentForm action={deleteStudent} studentId={student.id} studentName={student.full_name||student.email}/>
+   </div>
+  </section>
  </div>
 }

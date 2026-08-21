@@ -1,27 +1,17 @@
-# Desperta Members V1.3
+# Desperta Members V1.5
 
-Área de membros independente da Desperta Empreendedora.
+Atualização da Área de Membros Desperta com foco em gestão de alunas e ativação de senha.
 
-## V1.3 — Acessos por aluna
-Esta versão adiciona um painel real em **Administração → Alunas & Acessos**:
-- convite de alunas;
-- gestão individual por programa;
-- liberação em massa;
-- status ativo/pausado/cancelado/concluído;
-- validade opcional por matrícula;
-- proteção de URL e conteúdo via Supabase RLS;
-- edição de nome e telefone da própria conta.
+## V1.5
 
-## Antes de publicar a V1.3
-Execute no SQL Editor do Supabase:
+- Alterar nome, e-mail e telefone da aluna no painel administrativo.
+- Enviar/re-enviar link para criação ou redefinição de senha pelo Admin.
+- Excluir aluna permanentemente com confirmação explícita.
+- Exclusão da conta no Supabase Auth, com cascata para perfil, matrículas e progresso conforme o schema.
+- Convites novos redirecionam diretamente para `/definir-senha`.
+- Recuperação de senha redireciona para `/definir-senha`.
+- `/definir-senha` é pública para permitir que o navegador conclua links com sessão no fragmento da URL.
+- `/auth/callback` também encaminha links antigos para a tela de criação de senha.
+- Erros esperados nas ações administrativas voltam como mensagens na interface, evitando páginas genéricas de erro.
 
-`supabase/migrations/20260821_v1_3_access_control.sql`
-
-Execute uma única vez. Depois faça o commit dos arquivos da V1.3 na branch `main`; a Vercel fará o deploy automaticamente.
-
-## Regra de acesso
-`active` e `completed` mantêm o acesso enquanto a validade não venceu. `paused`, `cancelled`, ausência de matrícula ou validade vencida bloqueiam o conteúdo.
-
-
-## V1.4 — ativação de senha
-Convites novos redirecionam para a etapa de criação de senha. O login também oferece Criar ou recuperar senha para contas existentes.
+Nenhuma migration SQL adicional é necessária para esta versão.

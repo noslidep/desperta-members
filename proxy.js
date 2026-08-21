@@ -40,7 +40,7 @@ export async function proxy(request) {
   // Validate/refresh immediately. Do not insert logic before this call.
   const { data: { user } } = await supabase.auth.getUser()
   const path = request.nextUrl.pathname
-  const isPublic = path.startsWith('/login') || path.startsWith('/auth') || path.startsWith('/recuperar-senha')
+  const isPublic = path.startsWith('/login') || path.startsWith('/auth') || path.startsWith('/recuperar-senha') || path.startsWith('/definir-senha')
 
   if (!user && !isPublic) {
     const url = request.nextUrl.clone()

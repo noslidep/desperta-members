@@ -8,10 +8,15 @@ function accessSummary(accesses=[]){
  return current.map(a=>a.programs?.title).filter(Boolean).join(', ')
 }
 
-export default async function Students(){
+export default async function Students({searchParams}){
+ const q=await searchParams
  const [rows,programs]=await Promise.all([getStudentsAdmin(),getAllProgramsAdmin()])
  return <div className="page">
-  <div className="section-head"><div><span className="eyebrow">Acessos</span><h3 style={{fontSize:30}}>Alunas</h3><p>Convide alunas e controle exatamente quais programas cada uma pode acessar.</p></div></div>
+  <div className="section-head"><div><span className="eyebrow">Acessos</span><h3 style={{fontSize:30}}>Alunas</h3><p>Convide, altere e controle exatamente quais programas cada aluna pode acessar.</p></div></div>
+  {q?.invited&&<div className="alert alert-success">Convite enviado. A aluna poderá criar a própria senha pelo link recebido.</div>}
+  {q?.deleted&&<div className="alert alert-success">Aluna excluída da plataforma.</div>}
+  {q?.bulk&&<div className="alert alert-success">Acessos das alunas selecionadas foram atualizados.</div>}
+  {q?.error&&<div className="alert alert-error">{q.error}</div>}
 
   <div className="grid grid-2 admin-access-top">
    <form action={inviteStudent} className="card form-card">
@@ -29,7 +34,7 @@ export default async function Students(){
   </div>
 
   <section className="section">
-   <div className="section-head"><div><h3>Gestão de acessos</h3><p>{rows.length} aluna(s) cadastrada(s). Selecione várias para uma liberação em massa ou abra uma aluna para ajuste individual.</p></div></div>
+   <div className="section-head"><div><h3>Gestão de alunas e acessos</h3><p>{rows.length} aluna(s) cadastrada(s). Abra uma aluna para alterar dados, senha, acessos ou excluir a conta.</p></div></div>
    <form action={bulkUpdateAccess} className="card table-wrap">
     <div className="bulk-toolbar">
      <div className="field compact-field"><label>Programa</label><select name="program_id" required defaultValue=""><option value="" disabled>Selecione...</option>{programs.map(p=><option key={p.id} value={p.id}>{p.title}</option>)}</select></div>
@@ -43,7 +48,7 @@ export default async function Students(){
       <td><strong>{r.full_name||'Sem nome'}</strong><div className="table-sub">{r.email}</div></td>
       <td><div className="student-access-summary">{accessSummary(r.accesses)}</div></td>
       <td>{r.created_at?new Date(r.created_at).toLocaleDateString('pt-BR'):'—'}</td>
-      <td><Link prefetch={false} className="btn btn-secondary btn-small" href={`/admin/alunas/${r.id}`}>Gerenciar acessos →</Link></td>
+      <td><Link prefetch={false} className="btn btn-secondary btn-small" href={`/admin/alunas/${r.id}`}>Alterar / acessos →</Link></td>
      </tr>)}
      {!rows.length&&<tr><td colSpan="5"><div className="empty">Nenhuma aluna cadastrada ainda.</div></td></tr>}
     </tbody></table>
