@@ -70,6 +70,11 @@ create or replace function public.is_admin() returns boolean language sql stable
  select exists(select 1 from public.profiles p where p.id=auth.uid() and p.role='admin');
 $$;
 
+create or replace function public.has_active_program_access(p_program_id uuid) returns boolean language sql stable security definer set search_path=public as $$
+ select exists(select 1 from public.enrollments e where e.user_id=auth.uid() and e.program_id=p_program_id and e.status in ('active','completed') and (e.expires_at is null or e.expires_at>now()));
+$$;
+grant execute on function public.has_active_program_access(uuid) to authenticated;
+
 alter table public.profiles enable row level security; alter table public.programs enable row level security; alter table public.modules enable row level security; alter table public.lessons enable row level security; alter table public.enrollments enable row level security; alter table public.lesson_progress enable row level security; alter table public.materials enable row level security; alter table public.events enable row level security; alter table public.certificates enable row level security; alter table public.announcements enable row level security;
 
 -- Perfis
@@ -77,28 +82,28 @@ create policy "profile own or admin read" on public.profiles for select to authe
 create policy "profile own update" on public.profiles for update to authenticated using(id=auth.uid()) with check(id=auth.uid());
 create policy "admin profiles all" on public.profiles for all to authenticated using(public.is_admin()) with check(public.is_admin());
 -- Conteúdo público para autenticados; escrita só admin
-create policy "authenticated programs read" on public.programs for select to authenticated using(status in('published','coming_soon') or public.is_admin());
+create policy "enrolled programs read" on public.programs for select to authenticated using(public.is_admin() or public.has_active_program_access(id));
 create policy "admin programs write" on public.programs for all to authenticated using(public.is_admin()) with check(public.is_admin());
-create policy "enrolled modules read" on public.modules for select to authenticated using(public.is_admin() or (status='published' and exists(select 1 from public.enrollments e where e.user_id=auth.uid() and e.program_id=modules.program_id and e.status='active')));
+create policy "enrolled modules read" on public.modules for select to authenticated using(public.is_admin() or (status='published' and public.has_active_program_access(program_id)));
 create policy "admin modules write" on public.modules for all to authenticated using(public.is_admin()) with check(public.is_admin());
-create policy "enrolled lessons read" on public.lessons for select to authenticated using(public.is_admin() or (status='published' and (release_at is null or release_at<=now()) and exists(select 1 from public.enrollments e where e.user_id=auth.uid() and e.program_id=lessons.program_id and e.status='active')));
+create policy "enrolled lessons read" on public.lessons for select to authenticated using(public.is_admin() or (status='published' and (release_at is null or release_at<=now()) and public.has_active_program_access(program_id)));
 create policy "admin lessons write" on public.lessons for all to authenticated using(public.is_admin()) with check(public.is_admin());
 -- Matrículas e progresso
 create policy "own enrollments read" on public.enrollments for select to authenticated using(user_id=auth.uid() or public.is_admin());
 create policy "admin enrollments write" on public.enrollments for all to authenticated using(public.is_admin()) with check(public.is_admin());
 create policy "own progress read" on public.lesson_progress for select to authenticated using(user_id=auth.uid() or public.is_admin());
-create policy "own enrolled progress insert" on public.lesson_progress for insert to authenticated with check(user_id=auth.uid() and exists(select 1 from public.enrollments e where e.user_id=auth.uid() and e.program_id=lesson_progress.program_id and e.status='active'));
-create policy "own enrolled progress update" on public.lesson_progress for update to authenticated using(user_id=auth.uid()) with check(user_id=auth.uid() and exists(select 1 from public.enrollments e where e.user_id=auth.uid() and e.program_id=lesson_progress.program_id and e.status='active'));
+create policy "own enrolled progress insert" on public.lesson_progress for insert to authenticated with check(user_id=auth.uid() and public.has_active_program_access(program_id));
+create policy "own enrolled progress update" on public.lesson_progress for update to authenticated using(user_id=auth.uid()) with check(user_id=auth.uid() and public.has_active_program_access(program_id));
 create policy "admin progress all" on public.lesson_progress for all to authenticated using(public.is_admin()) with check(public.is_admin());
 -- Materiais somente se matriculada ou admin
-create policy "enrolled materials read" on public.materials for select to authenticated using(public.is_admin() or exists(select 1 from public.enrollments e where e.user_id=auth.uid() and e.program_id=materials.program_id and e.status='active'));
+create policy "enrolled materials read" on public.materials for select to authenticated using(public.is_admin() or public.has_active_program_access(program_id));
 create policy "admin materials write" on public.materials for all to authenticated using(public.is_admin()) with check(public.is_admin());
 -- Agenda, certificados e comunicados
-create policy "events auth read" on public.events for select to authenticated using(status='scheduled' or public.is_admin());
+create policy "events auth read" on public.events for select to authenticated using(public.is_admin() or (status='scheduled' and (program_id is null or public.has_active_program_access(program_id))));
 create policy "admin events write" on public.events for all to authenticated using(public.is_admin()) with check(public.is_admin());
 create policy "own cert read" on public.certificates for select to authenticated using(user_id=auth.uid() or public.is_admin());
 create policy "admin cert write" on public.certificates for all to authenticated using(public.is_admin()) with check(public.is_admin());
 create policy "announcements auth read" on public.announcements for select to authenticated using(status='published' or public.is_admin());
 create policy "admin announcements write" on public.announcements for all to authenticated using(public.is_admin()) with check(public.is_admin());
 
-create index if not exists idx_modules_program on public.modules(program_id,position);create index if not exists idx_lessons_program_module on public.lessons(program_id,module_id,position);create index if not exists idx_enroll_user on public.enrollments(user_id,status);create index if not exists idx_progress_user_program on public.lesson_progress(user_id,program_id);create index if not exists idx_events_start on public.events(starts_at);
+create index if not exists idx_modules_program on public.modules(program_id,position);create index if not exists idx_lessons_program_module on public.lessons(program_id,module_id,position);create index if not exists idx_enroll_user on public.enrollments(user_id,status);create index if not exists idx_enroll_access on public.enrollments(user_id,program_id,status,expires_at);create index if not exists idx_progress_user_program on public.lesson_progress(user_id,program_id);create index if not exists idx_events_start on public.events(starts_at);
