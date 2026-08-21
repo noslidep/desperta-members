@@ -1,11 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { createClient } from '../lib/supabase/client'
 
 export default function LoginForm({ demo = false, initialError = '' }) {
-  const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(initialError || '')
 
@@ -14,8 +12,7 @@ export default function LoginForm({ demo = false, initialError = '' }) {
     setError('')
 
     if (demo) {
-      router.replace('/dashboard')
-      router.refresh()
+      window.location.replace('/dashboard')
       return
     }
 
@@ -39,8 +36,8 @@ export default function LoginForm({ demo = false, initialError = '' }) {
         return
       }
 
-      router.replace('/dashboard')
-      router.refresh()
+      // Full navigation guarantees the next server request sees the auth cookies.
+      window.location.replace('/dashboard')
     } catch (err) {
       setError(err?.message || 'Não foi possível entrar agora.')
     } finally {

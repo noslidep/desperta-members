@@ -78,4 +78,11 @@ A plataforma não depende da TechFlix. Cada aula possui `video_provider` e `vide
 5. Importador de alunas/conteúdo da plataforma atual.
 6. E-mails transacionais e notificações.
 7. Deploy de homologação em subdomínio separado antes da migração definitiva.
-V1.1 — correção da persistência da sessão Supabase.
+
+
+## V1.2 — sessão SSR
+
+- Proxy alinhado ao padrão atual do Supabase SSR, incluindo headers de sessão/cache.
+- Navegação pós-login com reload completo.
+- Prefetch desativado nas rotas autenticadas.
+- Áreas autenticadas forçadas como dinâmicas.

@@ -10,7 +10,7 @@ export async function proxy(request) {
     return NextResponse.next({ request })
   }
 
-  let response = NextResponse.next({ request })
+  let supabaseResponse = NextResponse.next({ request })
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -20,18 +20,24 @@ export async function proxy(request) {
         getAll() {
           return request.cookies.getAll()
         },
-        setAll(cookiesToSet) {
+        setAll(cookiesToSet, headers = {}) {
           cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
-          response = NextResponse.next({ request })
+
+          supabaseResponse = NextResponse.next({ request })
+
           cookiesToSet.forEach(({ name, value, options }) => {
-            response.cookies.set(name, value, { ...options, path: options?.path || '/' })
+            supabaseResponse.cookies.set(name, value, options)
+          })
+
+          Object.entries(headers || {}).forEach(([key, value]) => {
+            supabaseResponse.headers.set(key, value)
           })
         },
       },
     }
   )
 
-  // Atualiza/valida a sessão antes de decidir qualquer redirecionamento.
+  // Validate/refresh immediately. Do not insert logic before this call.
   const { data: { user } } = await supabase.auth.getUser()
   const path = request.nextUrl.pathname
   const isPublic = path.startsWith('/login') || path.startsWith('/auth')
@@ -45,10 +51,12 @@ export async function proxy(request) {
   if (user && path === '/login') {
     const url = request.nextUrl.clone()
     url.pathname = '/dashboard'
-    return NextResponse.redirect(url)
+    const redirectResponse = NextResponse.redirect(url)
+    supabaseResponse.cookies.getAll().forEach((cookie) => redirectResponse.cookies.set(cookie))
+    return redirectResponse
   }
 
-  return response
+  return supabaseResponse
 }
 
 export default proxy
