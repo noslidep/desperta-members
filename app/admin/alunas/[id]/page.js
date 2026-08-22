@@ -26,7 +26,7 @@ export default async function StudentAccessPage({params,searchParams}){
  const byProgram=new Map(enrollments.map(e=>[e.program_id,e]))
  const activeCount=enrollments.filter(e=>['active','completed'].includes(e.status)&&(!e.expires_at||new Date(e.expires_at).getTime()>Date.now())).length
  return <div className="page">
-  <div className="section-head"><div><Link prefetch={false} href="/admin/alunas" className="badge">← Voltar para alunas</Link><h3 style={{fontSize:30,marginTop:12}}>{student.full_name||'Aluna'}</h3><p>{student.email} • {activeCount} programa(s) ativo(s)</p></div></div>
+  <div className="section-head"><div><Link prefetch={false} href="/admin/alunas" className="badge">← Voltar para alunas</Link><h3 style={{fontSize:30,marginTop:12}}>{student.full_name||'Aluna'}</h3><p>{student.email} • {activeCount} acesso(s) ativo(s)</p></div></div>
   {qs?.saved&&<div className="alert alert-success">Acessos atualizados com sucesso.</div>}
   {qs?.profile&&<div className="alert alert-success">Dados da aluna alterados com sucesso.</div>}
   {qs?.password&&<div className="alert alert-success">Link para criar ou redefinir a senha enviado para o e-mail da aluna.</div>}
@@ -48,13 +48,13 @@ export default async function StudentAccessPage({params,searchParams}){
      <input type="hidden" name="student_id" value={student.id}/>
      <button className="btn btn-primary" type="submit">Enviar link para criar / redefinir senha</button>
     </form>
-    <div className="stat access-stat"><strong>{activeCount}</strong><span>programas liberados agora</span></div>
+    <div className="stat access-stat"><strong>{activeCount}</strong><span>conteúdos liberados agora</span></div>
    </div>
   </div>
 
   <form action={saveStudentAccess} className="section">
    <input type="hidden" name="student_id" value={student.id}/>
-   <div className="section-head"><div><h3>Acessos por programa</h3><p>Defina o status e, se desejar, uma data de validade diferente para cada produto.</p></div><button className="btn btn-primary">Salvar todos os acessos</button></div>
+   <div className="section-head"><div><h3>Acessos por conteúdo</h3><p>Defina o status e, se desejar, uma data de validade diferente para cada produto.</p></div><button className="btn btn-primary">Salvar todos os acessos</button></div>
    <div className="access-program-list">
     {programs.map(program=>{
      const enrollment=byProgram.get(program.id)
@@ -66,7 +66,7 @@ export default async function StudentAccessPage({params,searchParams}){
       <div className="field compact-field"><label>Validade</label><input type="date" name={`expires__${program.id}`} defaultValue={dateValue(enrollment?.expires_at)}/><small>Vazio = sem vencimento</small></div>
      </div>
     })}
-    {!programs.length&&<div className="card empty">Nenhum programa cadastrado.</div>}
+    {!programs.length&&<div className="card empty">Nenhum conteúdo cadastrado.</div>}
    </div>
    <div className="sticky-save"><span>Alterações só entram em vigor depois de salvar.</span><button className="btn btn-primary">Salvar todos os acessos</button></div>
   </form>

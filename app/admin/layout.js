@@ -1,3 +1,23 @@
 export const dynamic = 'force-dynamic'
-import Link from 'next/link';import Image from 'next/image';import {redirect} from 'next/navigation';import {getCurrentProfile} from '../../lib/data';import {isDemo} from '../../lib/supabase/server'
-export default async function AdminLayout({children}){const p=await getCurrentProfile();if(!isDemo()&&p?.role!=='admin')redirect('/dashboard');return <div className="admin-shell"><header className="admin-top"><Image src="/logo-desperta.png" width={300} height={80} alt="Desperta"/><nav style={{display:'flex',gap:12}}><Link prefetch={false} href="/admin">Visão geral</Link><Link prefetch={false} href="/admin/programas">Programas</Link><Link prefetch={false} href="/admin/alunas">Alunas & Acessos</Link><Link prefetch={false} href="/dashboard">Área da aluna →</Link></nav></header>{children}</div>}
+import Link from 'next/link'
+import Image from 'next/image'
+import { redirect } from 'next/navigation'
+import { getCurrentProfile } from '../../lib/data'
+import { isDemo } from '../../lib/supabase/server'
+
+export default async function AdminLayout({ children }) {
+  const p = await getCurrentProfile()
+  if (!isDemo() && p?.role !== 'admin') redirect('/dashboard')
+  return <div className="admin-shell">
+    <header className="admin-top">
+      <Image src="/logo-desperta.png" width={300} height={80} alt="Desperta" />
+      <nav style={{ display: 'flex', gap: 12 }}>
+        <Link prefetch={false} href="/admin">Visão geral</Link>
+        <Link prefetch={false} href="/admin/programas">Conteúdos & Acessos</Link>
+        <Link prefetch={false} href="/admin/alunas">Alunas & Acessos</Link>
+        <Link prefetch={false} href="/dashboard">Área da aluna →</Link>
+      </nav>
+    </header>
+    {children}
+  </div>
+}

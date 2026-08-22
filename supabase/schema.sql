@@ -14,6 +14,8 @@ create table if not exists public.profiles (
 create table if not exists public.programs (
  id uuid primary key default gen_random_uuid(), slug text unique not null, title text not null, subtitle text, description text,
  cover_url text, status text not null default 'draft' check(status in('draft','published','coming_soon','archived')),
+ content_type text not null default 'course' check(content_type in('course','mentoring','immersion','training','event','community')),
+ catalog_visible boolean not null default true,
  position int not null default 0, created_at timestamptz default now(), updated_at timestamptz default now()
 );
 create table if not exists public.modules (
@@ -82,7 +84,7 @@ create policy "profile own or admin read" on public.profiles for select to authe
 create policy "profile own update" on public.profiles for update to authenticated using(id=auth.uid()) with check(id=auth.uid());
 create policy "admin profiles all" on public.profiles for all to authenticated using(public.is_admin()) with check(public.is_admin());
 -- Conteúdo público para autenticados; escrita só admin
-create policy "enrolled programs read" on public.programs for select to authenticated using(public.is_admin() or public.has_active_program_access(id));
+create policy "catalog programs read" on public.programs for select to authenticated using(public.is_admin() or (status in ('published','coming_soon') and (catalog_visible=true or public.has_active_program_access(id))));
 create policy "admin programs write" on public.programs for all to authenticated using(public.is_admin()) with check(public.is_admin());
 create policy "enrolled modules read" on public.modules for select to authenticated using(public.is_admin() or (status='published' and public.has_active_program_access(program_id)));
 create policy "admin modules write" on public.modules for all to authenticated using(public.is_admin()) with check(public.is_admin());

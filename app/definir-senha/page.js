@@ -8,7 +8,7 @@ export default function DefinirSenha(){
   <section className="login-art">
    <Image className="logo-login" src="/logo-desperta.png" width={650} height={190} alt="Desperta Empreendedora"/>
    <h1>Seu acesso começa aqui.</h1>
-   <p>Crie sua senha pessoal para acessar os programas, aulas e materiais liberados para a sua jornada.</p>
+   <p>Crie sua senha pessoal para acessar os conteúdos, aulas e materiais liberados para a sua jornada.</p>
    <Image className="login-person" src="/vanessa.png" width={600} height={800} alt="Mentora" priority/>
   </section>
   <section className="login-panel">

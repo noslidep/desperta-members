@@ -1,6 +1,6 @@
 -- Conteúdo inicial de demonstração (não cria usuários)
-insert into public.programs(id,slug,title,subtitle,description,cover_url,status,position) values
-('11111111-1111-1111-1111-111111111111','formula-gestao-vendas','Fórmula Gestão & Vendas','A fórmula que transforma gestão em lucro.','Programa prático para gestão, posicionamento e vendas.','/formula-gestao-vendas.png','published',1)
+insert into public.programs(id,slug,title,subtitle,description,cover_url,status,content_type,catalog_visible,position) values
+('11111111-1111-1111-1111-111111111111','formula-gestao-vendas','Fórmula Gestão & Vendas','A fórmula que transforma gestão em lucro.','Programa prático para gestão, posicionamento e vendas.','/formula-gestao-vendas.png','published','course',true,1)
 on conflict(id) do nothing;
 insert into public.modules(id,program_id,title,description,position,status) values
 ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa1','11111111-1111-1111-1111-111111111111','Comece por aqui','Boas-vindas e fundamentos.',1,'published'),

@@ -1,35 +1,28 @@
-# Desperta Members V1.5
+# Desperta Members V1.8
 
-Atualização da Área de Membros Desperta com foco em gestão de alunas e ativação de senha.
+## O que mudou
 
-## V1.5
+- “Meus Programas” passou a se chamar **Meus Acessos**.
+- O Admin usa **Conteúdos & Acessos**.
+- Cada conteúdo possui um tipo: Curso, Mentoria, Imersão, Treinamento, Evento ou Comunidade.
+- Conteúdos sem matrícula aparecem para a aluna **somente como capa bloqueada**, com cadeado.
+- Conteúdos bloqueados não exibem descrição, progresso, módulos, aulas, materiais ou URLs internas.
+- A proteção real continua no servidor/Supabase: tentar acessar diretamente um curso/aula sem matrícula continua negado.
+- Novo campo `catalog_visible`: permite ocultar totalmente um conteúdo da vitrine quando necessário.
 
-- Alterar nome, e-mail e telefone da aluna no painel administrativo.
-- Enviar/re-enviar link para criação ou redefinição de senha pelo Admin.
-- Excluir aluna permanentemente com confirmação explícita.
-- Exclusão da conta no Supabase Auth, com cascata para perfil, matrículas e progresso conforme o schema.
-- Convites novos redirecionam diretamente para `/definir-senha`.
-- Recuperação de senha redireciona para `/definir-senha`.
-- `/definir-senha` é pública para permitir que o navegador conclua links com sessão no fragmento da URL.
-- `/auth/callback` também encaminha links antigos para a tela de criação de senha.
-- Erros esperados nas ações administrativas voltam como mensagens na interface, evitando páginas genéricas de erro.
+## Migration obrigatória
 
-Nenhuma migration SQL adicional é necessária para esta versão.
+Execute uma única vez no Supabase SQL Editor:
 
-## V1.6 — ativação compatível com todos os links Supabase
-- A página `/definir-senha` agora conclui sessão via PKCE (`?code=`), token hash ou fluxo implícito (`#access_token=`).
-- Convites administrativos e links de recuperação continuam compatíveis.
-- Links expirados ou já utilizados exibem uma mensagem clara e exigem novo envio.
+`supabase/migrations/20260821_v1_8_catalog_access.sql`
 
-## V1.7 — recuperação de senha robusta por TokenHash
+Depois publique os arquivos da V1.8 no GitHub/Vercel.
 
-A recuperação de senha passa a usar um endpoint SSR (`/auth/confirm`) com `token_hash` e `verifyOtp`.
-Isso remove a dependência do `code_verifier` PKCE armazenado no navegador onde o pedido foi iniciado e permite abrir o e-mail em outro navegador/dispositivo.
+## Tipos internos
 
-No Supabase, personalize o template **Reset password / Recovery** para que o botão aponte para:
-
-`{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=recovery&next=/definir-senha`
-
-Para convites, use:
-
-`{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=invite&next=/definir-senha`
+- `course` → Curso
+- `mentoring` → Mentoria
+- `immersion` → Imersão
+- `training` → Treinamento
+- `event` → Evento
+- `community` → Comunidade
