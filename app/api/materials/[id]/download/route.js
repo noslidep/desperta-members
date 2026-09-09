@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '../../../../../../lib/supabase/server'
-import { createAdminClient } from '../../../../../../lib/supabase/admin'
-import { parseStorageUri } from '../../../../../../lib/storage'
+import { createClient } from '../../../../../lib/supabase/server'
+import { createAdminClient } from '../../../../../lib/supabase/admin'
+import { parseStorageUri } from '../../../../../lib/storage'
 
 function enrollmentIsCurrent(row) {
   if (!row || !['active', 'completed'].includes(row.status)) return false

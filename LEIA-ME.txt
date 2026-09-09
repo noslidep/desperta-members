@@ -1,12 +1,7 @@
-DESPERTA MEMBERS V1.10.2 — CORREÇÃO DE DOWNLOAD PRIVADO
+DESPERTA MEMBERS V1.10.3 — correção do build da rota de download
 
-Corrige o download de materiais salvos como storage://.
+Correção pontual:
+- ajusta os imports relativos em app/api/materials/[id]/download/route.js
+- mantém intactos Storage, matrícula, upload e demais recursos.
 
-Mudanças:
-- Materiais deixam de abrir storage:// diretamente no navegador.
-- Novo endpoint /api/materials/[id]/download.
-- O endpoint exige sessão autenticada e matrícula ativa/vigente.
-- Para arquivos privados do Supabase Storage, gera URL assinada temporária (5 minutos) no momento do clique.
-- Mantém compatibilidade com URLs externas HTTP/HTTPS já cadastradas.
-
-Aplicar na branch v1.10-uploads e testar em Preview antes do merge.
+Aplicar sobre a branch v1.10-uploads.
