@@ -1,9 +1,24 @@
-DESPERTA MEMBERS V1.9.2 — PATCH DE TESTE
+DESPERTA MEMBERS V1.10 — UPLOAD DE CAPAS E MATERIAIS
 
-Corrige:
-1. Persistência/validação explícita de duração da aula.
-2. Botão "Excluir módulo vazio" somente em módulos sem aulas.
-3. Status técnicos traduzidos para português no painel.
+Base: V1.9.2 em produção.
 
-Aplicar somente na branch v1.9.1-conteudos para novo Preview no Vercel.
-Não mesclar em main antes dos testes.
+O que muda:
+1. Upload de capa PNG/JPG/WebP diretamente pelo painel administrativo.
+2. Upload de PDF, Office, ZIP e imagens como materiais.
+3. Capas ficam no bucket público program-covers.
+4. Materiais ficam no bucket privado program-materials.
+5. Alunas recebem materiais privados por URL assinada temporária, somente depois da validação da matrícula.
+6. URLs externas continuam compatíveis.
+
+ANTES DE TESTAR O PREVIEW:
+Execute no Supabase SQL Editor o arquivo:
+supabase/desperta_members_v1_10_STORAGE.sql
+
+FLUXO RECOMENDADO:
+- Criar branch: v1.10-uploads
+- Enviar o conteúdo desta pasta para a raiz da branch.
+- Commit: V1.10 - upload de capas e materiais
+- Aguardar Preview / Ready no Vercel.
+- Testar upload de capa em conteúdo de teste/rascunho.
+- Testar upload e download de um PDF com uma conta matriculada.
+- Não mesclar em main antes dos testes.

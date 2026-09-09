@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import {createProgram} from '../actions'
+import AdminFileUpload from '../../../../components/AdminFileUpload'
 
 export default function NewProgramPage(){
  return <div className="page">
@@ -15,7 +16,7 @@ export default function NewProgramPage(){
    </div>
    <div className="field"><label>Subtítulo</label><input name="subtitle"/></div>
    <div className="field"><label>Descrição</label><textarea name="description" rows="5"/></div>
-   <div className="field"><label>URL da capa</label><input name="cover_url" placeholder="/minha-capa.png ou https://..."/></div>
+   <div className="field"><label>Capa do conteúdo</label><input id="new-program-cover-url" name="cover_url" placeholder="Envie uma imagem ou cole uma URL"/><AdminFileUpload bucket="program-covers" targetInputId="new-program-cover-url" accept="image/png,image/jpeg,image/webp" label="Enviar capa" pathPrefix="programs/new" maxMb={5}/><small>PNG, JPG ou WebP. O upload preenche o campo acima.</small></div>
    <div className="actions"><button className="btn btn-primary">Criar conteúdo</button><Link className="btn btn-secondary" href="/admin/programas">Cancelar</Link></div>
   </form>
  </div>

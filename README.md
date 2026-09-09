@@ -26,3 +26,8 @@ Para quem veio da V1.7 ou anterior, preserve as migrations existentes em `supaba
 ## Publicação
 
 Publique esta pasta no mesmo projeto GitHub/Vercel da V1.8, preservando as variáveis de ambiente existentes e o mesmo projeto Supabase.
+
+
+## V1.10 — Upload pelo painel
+
+Antes de testar os uploads, execute no Supabase SQL Editor o arquivo `supabase/desperta_members_v1_10_STORAGE.sql`. Ele cria os buckets `program-covers` (público) e `program-materials` (privado) e libera upload somente para administradores. Materiais privados são entregues às alunas por URL assinada temporária após a validação da matrícula.

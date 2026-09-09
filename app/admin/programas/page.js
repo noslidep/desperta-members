@@ -35,6 +35,6 @@ export default async function AdminPrograms({searchParams}) {
       </table>
       {!rows.length&&<div className="empty">Nenhum conteúdo cadastrado.</div>}
     </div>
-    <p className="footer-note">V1.9.2: CRUD de conteúdo, módulos, aulas e materiais com validações de edição e exclusão.</p>
+    <p className="footer-note">V1.10: CRUD de conteúdo + upload de capas e materiais pelo Supabase Storage.</p>
   </div>
 }
