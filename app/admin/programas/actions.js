@@ -12,6 +12,7 @@ const CHILD_STATUS=new Set(['draft','published'])
 
 function text(formData,key){return String(formData.get(key)||'').trim()}
 function integer(value,fallback=0){const n=Number.parseInt(String(value??''),10);return Number.isFinite(n)?n:fallback}
+function nonNegativeInteger(value,fallback=0){const n=Number(String(value??'').replace(',','.'));return Number.isFinite(n)?Math.max(0,Math.round(n)):fallback}
 function checkbox(formData,key){return formData.get(key)==='on'||formData.get(key)==='true'||formData.get(key)==='1'}
 function slugify(value){return String(value||'').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,120)}
 function programUrl(id,params={}){const q=new URLSearchParams();for(const[k,v]of Object.entries(params)){if(v!==undefined&&v!==null&&v!=='')q.set(k,String(v))}return `/admin/programas/${id}${q.size?`?${q}`:''}`}
@@ -95,7 +96,7 @@ export async function createLesson(formData){
  if(isDemo())return
  const db=await admin();const programId=text(formData,'program_id');const moduleId=text(formData,'module_id');const title=text(formData,'title');const status=text(formData,'status')||'draft'
  if(!programId||!moduleId||!title)redirect(programUrl(programId,{error:'Módulo e título da aula são obrigatórios.'}))
- const row={program_id:programId,module_id:moduleId,title,summary:text(formData,'summary')||null,description:text(formData,'description')||null,position:integer(formData.get('position')),duration_seconds:Math.max(0,integer(formData.get('duration_seconds'))),video_provider:text(formData,'video_provider')||'external',video_url:text(formData,'video_url')||null,poster_url:text(formData,'poster_url')||null,release_at:nullableDateTime(formData.get('release_at')),status:CHILD_STATUS.has(status)?status:'draft',updated_at:new Date().toISOString()}
+ const row={program_id:programId,module_id:moduleId,title,summary:text(formData,'summary')||null,description:text(formData,'description')||null,position:integer(formData.get('position')),duration_seconds:nonNegativeInteger(formData.get('duration_seconds')),video_provider:text(formData,'video_provider')||'external',video_url:text(formData,'video_url')||null,poster_url:text(formData,'poster_url')||null,release_at:nullableDateTime(formData.get('release_at')),status:CHILD_STATUS.has(status)?status:'draft',updated_at:new Date().toISOString()}
  const{error}=await db.from('lessons').insert(row)
  if(error)redirect(programUrl(programId,{error:error.message}))
  revalidatePath(programUrl(programId));redirect(programUrl(programId,{lesson_created:'1'}))
@@ -105,8 +106,11 @@ export async function updateLesson(formData){
  if(isDemo())return
  const db=await admin();const programId=text(formData,'program_id');const id=text(formData,'lesson_id');const moduleId=text(formData,'module_id');const title=text(formData,'title');const status=text(formData,'status')
  if(!id||!programId||!moduleId||!title)redirect(programUrl(programId,{error:'Dados da aula incompletos.'}))
- const{error}=await db.from('lessons').update({module_id:moduleId,title,summary:text(formData,'summary')||null,description:text(formData,'description')||null,position:integer(formData.get('position')),duration_seconds:Math.max(0,integer(formData.get('duration_seconds'))),video_provider:text(formData,'video_provider')||'external',video_url:text(formData,'video_url')||null,poster_url:text(formData,'poster_url')||null,release_at:nullableDateTime(formData.get('release_at')),status:CHILD_STATUS.has(status)?status:'draft',updated_at:new Date().toISOString()}).eq('id',id).eq('program_id',programId)
+ const durationSeconds=nonNegativeInteger(formData.get('duration_seconds'))
+ const payload={module_id:moduleId,title,summary:text(formData,'summary')||null,description:text(formData,'description')||null,position:integer(formData.get('position')),duration_seconds:durationSeconds,video_provider:text(formData,'video_provider')||'external',video_url:text(formData,'video_url')||null,poster_url:text(formData,'poster_url')||null,release_at:nullableDateTime(formData.get('release_at')),status:CHILD_STATUS.has(status)?status:'draft',updated_at:new Date().toISOString()}
+ const{data,error}=await db.from('lessons').update(payload).eq('id',id).eq('program_id',programId).select('id,duration_seconds').single()
  if(error)redirect(programUrl(programId,{error:error.message}))
+ if(Number(data?.duration_seconds)!==durationSeconds)redirect(programUrl(programId,{error:'A duração da aula não foi persistida corretamente. Tente novamente.'}))
  revalidatePath(programUrl(programId));redirect(programUrl(programId,{lesson_saved:'1'}))
 }
 

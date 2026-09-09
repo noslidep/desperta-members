@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { getAllProgramsAdmin } from '../../../lib/data'
 import { getContentType } from '../../../lib/content-types'
 
+const STATUS_LABELS={draft:'Rascunho',published:'Publicado',coming_soon:'Em breve',archived:'Arquivado'}
+
 export default async function AdminPrograms({searchParams}) {
   const rows = await getAllProgramsAdmin()
   const qs=await searchParams
@@ -24,7 +26,7 @@ export default async function AdminPrograms({searchParams}) {
           return <tr key={p.id}>
             <td><strong>{p.title}</strong><br /><small>{p.slug}</small></td>
             <td><span className="access-pill access-none">{type.label}</span></td>
-            <td>{p.status}</td>
+            <td>{STATUS_LABELS[p.status]||p.status}</td>
             <td>{p.catalog_visible === false ? 'Oculto' : 'Visível'}</td>
             <td>{p.position ?? 0}</td>
             <td><Link prefetch={false} className="btn btn-secondary btn-small" href={`/admin/programas/${p.id}`}>Editar conteúdo →</Link></td>
@@ -33,6 +35,6 @@ export default async function AdminPrograms({searchParams}) {
       </table>
       {!rows.length&&<div className="empty">Nenhum conteúdo cadastrado.</div>}
     </div>
-    <p className="footer-note">V1.9: cadastro e edição de conteúdo, módulos, aulas e materiais diretamente pelo painel administrativo.</p>
+    <p className="footer-note">V1.9.2: CRUD de conteúdo, módulos, aulas e materiais com validações de edição e exclusão.</p>
   </div>
 }

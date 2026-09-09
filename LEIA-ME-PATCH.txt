@@ -1,0 +1,9 @@
+DESPERTA MEMBERS V1.9.2 — PATCH DE TESTE
+
+Corrige:
+1. Persistência/validação explícita de duração da aula.
+2. Botão "Excluir módulo vazio" somente em módulos sem aulas.
+3. Status técnicos traduzidos para português no painel.
+
+Aplicar somente na branch v1.9.1-conteudos para novo Preview no Vercel.
+Não mesclar em main antes dos testes.
