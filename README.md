@@ -1,28 +1,28 @@
-# Desperta Members V1.8
+# Desperta Members V1.9
 
-## O que mudou
+Continuação direta da V1.8 da Área de Membros **Desperta Empreendedora**.
 
-- “Meus Programas” passou a se chamar **Meus Acessos**.
-- O Admin usa **Conteúdos & Acessos**.
-- Cada conteúdo possui um tipo: Curso, Mentoria, Imersão, Treinamento, Evento ou Comunidade.
-- Conteúdos sem matrícula aparecem para a aluna **somente como capa bloqueada**, com cadeado.
-- Conteúdos bloqueados não exibem descrição, progresso, módulos, aulas, materiais ou URLs internas.
-- A proteção real continua no servidor/Supabase: tentar acessar diretamente um curso/aula sem matrícula continua negado.
-- Novo campo `catalog_visible`: permite ocultar totalmente um conteúdo da vitrine quando necessário.
+## O que esta versão entrega
 
-## Migration obrigatória
+A tela administrativa **Conteúdos & Acessos** agora é operacional:
 
-Execute uma única vez no Supabase SQL Editor:
+- criar conteúdos;
+- editar conteúdos existentes;
+- organizar módulos;
+- cadastrar e editar aulas;
+- vincular vídeos e posters;
+- cadastrar e editar materiais;
+- preservar a regra de vitrine bloqueada para alunas sem matrícula;
+- impedir exclusão de um conteúdo que ainda tenha matrículas.
 
-`supabase/migrations/20260821_v1_8_catalog_access.sql`
+## Banco de dados
 
-Depois publique os arquivos da V1.8 no GitHub/Vercel.
+A V1.9 não exige nova migration em relação à V1.8. Ela usa as tabelas e campos já existentes no schema atual (`programs`, `modules`, `lessons`, `materials`, `enrollments`).
 
-## Tipos internos
+Para uma instalação nova, execute `supabase/schema.sql` e `supabase/seed.sql` conforme o fluxo já utilizado.
 
-- `course` → Curso
-- `mentoring` → Mentoria
-- `immersion` → Imersão
-- `training` → Treinamento
-- `event` → Evento
-- `community` → Comunidade
+Para quem veio da V1.7 ou anterior, preserve as migrations existentes em `supabase/migrations/`.
+
+## Publicação
+
+Publique esta pasta no mesmo projeto GitHub/Vercel da V1.8, preservando as variáveis de ambiente existentes e o mesmo projeto Supabase.

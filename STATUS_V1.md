@@ -1,14 +1,28 @@
-# Status — V1.5
+# Status — V1.9
 
-- Domínio/Vercel/Supabase: mantidos.
-- Sessão SSR: mantida da V1.2.
-- Controle individual de acesso: mantido da V1.3.
-- Ativação/recuperação de senha: corrigida e reforçada.
-- Alteração de aluna: nome, e-mail e telefone.
-- Exclusão de aluna: disponível no detalhe da aluna, com confirmação.
-- Reenvio de link de senha: disponível no detalhe da aluna.
+## Base preservada da V1.8
+- Domínio/Vercel/Supabase mantidos.
+- Sessão SSR mantida.
+- Controle individual de acesso mantido.
+- Ativação/recuperação de senha mantida.
+- Alteração e exclusão de aluna mantidas.
+- Reenvio de link de senha mantido.
+- Conteúdos sem matrícula continuam aparecendo somente como capa bloqueada quando `catalog_visible=true`.
+- Proteção real de módulos, aulas e materiais continua no servidor/Supabase.
 
-## V1.7
-- Adicionado `/auth/confirm` com verificação SSR por `token_hash`.
-- Recuperação/ativação passa a funcionar sem depender do navegador que iniciou o fluxo PKCE.
-- Compatível com templates de Recovery (`type=recovery`) e Invite (`type=invite`).
+## V1.9 — nova etapa concluída
+- Botão **+ Novo conteúdo** agora funciona.
+- Botão **Editar conteúdo** agora abre o editor real.
+- Cadastro e edição de: título, slug, tipo, status, posição, vitrine, subtítulo, descrição e capa.
+- Gestão de módulos: criar, editar, ordenar, publicar/rascunho e excluir módulo vazio.
+- Gestão de aulas: criar, editar, mover de módulo, ordenar, publicar/rascunho, duração, liberação programada, vídeo e poster.
+- Gestão de materiais: criar, editar, vincular a módulo/aula e excluir.
+- Exclusão de conteúdo bloqueada enquanto houver matrículas, protegendo acessos e progresso.
+
+## Próxima etapa sugerida
+- Upload de capas e materiais para Supabase Storage pelo próprio painel, eliminando a necessidade de colar URLs manualmente.
+
+## V1.9.1 — ajuste de retomada
+- Painel administrativo atualizado para marcar **Conteúdos, módulos e aulas** como operacional.
+- Atalho direto para **Gerenciar conteúdos** na visão geral.
+- Próxima etapa passa a ser **Uploads pelo painel**, seguida de Relatórios e Automação de matrícula.
