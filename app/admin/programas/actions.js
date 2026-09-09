@@ -5,6 +5,7 @@ import {redirect} from 'next/navigation'
 import {createAdminClient} from '../../../lib/supabase/admin'
 import {isDemo} from '../../../lib/supabase/server'
 import {assertAdmin} from '../../../lib/admin-auth'
+import {parseStorageUri} from '../../../lib/storage'
 
 const CONTENT_TYPES=new Set(['course','mentoring','immersion','training','event','community'])
 const PROGRAM_STATUS=new Set(['draft','published','coming_soon','archived'])
@@ -143,7 +144,11 @@ export async function updateMaterial(formData){
 export async function deleteMaterial(formData){
  if(isDemo())return
  const db=await admin();const programId=text(formData,'program_id');const id=text(formData,'material_id');if(!id)return
+ const{data:material,error:readError}=await db.from('materials').select('file_url').eq('id',id).eq('program_id',programId).maybeSingle()
+ if(readError)redirect(programUrl(programId,{error:readError.message}))
  const{error}=await db.from('materials').delete().eq('id',id).eq('program_id',programId)
  if(error)redirect(programUrl(programId,{error:error.message}))
+ const ref=parseStorageUri(material?.file_url)
+ if(ref){await db.storage.from(ref.bucket).remove([ref.path])}
  revalidatePath(programUrl(programId));redirect(programUrl(programId,{material_deleted:'1'}))
 }
