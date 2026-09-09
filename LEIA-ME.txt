@@ -1,3 +1,12 @@
-V1.10.1 — correção de build
-Substitui apenas lib/storage.js, removendo sequências \\n literais que invalidavam a sintaxe JavaScript.
-Aplicar na branch v1.10-uploads.
+DESPERTA MEMBERS V1.10.2 — CORREÇÃO DE DOWNLOAD PRIVADO
+
+Corrige o download de materiais salvos como storage://.
+
+Mudanças:
+- Materiais deixam de abrir storage:// diretamente no navegador.
+- Novo endpoint /api/materials/[id]/download.
+- O endpoint exige sessão autenticada e matrícula ativa/vigente.
+- Para arquivos privados do Supabase Storage, gera URL assinada temporária (5 minutos) no momento do clique.
+- Mantém compatibilidade com URLs externas HTTP/HTTPS já cadastradas.
+
+Aplicar na branch v1.10-uploads e testar em Preview antes do merge.
