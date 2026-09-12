@@ -30,7 +30,7 @@ export default async function Program({ params }) {
           <Link prefetch={false} className="btn btn-ghost" href="/materiais">Materiais</Link>
         </div>}
       </div>
-      <div className="course-logo"><Image src={program.cover_url || '/formula-gestao-vendas.png'} width={420} height={300} alt={program.title} unoptimized /></div>
+      <div className="course-logo"><Image src={program.logo_url || program.cover_url || '/formula-gestao-vendas.png'} width={420} height={300} alt={`Logo ${program.title}`} unoptimized /></div>
     </section>
     <section className="section">
       <div className="section-head"><div><h3>Conteúdo</h3><p>Avance no seu ritmo. Seu progresso fica salvo automaticamente.</p></div></div>
