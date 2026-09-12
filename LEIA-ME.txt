@@ -1,20 +1,31 @@
-DESPERTA MEMBERS — V1.11.1
-Correção robusta de capas de cursos.
+DESPERTA MEMBERS — V1.11.2
+Logo / miniatura lateral independente da capa 16:9.
 
-Problema confirmado:
-- O arquivo /metodo-vida-em-7-dias.jpg existe e abre diretamente em produção.
-- As telas da Área de Membros usam next/image para capas dinâmicas.
-- Uma resposta inválida/antiga do otimizador de imagens pode manter a capa quebrada mesmo após o arquivo existir.
+OBJETIVO
+- Manter a capa completa 16:9 nos cards do Dashboard e em Meus Acessos.
+- Usar uma imagem própria, preferencialmente PNG transparente, no topo/lateral da página do curso.
+- Se um curso não tiver logo_url, o sistema usa cover_url como fallback.
 
-Correção:
-- As capas dinâmicas passam a usar `unoptimized` no next/image.
-- O navegador carrega diretamente o endereço salvo em cover_url.
-- Mantém as regras visuais 16:9 e object-fit já implantadas na V1.10.4.
-- Funciona tanto para arquivos locais em /public quanto para URLs públicas do Supabase Storage.
+O QUE MUDA
+1. Banco: adiciona programs.logo_url (nullable).
+2. Painel Admin: novo campo “Logo / miniatura lateral”, com upload de PNG/WebP.
+3. Página do curso: usa logo_url; se vazio, usa cover_url.
+4. Método VIDA em 7 dias: já recebe /metodo-vida-logo.png automaticamente.
+5. Inclui public/metodo-vida-logo.png (fundo transparente).
 
-Arquivos alterados:
-- components/ProgramCard.js
-- app/(members)/dashboard/page.js
-- app/(members)/programas/[slug]/page.js
+NÃO ALTERA
+- capa principal 16:9;
+- Dashboard / Meus Acessos;
+- matrículas e acessos;
+- progresso;
+- módulos, aulas e vídeos;
+- materiais.
 
-Não altera banco de dados, acessos, progresso, aulas, vídeos ou uploads.
+ORDEM DE TESTE
+1. Subir este patch na branch v1.11-metodo-vida.
+2. No Supabase SQL Editor, executar:
+   supabase/migrations/20260912_v1_11_2_program_logo.sql
+3. Aguardar o Preview da Vercel.
+4. Abrir Método VIDA em 7 dias no Preview.
+5. Confirmar: card grande continua com a capa 16:9; topo/lateral do curso mostra só o logo transparente.
+6. Se aprovado, merge para principal.

@@ -32,7 +32,7 @@ export async function createProgram(formData){
  if(!title)redirect(listUrl({error:'Informe o título do conteúdo.'}))
  if(!slug)redirect(listUrl({error:'Não foi possível gerar um slug válido.'}))
  if(!CONTENT_TYPES.has(contentType)||!PROGRAM_STATUS.has(status))redirect(listUrl({error:'Tipo ou status inválido.'}))
- const row={title,slug,content_type:contentType,status,catalog_visible:checkbox(formData,'catalog_visible'),position:integer(formData.get('position')),subtitle:text(formData,'subtitle')||null,description:text(formData,'description')||null,cover_url:text(formData,'cover_url')||null,updated_at:new Date().toISOString()}
+ const row={title,slug,content_type:contentType,status,catalog_visible:checkbox(formData,'catalog_visible'),position:integer(formData.get('position')),subtitle:text(formData,'subtitle')||null,description:text(formData,'description')||null,cover_url:text(formData,'cover_url')||null,logo_url:text(formData,'logo_url')||null,updated_at:new Date().toISOString()}
  const{data,error}=await db.from('programs').insert(row).select('id').single()
  if(error)redirect(listUrl({error:error.message}))
  revalidatePath('/admin/programas');revalidatePath('/programas');revalidatePath('/dashboard')
@@ -45,7 +45,7 @@ export async function updateProgram(formData){
  const title=text(formData,'title');const slug=slugify(text(formData,'slug')||title);const contentType=text(formData,'content_type');const status=text(formData,'status')
  if(!title||!slug)redirect(programUrl(id,{error:'Título e slug são obrigatórios.'}))
  if(!CONTENT_TYPES.has(contentType)||!PROGRAM_STATUS.has(status))redirect(programUrl(id,{error:'Tipo ou status inválido.'}))
- const{error}=await db.from('programs').update({title,slug,content_type:contentType,status,catalog_visible:checkbox(formData,'catalog_visible'),position:integer(formData.get('position')),subtitle:text(formData,'subtitle')||null,description:text(formData,'description')||null,cover_url:text(formData,'cover_url')||null,updated_at:new Date().toISOString()}).eq('id',id)
+ const{error}=await db.from('programs').update({title,slug,content_type:contentType,status,catalog_visible:checkbox(formData,'catalog_visible'),position:integer(formData.get('position')),subtitle:text(formData,'subtitle')||null,description:text(formData,'description')||null,cover_url:text(formData,'cover_url')||null,logo_url:text(formData,'logo_url')||null,updated_at:new Date().toISOString()}).eq('id',id)
  if(error)redirect(programUrl(id,{error:error.message}))
  revalidatePath('/admin/programas');revalidatePath(programUrl(id));revalidatePath('/programas');revalidatePath('/dashboard')
  redirect(programUrl(id,{saved:'1'}))
