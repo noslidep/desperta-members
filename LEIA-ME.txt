@@ -1,8 +1,1 @@
-DESPERTA MEMBERS V1.10.4.1 — IMAGEM ÚNICA DA EXPERT
-
-Aplicar na branch v1.10.4-proporcoes.
-
-- Substitui /public/vanessa.png pela imagem aprovada da Expert (800 x 1000, 4:5, PNG transparente).
-- Ajusta os metadados de dimensão nos componentes que exibem a Expert.
-- A mesma imagem passa a ser usada no dashboard da aluna e nas telas de login/recuperação/definição de senha.
-- Mantém object-fit: contain da V1.10.4 para evitar recorte, expansão ou deformação.
+V1.10.4.2 — substitui a capa antiga do Fórmula Gestão & Vendas por versão 16:9 1600x900, mantendo o caminho /formula-gestao-vendas.png.
