@@ -1,27 +1,20 @@
-DESPERTA MEMBERS V1.11 — MÉTODO VIDA EM 7 DIAS
+DESPERTA MEMBERS — V1.11.1
+Correção robusta de capas de cursos.
 
-Este patch adiciona:
-- capa 1600x900 em /public/metodo-vida-em-7-dias.jpg
-- migration SQL idempotente em /supabase/migrations/20260912_v1_11_metodo_vida.sql
+Problema confirmado:
+- O arquivo /metodo-vida-em-7-dias.jpg existe e abre diretamente em produção.
+- As telas da Área de Membros usam next/image para capas dinâmicas.
+- Uma resposta inválida/antiga do otimizador de imagens pode manter a capa quebrada mesmo após o arquivo existir.
 
-Estrutura criada no banco:
-- Curso: Método VIDA em 7 dias
-- Status: Rascunho
-- Vitrine: Oculto
-- 1 módulo: Método VIDA em 7 dias
-- 8 aulas publicadas internamente:
-  1. Boas-vindas
-  2. Dia 01
-  3. Dia 02
-  4. Dia 03
-  5. Dia 04
-  6. Dia 05
-  7. Dia 06
-  8. Dia 07
+Correção:
+- As capas dinâmicas passam a usar `unoptimized` no next/image.
+- O navegador carrega diretamente o endereço salvo em cover_url.
+- Mantém as regras visuais 16:9 e object-fit já implantadas na V1.10.4.
+- Funciona tanto para arquivos locais em /public quanto para URLs públicas do Supabase Storage.
 
-IMPORTANTE:
-1) Suba este patch em uma branch de teste, por exemplo v1.11-metodo-vida.
-2) O commit do GitHub sozinho NÃO executa a migration no Supabase.
-3) Antes do teste final, abra o SQL Editor do Supabase e execute o conteúdo de:
-   supabase/migrations/20260912_v1_11_metodo_vida.sql
-4) O curso nasce em Rascunho e oculto, portanto não aparece para alunas até você publicar e liberar acesso.
+Arquivos alterados:
+- components/ProgramCard.js
+- app/(members)/dashboard/page.js
+- app/(members)/programas/[slug]/page.js
+
+Não altera banco de dados, acessos, progresso, aulas, vídeos ou uploads.
