@@ -31,7 +31,7 @@ export default async function Dashboard() {
     {active && <section className="section">
       <div className="section-head"><div><h3>Continuar de onde parou</h3><p>Sua próxima ação está aqui.</p></div></div>
       <div className="card continue-card">
-        <Image src={active.cover_url || '/formula-gestao-vendas.png'} width={500} height={400} alt={active.title} />
+        <Image src={active.cover_url || '/formula-gestao-vendas.png'} width={500} height={400} alt={active.title} unoptimized />
         <div className="continue-body">
           <span className="eyebrow">{activeType.label} em andamento</span>
           <h4>{active.title}</h4>

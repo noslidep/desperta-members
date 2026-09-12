@@ -23,6 +23,7 @@ export default function ProgramCard({ program }) {
             <Image
               src={program.cover_url}
               fill
+              unoptimized
               sizes="(max-width:720px) 100vw, 33vw"
               style={{ objectFit: 'cover' }}
               alt={program.title}
