@@ -32,7 +32,7 @@ export default async function ProgramAdminPage({params,searchParams}){
    </div>
    <div className="field"><label>Subtítulo</label><input name="subtitle" defaultValue={program.subtitle||''}/></div>
    <div className="field"><label>Descrição</label><textarea name="description" rows="5" defaultValue={program.description||''}/></div>
-   <div className="field"><label>Capa do conteúdo</label><input id="program-cover-url" name="cover_url" defaultValue={program.cover_url||''} placeholder="Envie uma imagem ou cole uma URL"/><AdminFileUpload bucket="program-covers" targetInputId="program-cover-url" accept="image/png,image/jpeg,image/webp" label="Enviar capa" pathPrefix={`programs/${program.id}`} maxMb={5}/><small>PNG, JPG ou WebP. O upload preenche o campo acima; clique em Salvar conteúdo para confirmar.</small></div>
+   <div className="field"><label>Capa do conteúdo</label><input id="program-cover-url" name="cover_url" defaultValue={program.cover_url||''} placeholder="Envie uma imagem ou cole uma URL"/><AdminFileUpload bucket="program-covers" targetInputId="program-cover-url" accept="image/png,image/jpeg,image/webp" label="Enviar capa" pathPrefix={`programs/${program.id}`} maxMb={5}/><small>Recomendado: 1600 × 900 px (16:9), PNG, JPG ou WebP, até 5 MB. Mantenha textos e logos dentro da área central segura.</small></div>
   </form>
 
   <section className="section">

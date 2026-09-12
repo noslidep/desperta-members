@@ -1,7 +1,25 @@
-DESPERTA MEMBERS V1.10.3 — correção do build da rota de download
+DESPERTA MEMBERS V1.10.4 — PROPORÇÕES VISUAIS
 
-Correção pontual:
-- ajusta os imports relativos em app/api/materials/[id]/download/route.js
-- mantém intactos Storage, matrícula, upload e demais recursos.
+Capas de cursos/conteúdos:
+- proporção obrigatória/recomendada: 16:9
+- tamanho recomendado: 1600 x 900 px
+- mínimo aceitável: 1280 x 720 px
+- formato: PNG, JPG ou WebP
+- limite já configurado: 5 MB
+- área segura sugerida em 1600x900: manter elementos críticos dentro de 1440x740 px (80 px de margem em todos os lados)
 
-Aplicar sobre a branch v1.10-uploads.
+Logo Desperta:
+- proporção horizontal aproximada: 4.5:1
+- recomendação de arquivo: 1800 x 400 px PNG transparente
+- CSS usa object-fit: contain; não distorce.
+
+Imagem da Expert:
+- recomendação: 4:5, 1200 x 1500 px, preferencialmente PNG com fundo transparente quando for recorte
+- CSS usa object-fit: contain; não distorce.
+
+Este patch:
+- fixa todas as capas de cards em 16:9
+- impede capas de alterar a altura do card conforme o arquivo
+- impede distorção do logo
+- impede distorção/expansão da imagem da expert
+- informa a proporção recomendada diretamente no painel administrativo
