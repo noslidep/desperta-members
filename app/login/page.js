@@ -13,7 +13,7 @@ export default async function Login({ searchParams }) {
         <Image className="logo-login" src="/logo-desperta.png" width={650} height={190} alt="Desperta Empreendedora" />
         <h1>Sua jornada continua aqui.</h1>
         <p>Cursos, encontros, materiais e evolução reunidos em uma experiência criada para acompanhar cada etapa do seu crescimento.</p>
-        <Image className="login-person" src="/vanessa.png" width={600} height={800} alt="Mentora" priority />
+        <Image className="login-person" src="/vanessa.png" width={800} height={1000} alt="Mentora" priority />
       </section>
       <section className="login-panel">
         <span className="eyebrow">Área de membros</span>
