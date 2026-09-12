@@ -1,7 +1,1 @@
-DESPERTA MEMBERS V1.10.3 — correção do build da rota de download
-
-Correção pontual:
-- ajusta os imports relativos em app/api/materials/[id]/download/route.js
-- mantém intactos Storage, matrícula, upload e demais recursos.
-
-Aplicar sobre a branch v1.10-uploads.
+V1.10.4.2 — substitui a capa antiga do Fórmula Gestão & Vendas por versão 16:9 1600x900, mantendo o caminho /formula-gestao-vendas.png.

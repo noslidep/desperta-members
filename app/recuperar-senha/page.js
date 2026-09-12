@@ -8,7 +8,7 @@ export default function RecuperarSenha(){
    <Image className="logo-login" src="/logo-desperta.png" width={650} height={190} alt="Desperta Empreendedora"/>
    <h1>Vamos recuperar seu acesso.</h1>
    <p>Informe seu e-mail cadastrado. Você receberá um link seguro para criar ou redefinir sua senha.</p>
-   <Image className="login-person" src="/vanessa.png" width={600} height={800} alt="Mentora" priority/>
+   <Image className="login-person" src="/vanessa.png" width={800} height={1000} alt="Mentora" priority/>
   </section>
   <section className="login-panel">
    <span className="eyebrow">Acesso</span>

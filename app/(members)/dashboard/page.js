@@ -25,7 +25,7 @@ export default async function Dashboard() {
           <Link prefetch={false} className="btn btn-ghost" href="/programas">Ver meus acessos</Link>
         </div>
       </div>
-      <div className="hero-person"><Image src="/vanessa.png" width={560} height={760} alt="Vanessa" priority /></div>
+      <div className="hero-person"><Image src="/vanessa.png" width={800} height={1000} alt="Vanessa" priority /></div>
     </section>
 
     {active && <section className="section">

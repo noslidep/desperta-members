@@ -28,3 +28,25 @@
 @media(max-width:720px){.inline-create-form,.material-create,.admin-module-head{grid-template-columns:1fr}.admin-editor-details>summary{align-items:flex-start;flex-direction:column}.admin-editor-form .grid-2,.compact-editor .grid-2{grid-template-columns:1fr}}
 
 .admin-upload{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:4px}.admin-upload .is-disabled{opacity:.55;pointer-events:none}.upload-success{color:#23704f;font-weight:700}.upload-error{color:#9e3238;font-weight:700}
+
+/* V1.10.4 — proporções fixas e proteção contra distorção de imagens */
+/* Capas de conteúdos: padrão único 16:9 em todos os cards. */
+.program-cover,.program-cover-locked{height:auto!important;aspect-ratio:16/9;overflow:hidden}
+.program-cover img,.program-cover-locked img{width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important}
+
+/* Card "Continuar de onde parou": não esticar a capa para acompanhar a altura do texto. */
+.continue-card{grid-template-columns:minmax(280px,32%) minmax(0,1fr);align-items:start}
+.continue-card>img{width:100%!important;height:auto!important;min-height:0!important;aspect-ratio:16/9;object-fit:cover!important;object-position:center!important;background:var(--navy-900)}
+
+/* Logo: preservar a proporção horizontal original em todos os pontos. */
+.brand img{width:190px!important;height:58px!important;max-width:100%;max-height:58px;object-fit:contain!important}
+.login-art .logo-login{width:min(390px,65%)!important;height:auto!important;object-fit:contain!important}
+.admin-top img{width:auto!important;height:44px!important;object-fit:contain!important}
+.course-logo img{width:auto!important;height:auto!important;max-width:100%;max-height:180px;object-fit:contain!important}
+
+/* Expert: nunca alterar a proporção da fotografia/cutout. */
+.hero-person img{width:auto!important;height:96%!important;max-width:100%;object-fit:contain!important;object-position:bottom center!important}
+.login-person{width:auto!important;height:75%!important;max-width:50%;object-fit:contain!important;object-position:right bottom!important}
+
+@media(max-width:1050px){.brand img{width:68px!important;height:58px!important}.continue-card{grid-template-columns:minmax(240px,34%) minmax(0,1fr)}}
+@media(max-width:720px){.continue-card{grid-template-columns:1fr}.continue-card>img{width:100%!important;aspect-ratio:16/9}}
