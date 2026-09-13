@@ -1,67 +1,21 @@
-DESPERTA EMPREENDEDORA — V1.12 DASHBOARD PREMIUM
+DESPERTA MEMBERS — V1.12.1
+Acabamento visual da Dashboard Premium
 
-Objetivo
-Elevar a percepção visual da Área da Aluna sem alterar banco de dados, cursos, acessos, progresso ou materiais.
+O QUE MUDA
+- Sidebar com texto ligeiramente maior, mais respiro e estado ativo mais nítido.
+- CTA principal do Hero ganha mais presença; botão secundário fica mais leve.
+- Card “Continuar de onde parou” recebe acabamento de espaçamento, sombra e tipografia.
+- “Resumo da sua jornada” ganha cards mais autorais, com acentos discretos por categoria.
+- Cards de conteúdo recebem microajustes de hover, espaçamento e CTA.
 
-O que muda
-1. Menu lateral premium
-   - ícones SVG maiores e consistentes
-   - item ativo claramente destacado
-   - área clicável maior
-   - hover discreto
-   - melhor bloco da aluna
-   - navegação móvel atualizada
+O QUE NÃO MUDA
+- Nenhuma tabela ou dado do Supabase.
+- Nenhum curso, matrícula, progresso ou material.
+- Nenhuma rota ou regra de acesso.
+- Não há SQL para executar.
 
-2. Hero da Dashboard
-   - refinamento de hierarquia e profundidade
-   - botões com microinterações no hover
-   - mantém a mesma imagem da Expert
+OBSERVAÇÃO SOBRE O ÍCONE FLUTUANTE À DIREITA
+Esse elemento não existe nos arquivos do patch da Dashboard, portanto não foi removido nesta versão. Ele parece ser injetado por ferramenta/ambiente externo ao layout. Não é seguro ocultá-lo por CSS sem confirmar a origem.
 
-3. Continuar de onde parou
-   - card refinado
-   - status "Em andamento"
-   - progresso mais claro
-   - CTA com seta dinâmica
-
-4. Resumo da jornada
-   - acessos ativos
-   - aulas concluídas
-   - próximos encontros
-
-5. Meus Acessos
-   - cards com hover, status mais elegante e CTAs mais claros
-
-6. Agenda e Materiais
-   - novos ícones
-   - melhor leitura e estados vazios
-
-7. Mensagem da Vanessa
-   - usa o comunicado mais recente já existente no sistema
-
-Arquivos alterados/adicionados
-- components/AppIcon.js (novo)
-- components/Sidebar.js
-- components/ProgramCard.js
-- app/(members)/dashboard/page.js
-- app/globals.css
-
-Banco de dados
-Nenhuma migration é necessária.
-Nenhuma alteração deve ser feita no Supabase para esta versão.
-
-Fluxo seguro recomendado
-1. Criar branch: v1.12-dashboard-premium
-2. Subir o conteúdo desta pasta na raiz da branch.
-3. Commit: V1.12 - dashboard premium e navegação renovada
-4. Aguardar Preview do Vercel.
-5. Testar desktop e celular antes de qualquer merge.
-6. Validar especialmente: Dashboard, menu lateral, Meus Acessos, Agenda, Materiais e navegação para um curso.
-7. Só depois abrir PR para principal.
-
-Critérios de aceite
-- ícones laterais claramente maiores e representativos
-- item ativo visível
-- nenhum curso/acesso/progresso alterado
-- cards e botões sem quebra de layout
-- responsive preservado
-- navegação continua funcionando em todas as rotas
+COMMIT SUGERIDO
+V1.12.1 - refinamento visual da dashboard premium

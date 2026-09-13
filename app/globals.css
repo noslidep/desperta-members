@@ -106,3 +106,68 @@
  .mobile-nav-premium{box-shadow:0 -10px 30px rgba(4,19,41,.18)}.mobile-nav-premium a{border-radius:10px;padding:4px 2px}.mobile-nav-premium a.active{background:rgba(216,170,77,.1)}
 }
 @media(prefers-reduced-motion:reduce){.nav-premium a,.nav-bottom-link,.btn-dynamic,.btn-dynamic::after,.btn-arrow,.continue-card-premium,.continue-cover-wrap>img,.journey-stat,.journey-stat-arrow,.program-card-premium,.program-card-premium .program-cover img,.section-link{transition:none!important}}
+
+/* V1.12.1 — Acabamento visual da Dashboard Premium */
+/* Sidebar: um pouco mais de presença sem aumentar a largura */
+.nav-premium a,.nav-bottom-link{min-height:52px;gap:14px;padding:12px 13px;font-size:15px;letter-spacing:-.005em}
+.nav-premium .ico,.nav-bottom-link .ico{width:29px;min-width:29px;height:29px}
+.nav-premium a.active,.nav-bottom-link.active{background:linear-gradient(90deg,rgba(216,170,77,.20),rgba(255,255,255,.06));box-shadow:inset 0 0 0 1px rgba(240,200,107,.12),0 8px 20px rgba(0,0,0,.06)}
+.nav-premium a.active .label,.nav-bottom-link.active .label{font-weight:850}
+.member-mini-premium{padding:14px 12px;border-radius:15px}
+
+/* Hero: CTA principal mais forte e secundário mais leve */
+.hero-premium{box-shadow:0 24px 62px rgba(4,19,41,.16)}
+.hero-actions{gap:12px;margin-top:27px}
+.hero-actions .btn{min-height:48px;padding:12px 19px;border-radius:12px}
+.hero-actions .btn-primary{box-shadow:0 12px 28px rgba(216,170,77,.23);font-size:15px}
+.hero-actions .btn-primary:hover{box-shadow:0 15px 32px rgba(216,170,77,.28)}
+.hero-actions .btn-ghost{background:rgba(255,255,255,.025);border-color:rgba(255,255,255,.62);color:#f7f9fc;opacity:.82;font-weight:780}
+.hero-actions .btn-ghost:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.86);opacity:1}
+
+/* Card principal: acabamento e leitura do progresso */
+.section-featured{margin-top:34px}
+.continue-card-premium{border-color:#dce4ee;box-shadow:0 15px 42px rgba(4,19,41,.075)}
+.continue-card-premium .continue-body{padding:28px 30px 26px}
+.continue-card-premium .continue-body h4{font-size:25px;letter-spacing:-.018em}
+.continue-card-premium .progress{height:9px}
+.progress-meta{margin-top:9px}
+
+/* Resumo da jornada: cartões com mais identidade e menos aparência de KPI genérico */
+.journey-summary-section{margin-top:32px}
+.journey-summary-grid{gap:16px}
+.journey-stat{min-height:92px;padding:19px 20px;border-radius:18px;overflow:hidden;background:linear-gradient(145deg,#fff 0%,#fbfcfe 100%)}
+.journey-stat::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:#dbe6f3;transition:background .2s ease}
+.journey-stat-primary::before{background:linear-gradient(180deg,var(--gold-2),var(--gold))}
+.journey-stat:nth-child(2)::before{background:linear-gradient(180deg,#76c5a2,#3a916d)}
+.journey-stat:nth-child(3)::before{background:linear-gradient(180deg,#75a9df,#2f6fa9)}
+.journey-stat-icon{width:50px;height:50px;border-radius:15px;box-shadow:inset 0 0 0 1px rgba(15,71,125,.035)}
+.journey-stat:nth-child(2) .journey-stat-icon{background:#edf8f3;color:#2f8b66}
+.journey-stat:nth-child(3) .journey-stat-icon{background:#eef5fc;color:#2f6fa9}
+.journey-stat strong{font-size:29px;letter-spacing:-.025em}
+.journey-stat span:not(.journey-stat-icon){font-size:12.5px;color:#5f6e84}
+.journey-stat:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(4,19,41,.085)}
+
+/* Cards dos conteúdos: mais consistência no hover e CTAs */
+.program-card-premium{box-shadow:0 9px 28px rgba(4,19,41,.06)}
+.program-card-premium:hover{transform:translateY(-3px);box-shadow:0 17px 40px rgba(4,19,41,.095)}
+.program-card-premium .program-body{padding:19px}
+.program-card-premium .program-body h4{font-size:18.5px;letter-spacing:-.01em}
+.program-card-action{min-height:42px}
+
+/* Hierarquia das seções */
+.section-head h3{letter-spacing:-.012em}
+.section-kicker{margin-bottom:5px}
+.section-link{padding:8px 12px}
+
+@media(max-width:1050px){
+ .nav-premium a,.nav-bottom-link{min-height:52px;padding:10px;font-size:14px}
+ .nav-premium .ico,.nav-bottom-link .ico{width:30px;min-width:30px;height:30px}
+ .journey-stat{min-height:86px;padding:16px}
+ .journey-stat-icon{width:44px;height:44px}
+ .journey-stat strong{font-size:26px}
+}
+@media(max-width:720px){
+ .hero-actions{gap:9px;margin-top:22px}.hero-actions .btn{min-height:46px}
+ .continue-card-premium .continue-body{padding:22px 19px}
+ .journey-stat{min-height:78px;padding:15px 16px}.journey-stat-icon{width:44px;height:44px}.journey-stat strong{font-size:26px}
+}
