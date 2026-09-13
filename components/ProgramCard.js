@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import ProgressBar from './ProgressBar'
+import AppIcon from './AppIcon'
 import { getContentType } from '../lib/content-types'
 
 function accessStateLabel(program) {
@@ -17,64 +18,40 @@ export default function ProgramCard({ program }) {
 
   if (locked) {
     return (
-      <article className="card program-card program-card-locked" aria-label={`${program.title} — ${accessStateLabel(program)}`}>
+      <article className="card program-card program-card-locked program-card-premium" aria-label={`${program.title} — ${accessStateLabel(program)}`}>
         <div className="program-cover program-cover-locked">
           {program.cover_url ? (
-            <Image
-              src={program.cover_url}
-              fill
-              unoptimized
-              sizes="(max-width:720px) 100vw, 33vw"
-              style={{ objectFit: 'cover' }}
-              alt={program.title}
-            />
+            <Image src={program.cover_url} fill unoptimized sizes="(max-width:720px) 100vw, 33vw" style={{ objectFit: 'cover' }} alt={program.title} />
           ) : (
             <div className="program-cover-fallback">{program.title}</div>
           )}
           <div className="locked-shade" />
           <span className="content-type-badge">{type.label}</span>
-          <span className="lock-badge" aria-hidden="true">🔒</span>
-          <div className="locked-cover-copy">
-            <strong>{program.title}</strong>
-            <span>{accessStateLabel(program)}</span>
-          </div>
+          <span className="lock-badge" aria-hidden="true"><AppIcon name="lock" size={17} /></span>
+          <div className="locked-cover-copy"><strong>{program.title}</strong><span>{accessStateLabel(program)}</span></div>
         </div>
       </article>
     )
   }
 
   return (
-    <article className="card program-card">
+    <article className="card program-card program-card-premium">
       <div className="program-cover">
         {program.cover_url ? (
-          <Image
-            src={program.cover_url}
-            fill
-            sizes="(max-width:720px) 100vw, 33vw"
-            style={{ objectFit: 'cover' }}
-            alt={program.title}
-          />
+          <Image src={program.cover_url} fill sizes="(max-width:720px) 100vw, 33vw" style={{ objectFit: 'cover' }} alt={program.title} />
         ) : (
           <div className="program-cover-fallback">{program.title}</div>
         )}
         <span className="content-type-badge">{type.label}</span>
-        <span className="status">Ativo</span>
+        <span className="status"><span className="status-dot" /> Ativo</span>
       </div>
       <div className="program-body">
         <h4>{program.title}</h4>
         <p>{program.subtitle || program.description}</p>
-        <ProgressBar value={program.progress} />
-        <div className="program-progress-meta">
-          <span>{program.progress || 0}% concluído</span>
-          <span>{program.completed_lessons || 0}/{program.total_lessons || 0} aulas</span>
-        </div>
-        <Link
-          prefetch={false}
-          className="btn btn-secondary"
-          style={{ marginTop: 14 }}
-          href={`/programas/${program.slug}`}
-        >
-          {program.progress ? type.continueLabel : type.accessLabel} →
+        <div className="program-progress-wrap"><ProgressBar value={program.progress} /></div>
+        <div className="program-progress-meta"><span>{program.progress || 0}% concluído</span><span>{program.completed_lessons || 0}/{program.total_lessons || 0} aulas</span></div>
+        <Link prefetch={false} className="btn btn-secondary btn-dynamic program-card-action" href={`/programas/${program.slug}`}>
+          {program.progress ? type.continueLabel : type.accessLabel}<span className="btn-arrow"><AppIcon name="arrow" size={16} /></span>
         </Link>
       </div>
     </article>
