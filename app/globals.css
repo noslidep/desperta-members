@@ -171,3 +171,132 @@
  .continue-card-premium .continue-body{padding:22px 19px}
  .journey-stat{min-height:78px;padding:15px 16px}.journey-stat-icon{width:44px;height:44px}.journey-stat strong{font-size:26px}
 }
+
+/* =========================================================
+   V1.12.2 — BOTÕES DINÂMICOS NA ÁREA DA ALUNA
+   Movimento premium e discreto para as ações principais.
+   Não afeta ações administrativas/destrutivas.
+   ========================================================= */
+.app-shell .btn:not(.btn-danger){
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  transform:translateZ(0);
+  transition:transform .20s cubic-bezier(.2,.8,.2,1),box-shadow .22s ease,background-color .22s ease,border-color .22s ease,color .22s ease,opacity .22s ease;
+}
+.app-shell .btn:not(.btn-danger)::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  top:-35%;
+  bottom:-35%;
+  left:-48%;
+  width:32%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.30),transparent);
+  transform:skewX(-22deg);
+  transition:left .48s cubic-bezier(.2,.8,.2,1);
+  pointer-events:none;
+}
+.app-shell .btn:not(.btn-danger):hover{
+  transform:translateY(-2px);
+}
+.app-shell .btn:not(.btn-danger):hover::after{
+  left:118%;
+}
+.app-shell .btn:not(.btn-danger):active{
+  transform:translateY(0) scale(.985);
+  transition-duration:.08s;
+}
+.app-shell .btn:not(.btn-danger):focus-visible{
+  outline:none;
+  box-shadow:0 0 0 3px #fff,0 0 0 6px rgba(216,170,77,.58),0 10px 26px rgba(4,19,41,.13);
+}
+.app-shell .btn:not(.btn-danger)[aria-disabled="true"],
+.app-shell .btn:not(.btn-danger):disabled{
+  transform:none!important;
+  box-shadow:none!important;
+  opacity:.58;
+  cursor:not-allowed;
+}
+.app-shell .btn:not(.btn-danger)[aria-disabled="true"]::after,
+.app-shell .btn:not(.btn-danger):disabled::after{
+  display:none;
+}
+
+/* Primário: brilho dourado, deslocamento suave e maior presença */
+.app-shell .btn-primary:not(.btn-danger){
+  background:linear-gradient(120deg,var(--gold-2) 0%,#f5c85b 46%,var(--gold) 100%);
+  background-size:175% 100%;
+  background-position:0% 50%;
+  box-shadow:0 10px 24px rgba(216,170,77,.18);
+  transition:transform .20s cubic-bezier(.2,.8,.2,1),box-shadow .22s ease,background-position .38s ease,color .22s ease;
+}
+.app-shell .btn-primary:not(.btn-danger):hover{
+  background-position:100% 50%;
+  box-shadow:0 15px 30px rgba(216,170,77,.28);
+}
+
+/* Secundário: ganha contraste e profundidade ao passar o mouse */
+.app-shell .btn-secondary:not(.btn-danger):hover{
+  background:#f7f9fc;
+  border-color:#c8d4e3;
+  box-shadow:0 11px 24px rgba(4,19,41,.09);
+}
+
+/* Ghost no hero: preenchimento translúcido sem perder elegância */
+.app-shell .btn-ghost:not(.btn-danger):hover{
+  background:rgba(255,255,255,.09);
+  border-color:rgba(255,255,255,.95);
+  box-shadow:0 12px 28px rgba(0,0,0,.12);
+}
+
+/* Ícones e setas também respondem à ação */
+.app-shell .btn > svg{
+  transition:transform .20s cubic-bezier(.2,.8,.2,1);
+}
+.app-shell .btn:hover > svg:first-child{
+  transform:scale(1.10);
+}
+.app-shell .btn .btn-arrow{
+  transition:transform .20s cubic-bezier(.2,.8,.2,1);
+}
+.app-shell .btn:hover .btn-arrow{
+  transform:translateX(4px);
+}
+
+/* Links de seção recebem a mesma linguagem de movimento */
+.app-shell .section-link{
+  position:relative;
+  overflow:hidden;
+  transition:transform .20s ease,box-shadow .22s ease,background .22s ease,color .22s ease;
+}
+.app-shell .section-link:hover{
+  transform:translateY(-2px);
+  box-shadow:0 9px 20px rgba(4,19,41,.08);
+}
+.app-shell .section-link svg{
+  transition:transform .20s ease;
+}
+.app-shell .section-link:hover svg{
+  transform:translateX(4px);
+}
+
+/* Respeita acessibilidade para quem reduz movimentos */
+@media(prefers-reduced-motion:reduce){
+  .app-shell .btn:not(.btn-danger),
+  .app-shell .btn:not(.btn-danger)::after,
+  .app-shell .btn > svg,
+  .app-shell .btn .btn-arrow,
+  .app-shell .section-link,
+  .app-shell .section-link svg{
+    transition:none!important;
+  }
+  .app-shell .btn:not(.btn-danger):hover,
+  .app-shell .btn:not(.btn-danger):active,
+  .app-shell .btn:hover > svg:first-child,
+  .app-shell .btn:hover .btn-arrow,
+  .app-shell .section-link:hover,
+  .app-shell .section-link:hover svg{
+    transform:none!important;
+  }
+}
