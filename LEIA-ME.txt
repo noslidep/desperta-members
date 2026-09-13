@@ -1,31 +1,27 @@
-DESPERTA MEMBERS — V1.11.2
-Logo / miniatura lateral independente da capa 16:9.
+DESPERTA MEMBERS — V1.12.2
+Botões dinâmicos na Área da Aluna
 
-OBJETIVO
-- Manter a capa completa 16:9 nos cards do Dashboard e em Meus Acessos.
-- Usar uma imagem própria, preferencialmente PNG transparente, no topo/lateral da página do curso.
-- Se um curso não tiver logo_url, o sistema usa cover_url como fallback.
+Base: V1.12.1 — refinamento visual da Dashboard Premium.
 
-O QUE MUDA
-1. Banco: adiciona programs.logo_url (nullable).
-2. Painel Admin: novo campo “Logo / miniatura lateral”, com upload de PNG/WebP.
-3. Página do curso: usa logo_url; se vazio, usa cover_url.
-4. Método VIDA em 7 dias: já recebe /metodo-vida-logo.png automaticamente.
-5. Inclui public/metodo-vida-logo.png (fundo transparente).
+O que muda:
+- Todos os botões principais da Área da Aluna passam a responder ao hover/click.
+- Botões primários dourados: leve elevação, brilho atravessando o botão, gradiente em movimento e sombra suave.
+- Botões secundários: contraste/borda/sombra reagem ao hover.
+- Botões ghost: preenchimento translúcido no hover.
+- Ícones e setas acompanham a interação com micro movimento.
+- Links de ação (ex.: Ver todos) recebem o mesmo padrão.
+- Estado active simula o clique físico sem exagero.
+- Foco por teclado ganha anel visível de acessibilidade.
+- Respeita prefers-reduced-motion.
+- Botões destrutivos/admin não são alterados por esta camada.
 
-NÃO ALTERA
-- capa principal 16:9;
-- Dashboard / Meus Acessos;
-- matrículas e acessos;
-- progresso;
-- módulos, aulas e vídeos;
-- materiais.
+Não altera banco, Supabase, cursos, acessos ou progresso.
+Não há SQL para executar.
 
-ORDEM DE TESTE
-1. Subir este patch na branch v1.11-metodo-vida.
-2. No Supabase SQL Editor, executar:
-   supabase/migrations/20260912_v1_11_2_program_logo.sql
-3. Aguardar o Preview da Vercel.
-4. Abrir Método VIDA em 7 dias no Preview.
-5. Confirmar: card grande continua com a capa 16:9; topo/lateral do curso mostra só o logo transparente.
-6. Se aprovado, merge para principal.
+Aplicação:
+1. Use a mesma branch v1.12-dashboard-premium.
+2. Envie o conteúdo desta pasta para a raiz da branch, substituindo os arquivos.
+3. Commit sugerido:
+   V1.12.2 - tornar botões principais dinâmicos
+4. Aguarde o Preview do Vercel.
+5. Teste: Hero, Continuar de onde parou, Meus Acessos, cards de curso, Agenda e Materiais.
