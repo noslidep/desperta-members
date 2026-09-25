@@ -1,27 +1,35 @@
-DESPERTA MEMBERS — V1.12.2
-Botões dinâmicos na Área da Aluna
+DESPERTA MEMBERS — V1.13 | SALA DE COMANDO
 
-Base: V1.12.1 — refinamento visual da Dashboard Premium.
+Este pacote cria a estrutura inicial completa da mentoria Sala de Comando.
 
-O que muda:
-- Todos os botões principais da Área da Aluna passam a responder ao hover/click.
-- Botões primários dourados: leve elevação, brilho atravessando o botão, gradiente em movimento e sombra suave.
-- Botões secundários: contraste/borda/sombra reagem ao hover.
-- Botões ghost: preenchimento translúcido no hover.
-- Ícones e setas acompanham a interação com micro movimento.
-- Links de ação (ex.: Ver todos) recebem o mesmo padrão.
-- Estado active simula o clique físico sem exagero.
-- Foco por teclado ganha anel visível de acessibilidade.
-- Respeita prefers-reduced-motion.
-- Botões destrutivos/admin não são alterados por esta camada.
+INCLUI
+- Capa 1600x900 em public/sala-de-comando.jpg
+- Programa Sala de Comando
+- Tipo: Mentoria
+- Subtítulo: Mentoria em grupo • Online • 12 semanas
+- 3 módulos: Mês 01, Mês 02 e Mês 03
+- 12 aulas cadastradas
+- Aula 01 publicada com YouTube
+- Aula 02 publicada com YouTube
+- Aulas 03 a 12 cadastradas em rascunho para liberação semanal
+- Mês 01 publicado
+- Mês 02 e Mês 03 em rascunho
+- Curso criado em rascunho e oculto da vitrine para teste
 
-Não altera banco, Supabase, cursos, acessos ou progresso.
-Não há SQL para executar.
+VÍDEOS
+Aula 01: https://www.youtube.com/embed/vKQyDJCs280
+Aula 02: https://www.youtube.com/embed/UTeUanXdJvY
 
-Aplicação:
-1. Use a mesma branch v1.12-dashboard-premium.
-2. Envie o conteúdo desta pasta para a raiz da branch, substituindo os arquivos.
-3. Commit sugerido:
-   V1.12.2 - tornar botões principais dinâmicos
-4. Aguarde o Preview do Vercel.
-5. Teste: Hero, Continuar de onde parou, Meus Acessos, cards de curso, Agenda e Materiais.
+FLUXO DE PUBLICAÇÃO
+1. Subir este pacote em uma branch nova criada a partir de principal.
+2. Executar supabase/migrations/20260925_v1_13_sala_de_comando.sql no SQL Editor do Supabase.
+3. Abrir Administração > Conteúdos & Acessos > Sala de Comando.
+4. Conferir 3 módulos e 12 aulas.
+5. Alterar somente o curso para Publicado quando for iniciar o teste com uma aluna.
+6. Manter Exibir capa na vitrine desmarcado durante o teste.
+7. Liberar acesso individual para a conta de teste.
+
+LIBERAÇÃO SEMANAL
+As aulas futuras já existem no admin como rascunho. Quando chegar uma nova semana, basta inserir o link do YouTube e mudar a aula correspondente para Publicado. Para Mês 02 e Mês 03, publicar também o módulo quando chegar a primeira aula daquele mês.
+
+Não há alteração em código da plataforma nesta versão.
