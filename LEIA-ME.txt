@@ -1,28 +1,25 @@
-DESPERTA MEMBERS V1.13.1 — ACESSO TOTAL DO ADMINISTRADOR
+DESPERTA MEMBERS — V1.13.2
+Sala de Comando: jornada semanal / Em breve
 
-OBJETIVO
-O login com perfil role=admin passa a enxergar todos os cursos como ATIVOS na Área da Aluna, sem precisar criar matrícula para o administrador.
+O que muda
+- Mantém o progresso baseado apenas nas aulas já liberadas.
+- Mostra, separadamente, quantas aulas estão disponíveis dentro da jornada total.
+- Sala de Comando passa a exibir 2/12 disponíveis enquanto apenas Aula 01 e Aula 02 estão publicadas.
+- Aulas futuras aparecem como "Em breve" e não podem ser abertas.
+- Módulos futuros aparecem como "Em breve".
+- Admin passa a ter a opção "Em breve" para módulos e aulas.
+- Quando chegar uma nova semana, basta trocar a aula de "Em breve" para "Publicado" e adicionar o vídeo.
 
-COMPORTAMENTO DO ADMIN
-- Todos os programas aparecem em Meus Acessos como ativos, inclusive programas em rascunho.
-- O administrador pode abrir um curso em rascunho para testar o conteúdo já publicado.
-- Não exige registro em enrollments para o administrador.
-- Dentro do curso, apenas módulos e aulas PUBLICADOS aparecem na experiência da aluna, permitindo testar exatamente o conteúdo que já está liberado.
-- Materiais publicados de todos os cursos ficam disponíveis ao administrador.
+Aplicação
+1. Envie o conteúdo deste pacote para a MESMA branch v1.13-sala-de-comando.
+2. Commit sugerido:
+   V1.13.2 - jornada de 12 semanas Sala de Comando
+3. No Supabase SQL Editor execute:
+   supabase/migrations/20260925_v1_13_2_sala_em_breve.sql
+4. Aguarde o Preview do Vercel.
+5. Teste com administrador antes do merge.
 
-COMPORTAMENTO DAS ALUNAS
-Não muda. Matrículas, bloqueios, expiração, rascunhos e visibilidade continuam funcionando normalmente.
-
-BANCO DE DADOS
-Nenhuma migration / SQL é necessária.
-
-ARQUIVO ALTERADO
-lib/data.js
-
-TESTE RECOMENDADO
-1. Entrar com o login administrador.
-2. Abrir Dashboard e Meus Acessos.
-3. Confirmar que Método VIDA, Fórmula Gestão & Vendas e Sala de Comando aparecem ativos.
-4. Abrir Sala de Comando mesmo estando em rascunho.
-5. Confirmar que Mês 01 e Aulas 01/02 aparecem e os vídeos abrem.
-6. Entrar com uma conta de aluna e confirmar que os bloqueios continuam normais.
+Resultado esperado no teste atual
+- Progresso: 50% (1 de 2 aulas liberadas concluída)
+- Disponibilidade: 2/12 disponíveis
+- Aula 03 a Aula 12: Em breve
