@@ -45,7 +45,7 @@ export default async function Dashboard() {
           {active.subtitle && <p className="muted">{active.subtitle}</p>}
           <div className="continue-progress-wrap">
             <ProgressBar value={active.progress} />
-            <div className="progress-meta"><span><strong>{active.progress}%</strong> concluído</span><span>{active.completed_lessons}/{active.total_lessons} aulas</span></div>
+            <div className="progress-meta"><span><strong>{active.progress}%</strong> concluído</span><span>{active.planned_lessons > active.total_lessons ? `${active.completed_lessons}/${active.total_lessons} concluídas • ${active.total_lessons}/${active.planned_lessons} disponíveis` : `${active.completed_lessons}/${active.total_lessons} aulas`}</span></div>
           </div>
           <div className="actions"><Link prefetch={false} className="btn btn-primary btn-dynamic" href={`/programas/${active.slug}`}>{activeType.continueLabel}<span className="btn-arrow"><AppIcon name="arrow" size={17} /></span></Link></div>
         </div>

@@ -9,7 +9,7 @@ import {parseStorageUri} from '../../../lib/storage'
 
 const CONTENT_TYPES=new Set(['course','mentoring','immersion','training','event','community'])
 const PROGRAM_STATUS=new Set(['draft','published','coming_soon','archived'])
-const CHILD_STATUS=new Set(['draft','published'])
+const CHILD_STATUS=new Set(['draft','published','coming_soon'])
 
 function text(formData,key){return String(formData.get(key)||'').trim()}
 function integer(value,fallback=0){const n=Number.parseInt(String(value??''),10);return Number.isFinite(n)?n:fallback}

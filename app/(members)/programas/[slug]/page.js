@@ -13,7 +13,8 @@ export default async function Program({ params }) {
   if (!data) notFound()
   const { program, modules } = data
   const type = getContentType(program.content_type)
-  const first = modules.flatMap(m => m.lessons || []).find(l => !l.is_completed) || modules.flatMap(m => m.lessons || [])[0]
+  const availableLessons = modules.flatMap(m => m.lessons || []).filter(l => l.status === 'published')
+  const first = availableLessons.find(l => !l.is_completed) || availableLessons[0]
 
   return <div className="page">
     <section className="course-hero">
@@ -23,7 +24,7 @@ export default async function Program({ params }) {
         <p style={{ color: '#d5deeb', lineHeight: 1.6 }}>{program.subtitle || program.description}</p>
         <div style={{ maxWidth: 520, marginTop: 18 }}>
           <ProgressBar value={program.progress} />
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#cbd5e2', marginTop: 7 }}><span>{program.progress}% concluído</span><span>{program.completed_lessons}/{program.total_lessons} aulas</span></div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', gap: 18, flexWrap: 'wrap', fontSize: 12, color: '#cbd5e2', marginTop: 7 }}><span>{program.progress}% concluído</span><span>{program.planned_lessons > program.total_lessons ? `${program.completed_lessons}/${program.total_lessons} concluídas • ${program.total_lessons}/${program.planned_lessons} disponíveis` : `${program.completed_lessons}/${program.total_lessons} aulas`}</span></div>
         </div>
         {first && <div className="actions">
           <Link prefetch={false} className="btn btn-primary" href={`/aulas/${first.id}`}>▶ {program.progress ? type.continueLabel : type.accessLabel}</Link>
@@ -35,11 +36,11 @@ export default async function Program({ params }) {
     <section className="section">
       <div className="section-head"><div><h3>Conteúdo</h3><p>Avance no seu ritmo. Seu progresso fica salvo automaticamente.</p></div></div>
       <div className="grid">{modules.map((m, i) => <article className="card module" key={m.id}>
-        <div className="module-head"><div><span className="eyebrow">Módulo {i + 1}</span><h4>{m.title.replace(/^Módulo \d+ — /, '')}</h4></div><span className="badge">{(m.lessons || []).filter(l => l.is_completed).length}/{(m.lessons || []).length} concluídas</span></div>
-        {(m.lessons || []).map((l, j) => <div className={`lesson ${l.is_completed ? 'done' : ''} ${l.is_current ? 'current' : ''}`} key={l.id}>
-          <div className="lesson-status">{l.is_completed ? '✓' : String(j + 1).padStart(2, '0')}</div>
-          <div className="lesson-title"><strong>{l.title}</strong><span>{dur(l.duration_seconds)} {l.is_current ? '• Continue daqui' : ''}</span></div>
-          <Link prefetch={false} className="btn btn-secondary" href={`/aulas/${l.id}`}>{l.is_completed ? 'Rever' : 'Assistir'} →</Link>
+        <div className="module-head"><div><span className="eyebrow">Módulo {i + 1}</span><h4>{m.title.replace(/^Módulo \d+ — /, '')}</h4></div><span className="badge">{m.is_upcoming ? 'Em breve' : `${(m.lessons || []).filter(l => l.is_completed).length}/${(m.lessons || []).filter(l => l.status === 'published').length} concluídas`}</span></div>
+        {(m.lessons || []).map((l, j) => <div className={`lesson ${l.is_completed ? 'done' : ''} ${l.is_current ? 'current' : ''}`} key={l.id} style={l.is_upcoming ? {opacity:.68} : undefined}>
+          <div className="lesson-status">{l.is_completed ? '✓' : l.is_upcoming ? '•' : String(j + 1).padStart(2, '0')}</div>
+          <div className="lesson-title"><strong>{l.title}</strong><span>{l.is_upcoming ? 'Em breve' : `${dur(l.duration_seconds)} ${l.is_current ? '• Continue daqui' : ''}`}</span></div>
+          {l.is_upcoming ? <span className="badge">Em breve</span> : <Link prefetch={false} className="btn btn-secondary" href={`/aulas/${l.id}`}>{l.is_completed ? 'Rever' : 'Assistir'} →</Link>}
         </div>)}
       </article>)}</div>
     </section>

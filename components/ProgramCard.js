@@ -49,7 +49,7 @@ export default function ProgramCard({ program }) {
         <h4>{program.title}</h4>
         <p>{program.subtitle || program.description}</p>
         <div className="program-progress-wrap"><ProgressBar value={program.progress} /></div>
-        <div className="program-progress-meta"><span>{program.progress || 0}% concluído</span><span>{program.completed_lessons || 0}/{program.total_lessons || 0} aulas</span></div>
+        <div className="program-progress-meta"><span>{program.progress || 0}% concluído</span><span>{program.planned_lessons > program.total_lessons ? `${program.total_lessons}/${program.planned_lessons} disponíveis` : `${program.completed_lessons || 0}/${program.total_lessons || 0} aulas`}</span></div>
         <Link prefetch={false} className="btn btn-secondary btn-dynamic program-card-action" href={`/programas/${program.slug}`}>
           {program.progress ? type.continueLabel : type.accessLabel}<span className="btn-arrow"><AppIcon name="arrow" size={16} /></span>
         </Link>
