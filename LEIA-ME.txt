@@ -1,35 +1,28 @@
-DESPERTA MEMBERS — V1.13 | SALA DE COMANDO
+DESPERTA MEMBERS V1.13.1 — ACESSO TOTAL DO ADMINISTRADOR
 
-Este pacote cria a estrutura inicial completa da mentoria Sala de Comando.
+OBJETIVO
+O login com perfil role=admin passa a enxergar todos os cursos como ATIVOS na Área da Aluna, sem precisar criar matrícula para o administrador.
 
-INCLUI
-- Capa 1600x900 em public/sala-de-comando.jpg
-- Programa Sala de Comando
-- Tipo: Mentoria
-- Subtítulo: Mentoria em grupo • Online • 12 semanas
-- 3 módulos: Mês 01, Mês 02 e Mês 03
-- 12 aulas cadastradas
-- Aula 01 publicada com YouTube
-- Aula 02 publicada com YouTube
-- Aulas 03 a 12 cadastradas em rascunho para liberação semanal
-- Mês 01 publicado
-- Mês 02 e Mês 03 em rascunho
-- Curso criado em rascunho e oculto da vitrine para teste
+COMPORTAMENTO DO ADMIN
+- Todos os programas aparecem em Meus Acessos como ativos, inclusive programas em rascunho.
+- O administrador pode abrir um curso em rascunho para testar o conteúdo já publicado.
+- Não exige registro em enrollments para o administrador.
+- Dentro do curso, apenas módulos e aulas PUBLICADOS aparecem na experiência da aluna, permitindo testar exatamente o conteúdo que já está liberado.
+- Materiais publicados de todos os cursos ficam disponíveis ao administrador.
 
-VÍDEOS
-Aula 01: https://www.youtube.com/embed/vKQyDJCs280
-Aula 02: https://www.youtube.com/embed/UTeUanXdJvY
+COMPORTAMENTO DAS ALUNAS
+Não muda. Matrículas, bloqueios, expiração, rascunhos e visibilidade continuam funcionando normalmente.
 
-FLUXO DE PUBLICAÇÃO
-1. Subir este pacote em uma branch nova criada a partir de principal.
-2. Executar supabase/migrations/20260925_v1_13_sala_de_comando.sql no SQL Editor do Supabase.
-3. Abrir Administração > Conteúdos & Acessos > Sala de Comando.
-4. Conferir 3 módulos e 12 aulas.
-5. Alterar somente o curso para Publicado quando for iniciar o teste com uma aluna.
-6. Manter Exibir capa na vitrine desmarcado durante o teste.
-7. Liberar acesso individual para a conta de teste.
+BANCO DE DADOS
+Nenhuma migration / SQL é necessária.
 
-LIBERAÇÃO SEMANAL
-As aulas futuras já existem no admin como rascunho. Quando chegar uma nova semana, basta inserir o link do YouTube e mudar a aula correspondente para Publicado. Para Mês 02 e Mês 03, publicar também o módulo quando chegar a primeira aula daquele mês.
+ARQUIVO ALTERADO
+lib/data.js
 
-Não há alteração em código da plataforma nesta versão.
+TESTE RECOMENDADO
+1. Entrar com o login administrador.
+2. Abrir Dashboard e Meus Acessos.
+3. Confirmar que Método VIDA, Fórmula Gestão & Vendas e Sala de Comando aparecem ativos.
+4. Abrir Sala de Comando mesmo estando em rascunho.
+5. Confirmar que Mês 01 e Aulas 01/02 aparecem e os vídeos abrem.
+6. Entrar com uma conta de aluna e confirmar que os bloqueios continuam normais.
