@@ -22,6 +22,7 @@
   --font-body: "Inter", system-ui, sans-serif;
   --container: 1200px;
   --header-h: 76px;
+  color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
