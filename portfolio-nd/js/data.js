@@ -5,13 +5,13 @@
 
 window.SITE_CONFIG = {
   // WhatsApp com DDI + DDD + número, só dígitos. Ex.: 5511999998888
-  whatsapp: "5500000000000",
-  whatsappLabel: "(00) 00000-0000",
+  whatsapp: "5579981237013",
+  whatsappLabel: "(79) 98123-7013",
 
-  email: "contato@ndsolucoescriativas.com.br",
+  email: "noslidepmd@gmail.com",
 
-  instagram: "https://instagram.com/seuperfil",
-  instagramLabel: "@seuperfil",
+  instagram: "https://instagram.com/noslidep.design",
+  instagramLabel: "@noslidep.design",
 
   // Showreel: link de incorporação do YouTube ou Vimeo, OU caminho de um MP4.
   // Ex.: "https://www.youtube.com/embed/XXXXXXXXXXX"
