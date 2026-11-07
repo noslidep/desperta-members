@@ -37,7 +37,7 @@ window.PROJECTS = [
     category: "Identidade Visual",
     description: "Descreva aqui o desafio do cliente, a solução criada e o resultado alcançado.",
     image: "",
-    colors: ["#7c5cff", "#ff6b9a"],
+    colors: ["#3a8c7d", "#0b3b3d"],
     size: "wide",
   },
   {
@@ -46,7 +46,7 @@ window.PROJECTS = [
     category: "Social Media",
     description: "Planejamento e criação de conteúdo para o Instagram.",
     image: "",
-    colors: ["#ff8a3d", "#ffcf5c"],
+    colors: ["#5fb8a5", "#1d5f58"],
     size: "tall",
   },
   {
@@ -55,7 +55,7 @@ window.PROJECTS = [
     category: "Sites",
     description: "Landing page responsiva focada em conversão.",
     image: "",
-    colors: ["#00c2a8", "#2d6bff"],
+    colors: ["#0f4a47", "#3a8c7d"],
     size: "",
   },
   {
@@ -64,7 +64,7 @@ window.PROJECTS = [
     category: "Vídeo",
     description: "Vídeo institucional com motion graphics.",
     image: "",
-    colors: ["#ff4d6d", "#7c5cff"],
+    colors: ["#a8dccf", "#3a8c7d"],
     size: "",
   },
   {
@@ -73,7 +73,7 @@ window.PROJECTS = [
     category: "Identidade Visual",
     description: "Rebranding completo com manual de marca.",
     image: "",
-    colors: ["#1e1e2e", "#c9a96e"],
+    colors: ["#062b2e", "#5fb8a5"],
     size: "",
   },
   {
@@ -82,7 +82,7 @@ window.PROJECTS = [
     category: "Social Media",
     description: "Campanha sazonal com carrosséis e reels.",
     image: "",
-    colors: ["#5cffb1", "#2d6bff"],
+    colors: ["#3a8c7d", "#a8dccf"],
     size: "wide",
   },
   {
@@ -91,7 +91,7 @@ window.PROJECTS = [
     category: "Sites",
     description: "Site institucional com blog e otimização para o Google.",
     image: "",
-    colors: ["#ffcf5c", "#ff4d6d"],
+    colors: ["#1d5f58", "#022023"],
     size: "",
   },
   {
@@ -100,7 +100,7 @@ window.PROJECTS = [
     category: "Vídeo",
     description: "Série de reels para lançamento de produto.",
     image: "",
-    colors: ["#2d6bff", "#00c2a8"],
+    colors: ["#5fb8a5", "#0f4a47"],
     size: "",
   },
 ];
