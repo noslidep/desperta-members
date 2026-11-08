@@ -244,8 +244,13 @@ window.FAQ = [
    --------------------------------------------------------- */
 window.BEFORE_AFTER = {
   before: "assets/img/portfolio/ia-antes.jpg",
-  after: "assets/img/portfolio/ia-depois.jpg",
+  // várias versões criadas a partir da mesma foto (botões acima do comparador)
+  afters: [
+    { label: "Executivo", src: "assets/img/portfolio/ia-depois-1.jpg" },
+    { label: "Leve", src: "assets/img/portfolio/ia-depois-2.jpg" },
+    { label: "Sofisticado", src: "assets/img/portfolio/ia-depois-3.jpg" },
+  ],
   title: "Da foto comum à foto profissional.",
-  text: "Com uma foto simples tirada no celular, eu crio retratos profissionais com Inteligência Artificial, mantendo o seu rosto e a sua expressão. Muda o figurino, a luz e o ambiente, sem precisar de estúdio.",
+  text: "A partir de uma única foto simples tirada no celular, eu crio retratos profissionais com Inteligência Artificial em vários estilos, mantendo o seu rosto e a sua expressão. Muda o figurino, a luz e o ambiente, sem precisar de estúdio.",
   note: "Exemplo ilustrativo criado com IA.",
 };

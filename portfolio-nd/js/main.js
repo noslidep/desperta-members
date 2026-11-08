@@ -268,20 +268,22 @@
   /* Antes e depois (comparador deslizante) */
   const ba = window.BEFORE_AFTER;
   const iaBlock = $("#port-fotos-com-ia");
-  if (ba && ba.before && ba.after && iaBlock) {
+  const baAfters = ba ? (ba.afters && ba.afters.length ? ba.afters : ba.after ? [{ label: "Depois", src: ba.after }] : []) : [];
+  if (ba && ba.before && baAfters.length && iaBlock) {
     iaBlock.insertAdjacentHTML("afterend", `
       <div class="ba reveal">
         <div class="ba__text">
           <p class="eyebrow">Antes e depois</p>
           <h3 class="ba__title">${esc(ba.title || "")}</h3>
           <p>${esc(ba.text || "")}</p>
+          ${baAfters.length > 1 ? `<div class="ba__tabs" role="tablist" aria-label="Escolha o estilo">${baAfters.map((a, i) => `<button type="button" role="tab" class="ba__tab${i === 0 ? " is-active" : ""}" aria-selected="${i === 0}" data-i="${i}">${esc(a.label)}</button>`).join("")}</div>` : ""}
           ${ba.note ? `<small class="ba__note">${esc(ba.note)}</small>` : ""}
         </div>
         <div class="ba__frame" style="--pos:50%">
-          <img class="ba__img" src="${esc(ba.after)}" alt="Depois: foto profissional criada com IA" loading="lazy" />
+          ${baAfters.map((a, i) => `<img class="ba__img ba__img--after${i === 0 ? " is-on" : ""}" src="${esc(a.src)}" alt="Depois: estilo ${esc(a.label)}, criado com IA" loading="lazy" />`).join("")}
           <img class="ba__img ba__img--before" src="${esc(ba.before)}" alt="Antes: foto comum de celular" loading="lazy" />
           <span class="ba__tag ba__tag--before" aria-hidden="true">Antes</span>
-          <span class="ba__tag ba__tag--after" aria-hidden="true">Depois</span>
+          <span class="ba__tag ba__tag--after" aria-hidden="true">${esc(baAfters.length > 1 ? baAfters[0].label : "Depois")}</span>
           <span class="ba__handle" aria-hidden="true"><span>‹ ›</span></span>
           <input class="ba__range" type="range" min="0" max="100" value="50" aria-label="Arraste para comparar o antes e o depois" />
         </div>
@@ -289,6 +291,12 @@
     const frame = $(".ba__frame");
     const range = $(".ba__range");
     const setPos = (v) => frame.style.setProperty("--pos", `${v}%`);
+    $$(".ba__tab").forEach((tab) => tab.addEventListener("click", () => {
+      const i = Number(tab.dataset.i);
+      $$(".ba__tab").forEach((t) => { t.classList.toggle("is-active", t === tab); t.setAttribute("aria-selected", String(t === tab)); });
+      $$(".ba__img--after").forEach((img, k) => img.classList.toggle("is-on", k === i));
+      $(".ba__tag--after").textContent = baAfters[i].label;
+    }));
     range.addEventListener("input", () => { frame.classList.add("is-touched"); setPos(range.value); });
     // pequena demonstração automática quando aparece pela primeira vez
     if (!reduceMotion) {
