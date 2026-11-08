@@ -37,6 +37,12 @@
   $$(".js-phone-label").forEach((el) => (el.textContent = cfg.whatsappLabel || ""));
   $$(".js-email-label").forEach((el) => (el.textContent = cfg.email || ""));
   $$(".js-instagram-label").forEach((el) => (el.textContent = cfg.instagramLabel || ""));
+  // dica ao passar o mouse nos ícones de contato
+  const tips = { "js-whatsapp": `WhatsApp ${cfg.whatsappLabel || ""}`, "js-email": cfg.email, "js-instagram": cfg.instagramLabel };
+  $$(".social").forEach((a) => {
+    const key = Object.keys(tips).find((k) => a.classList.contains(k));
+    if (key && tips[key]) a.title = tips[key].trim();
+  });
   const year = $("#year");
   if (year) year.textContent = new Date().getFullYear();
 
