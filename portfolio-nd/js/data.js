@@ -237,3 +237,15 @@ window.FAQ = [
     a: "Não necessariamente. Se você tiver referências, cores ou exemplos de que gosta, isso ajuda a acertar o caminho mais rápido. Se não tiver, a gente conversa no briefing e eu te ajudo a definir a melhor direção para a sua marca.",
   },
 ];
+
+/* ---------------------------------------------------------
+   ANTES E DEPOIS — comparador deslizante que aparece logo
+   abaixo do bloco "Fotos com IA". Use a MESMA pessoa e pose.
+   --------------------------------------------------------- */
+window.BEFORE_AFTER = {
+  before: "assets/img/portfolio/ia-antes.jpg",
+  after: "assets/img/portfolio/ia-depois.jpg",
+  title: "Da foto comum à foto profissional.",
+  text: "Com uma foto simples tirada no celular, eu crio retratos profissionais com Inteligência Artificial, mantendo o seu rosto e a sua expressão. Muda o figurino, a luz e o ambiente, sem precisar de estúdio.",
+  note: "Exemplo ilustrativo criado com IA.",
+};

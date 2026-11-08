@@ -265,6 +265,43 @@
   grid.addEventListener("touchstart", (e) => e.target.closest(".pgroup__marquee")?.classList.add("is-paused"), { passive: true });
   grid.addEventListener("touchend", (e) => e.target.closest(".pgroup__marquee")?.classList.remove("is-paused"));
 
+  /* Antes e depois (comparador deslizante) */
+  const ba = window.BEFORE_AFTER;
+  const iaBlock = $("#port-fotos-com-ia");
+  if (ba && ba.before && ba.after && iaBlock) {
+    iaBlock.insertAdjacentHTML("afterend", `
+      <div class="ba reveal">
+        <div class="ba__text">
+          <p class="eyebrow">Antes e depois</p>
+          <h3 class="ba__title">${esc(ba.title || "")}</h3>
+          <p>${esc(ba.text || "")}</p>
+          ${ba.note ? `<small class="ba__note">${esc(ba.note)}</small>` : ""}
+        </div>
+        <div class="ba__frame" style="--pos:50%">
+          <img class="ba__img" src="${esc(ba.after)}" alt="Depois: foto profissional criada com IA" loading="lazy" />
+          <img class="ba__img ba__img--before" src="${esc(ba.before)}" alt="Antes: foto comum de celular" loading="lazy" />
+          <span class="ba__tag ba__tag--before" aria-hidden="true">Antes</span>
+          <span class="ba__tag ba__tag--after" aria-hidden="true">Depois</span>
+          <span class="ba__handle" aria-hidden="true"><span>‹ ›</span></span>
+          <input class="ba__range" type="range" min="0" max="100" value="50" aria-label="Arraste para comparar o antes e o depois" />
+        </div>
+      </div>`);
+    const frame = $(".ba__frame");
+    const range = $(".ba__range");
+    const setPos = (v) => frame.style.setProperty("--pos", `${v}%`);
+    range.addEventListener("input", () => { frame.classList.add("is-touched"); setPos(range.value); });
+    // pequena demonstração automática quando aparece pela primeira vez
+    if (!reduceMotion) {
+      new IntersectionObserver(([e], obs) => {
+        if (!e.isIntersecting) return;
+        obs.disconnect();
+        const keys = [[0, 50], [700, 78], [1500, 22], [2300, 50]];
+        keys.forEach(([t, v]) => setTimeout(() => { if (!frame.classList.contains("is-touched")) { frame.classList.add("is-demo"); setPos(v); range.value = v; } }, t));
+        setTimeout(() => frame.classList.remove("is-demo"), 3100);
+      }, { threshold: 0.5 }).observe(frame);
+    }
+  }
+
   // botões do topo levam até o bloco do serviço
   filtersEl.setAttribute("role", "navigation");
   filtersEl.setAttribute("aria-label", "Ir para o tipo de serviço");
