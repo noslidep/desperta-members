@@ -145,7 +145,7 @@
   grid.innerHTML = projects
     .map(
       (p, i) => `
-      <button class="project ${esc(p.size || "")} reveal" data-index="${i}" data-cat="${esc(p.category)}" style="--d:${(i % 3) * 0.08}s" aria-label="Ver projeto ${esc(p.title)}">
+      <button class="project${p.featured ? " is-featured" : ""} reveal" data-index="${i}" data-cat="${esc(p.category)}" style="--d:${(i % 4) * 0.06}s${p.focus ? `;--pos:${esc(p.focus)}` : ""}" aria-label="Ver projeto ${esc(p.title)}">
         <div class="project__media">${mediaHTML(p, i)}</div>
         ${imagesOf(p).length > 1 ? `<span class="project__count" title="${imagesOf(p).length} imagens">${STACK_ICON}${imagesOf(p).length}</span>` : ""}
         <div class="project__info">
@@ -170,6 +170,7 @@
       b.setAttribute("aria-selected", String(b === btn));
     });
     const f = btn.dataset.filter;
+    grid.classList.toggle("is-filtered", f !== "Todos");
     visibleIdx = [];
     $$(".project", grid).forEach((el) => {
       const show = f === "Todos" || el.dataset.cat === f;

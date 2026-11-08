@@ -30,31 +30,41 @@ window.SITE_CONFIG = {
             Ex.: images: ["assets/img/portfolio/marca.jpg",
                           "assets/img/portfolio/marca-mockup.jpg"],
    - client: aparece ao lado da categoria quando o trabalho é aberto
+   - featured: true deixa o card em destaque (tamanho grande). Use em UM só.
+   - focus: ponto da imagem que fica visível no card (ex.: "center 30%")
    A ordem da lista é a ordem em que aparecem no site.
    --------------------------------------------------------- */
 window.CATEGORIES = ["Todos", "Identidade Visual", "Social Media", "Fotos com IA"];
 
 window.PROJECTS = [
   {
-    title: "gstcon · Gestão de Condomínios",
-    client: "gstcon",
-    category: "Social Media",
-    description: "Peças para as redes sociais de uma gestora de condomínios, comunicando atenção, empatia e profissionalismo.",
-    image: "assets/img/portfolio/gstcon-social-media.jpg",
-  },
-  {
     title: "Alanna Semijoias",
     client: "Semijoias",
     category: "Identidade Visual",
     description: "Logotipo com diamante coroado e tipografia refinada, transmitindo delicadeza e valor. Aplicado em embalagens, papelaria e site.",
     images: ["assets/img/portfolio/mockup-alanna-semijoias.jpg", "assets/img/portfolio/logo-alanna-semijoias.jpg", "assets/img/portfolio/site-alanna-semijoias.jpg"],
+    featured: true,
   },
   {
-    title: "Hidratante facial",
+    title: "Nicole Fontes",
+    client: "Dermatologia & Estética",
+    category: "Identidade Visual",
+    description: "Monograma em caligrafia dentro de um selo circular, unindo sofisticação e cuidado. Aplicado em papelaria, comunicação visual e site.",
+    images: ["assets/img/portfolio/mockup-nicole-fontes.jpg", "assets/img/portfolio/logo-nicole-fontes.jpg", "assets/img/portfolio/site-nicole-fontes.jpg"],
+  },
+  {
+    title: "Ormond Imports",
     client: "",
-    category: "Fotos com IA",
-    description: "Foto de produto com modelo, criada com Inteligência Artificial.",
-    image: "assets/img/portfolio/ia-produto-hidratante.jpg",
+    category: "Identidade Visual",
+    description: "Logotipo que combina letras fortes com assinatura cursiva, equilibrando solidez e estilo. Aplicado em embalagens, papelaria e site.",
+    images: ["assets/img/portfolio/mockup-ormond-imports.jpg", "assets/img/portfolio/logo-ormond-imports.jpg", "assets/img/portfolio/site-ormond-imports.jpg"],
+  },
+  {
+    title: "gstcon · Gestão de Condomínios",
+    client: "gstcon",
+    category: "Social Media",
+    description: "Peças para as redes sociais de uma gestora de condomínios, comunicando atenção, empatia e profissionalismo.",
+    image: "assets/img/portfolio/gstcon-social-media.jpg",
   },
   {
     title: "Clínica Sorriso Prime",
@@ -71,20 +81,6 @@ window.PROJECTS = [
     image: "assets/img/portfolio/bella-massa.jpg",
   },
   {
-    title: "Nicole Fontes",
-    client: "Dermatologia & Estética",
-    category: "Identidade Visual",
-    description: "Monograma em caligrafia dentro de um selo circular, unindo sofisticação e cuidado. Aplicado em papelaria, comunicação visual e site.",
-    images: ["assets/img/portfolio/mockup-nicole-fontes.jpg", "assets/img/portfolio/logo-nicole-fontes.jpg", "assets/img/portfolio/site-nicole-fontes.jpg"],
-  },
-  {
-    title: "Retrato para podcast",
-    client: "",
-    category: "Fotos com IA",
-    description: "Retrato profissional em estúdio de podcast, criado com Inteligência Artificial.",
-    image: "assets/img/portfolio/ia-retrato-podcast.jpg",
-  },
-  {
     title: "Mentoria Conexão & Vendas",
     client: "Mentoria de vendas",
     category: "Social Media",
@@ -99,20 +95,6 @@ window.PROJECTS = [
     image: "assets/img/portfolio/turismo-ultimos-lugares.jpg",
   },
   {
-    title: "Retrato lifestyle",
-    client: "",
-    category: "Fotos com IA",
-    description: "Retrato em ambiente de cafeteria, criado com Inteligência Artificial.",
-    image: "assets/img/portfolio/ia-retrato-cafe.jpg",
-  },
-  {
-    title: "Ormond Imports",
-    client: "",
-    category: "Identidade Visual",
-    description: "Logotipo que combina letras fortes com assinatura cursiva, equilibrando solidez e estilo. Aplicado em embalagens, papelaria e site.",
-    images: ["assets/img/portfolio/mockup-ormond-imports.jpg", "assets/img/portfolio/logo-ormond-imports.jpg", "assets/img/portfolio/site-ormond-imports.jpg"],
-  },
-  {
     title: "Fluxo de caixa sob controle",
     client: "Contabilidade",
     category: "Social Media",
@@ -125,6 +107,30 @@ window.PROJECTS = [
     category: "Social Media",
     description: "Coleção educativa para simplificar dúvidas importantes sobre coberturas de seguro.",
     image: "assets/img/portfolio/seguros-colecao-educativa.jpg",
+  },
+  {
+    title: "Hidratante facial",
+    client: "",
+    category: "Fotos com IA",
+    description: "Foto de produto com modelo, criada com Inteligência Artificial.",
+    image: "assets/img/portfolio/ia-produto-hidratante.jpg",
+    focus: "center 30%",
+  },
+  {
+    title: "Retrato para podcast",
+    client: "",
+    category: "Fotos com IA",
+    description: "Retrato profissional em estúdio de podcast, criado com Inteligência Artificial.",
+    image: "assets/img/portfolio/ia-retrato-podcast.jpg",
+    focus: "48% center",
+  },
+  {
+    title: "Retrato lifestyle",
+    client: "",
+    category: "Fotos com IA",
+    description: "Retrato em ambiente de cafeteria, criado com Inteligência Artificial.",
+    image: "assets/img/portfolio/ia-retrato-cafe.jpg",
+    focus: "center 25%",
   },
 ];
 
