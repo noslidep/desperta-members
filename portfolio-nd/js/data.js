@@ -162,12 +162,14 @@ window.PROJECTS = [
    - name: nome do cliente (deixe "Cliente" se preferir não identificar)
    - segment: ramo do cliente
    - messages: as mensagens, na ordem. "me: true" = mensagem sua.
+     Para imagens: { images: [...4 imagens...], more: 2 } (more = "+2" na última)
    --------------------------------------------------------- */
 window.TESTIMONIALS = [
   {
     name: "Cliente",
     segment: "Cafeteria",
     messages: [
+      { images: ["assets/img/depoimentos/cafeteria-1.jpg", "assets/img/depoimentos/cafeteria-2.jpg", "assets/img/depoimentos/cafeteria-3.jpg", "assets/img/depoimentos/cafeteria-4.jpg"], time: "11:40", me: true },
       { text: "Que maravilha", time: "12:02" },
       { text: "Ficou show!!!", time: "12:02" },
       { text: "Gratidão 😄", time: "12:03" },
@@ -181,6 +183,7 @@ window.TESTIMONIALS = [
     messages: [
       { text: "Veja o que achou sem pressa", time: "10:14" },
       { text: "Esse é nosso último produto desse pacote, obrigada", time: "10:14" },
+      { images: ["assets/img/depoimentos/maquiagem-1.jpg", "assets/img/depoimentos/maquiagem-2.jpg", "assets/img/depoimentos/maquiagem-3.jpg", "assets/img/depoimentos/maquiagem-4.jpg"], more: 2, time: "13:17", me: true },
       { text: "Aprovado", time: "13:18" },
     ],
   },

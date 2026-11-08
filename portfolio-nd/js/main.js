@@ -333,7 +333,16 @@
           <span><strong>${esc(t.name || "Cliente")}</strong><small>${esc(t.segment || "")}</small></span>
         </figcaption>
         <div class="chat__body">
-          ${t.messages.map((m) => `<p class="bubble${m.me ? " bubble--me" : ""}">${esc(m.text)}<time>${esc(m.time || "")}${m.me ? CHECKS : ""}</time></p>`).join("")}
+          ${t.messages
+            .map((m) =>
+              m.images
+                ? `<div class="bubble bubble--media${m.me ? " bubble--me" : ""}" role="img" aria-label="Imagens enviadas ao cliente (borradas para preservar o trabalho)">
+                    <div class="bubble__grid">${m.images.map((src, n) => `<span style="background-image:url('${esc(src)}')">${m.more && n === m.images.length - 1 ? `<b>+${m.more}</b>` : ""}</span>`).join("")}</div>
+                    <time>${esc(m.time || "")}${m.me ? CHECKS : ""}</time>
+                  </div>`
+                : `<p class="bubble${m.me ? " bubble--me" : ""}">${esc(m.text)}<time>${esc(m.time || "")}${m.me ? CHECKS : ""}</time></p>`
+            )
+            .join("")}
         </div>
       </figure>`
     )
