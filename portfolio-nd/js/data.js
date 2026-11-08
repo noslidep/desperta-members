@@ -8,7 +8,7 @@ window.SITE_CONFIG = {
   whatsapp: "5579981237013",
   whatsappLabel: "(79) 98123-7013",
 
-  email: "noslidepmd@gmail.com",
+  email: "contato@ndsolucoescriativas.com.br",
 
   instagram: "https://instagram.com/noslidep.design",
   instagramLabel: "@noslidep.design",
