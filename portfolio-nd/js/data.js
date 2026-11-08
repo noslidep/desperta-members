@@ -59,8 +59,8 @@ window.PROJECTS = [
     title: "Frank Marques",
     client: "",
     category: "Identidade Visual",
-    description: "Monograma FM com linhas fluidas em dourado sobre azul-marinho, unindo sofisticação e solidez.",
-    image: "assets/img/portfolio/logo-frank-marques.jpg",
+    description: "Monograma FM com linhas fluidas em dourado sobre azul-marinho, unindo sofisticação e solidez. Aplicado em papelaria, embalagens, sinalização e site.",
+    images: ["assets/img/portfolio/mockup-frank-marques.jpg", "assets/img/portfolio/logo-frank-marques.jpg"],
   },
   {
     title: "gstcon · Gestão de Condomínios",
