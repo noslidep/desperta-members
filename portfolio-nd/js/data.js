@@ -23,85 +23,90 @@ window.SITE_CONFIG = {
 /* ---------------------------------------------------------
    PROJETOS DO PORTFÓLIO
    - category: precisa bater com um item de CATEGORIES
-   - image: caminho da imagem (ex.: "assets/img/projeto-1.jpg").
+   - image: caminho da imagem (salve em assets/img/portfolio/).
             Se ficar vazio, aparece uma capa colorida automática.
-   - colors: cores da capa automática (usadas só sem imagem)
-   - size: "wide" (ocupa 2 colunas), "tall" (2 linhas) ou ""
+   - client: aparece ao lado da categoria quando o trabalho é aberto
+   A ordem da lista é a ordem em que aparecem no site.
    --------------------------------------------------------- */
-window.CATEGORIES = ["Todos", "Identidade Visual", "Social Media", "Sites", "Vídeo"];
+window.CATEGORIES = ["Todos", "Identidade Visual", "Social Media", "Fotos com IA"];
 
 window.PROJECTS = [
   {
-    title: "Nome do Projeto 1",
-    client: "Cliente",
-    category: "Identidade Visual",
-    description: "Descreva aqui o desafio do cliente, a solução criada e o resultado alcançado.",
-    image: "",
-    colors: ["#3a8c7d", "#0b3b3d"],
-    size: "wide",
-  },
-  {
-    title: "Nome do Projeto 2",
-    client: "Cliente",
+    title: "gstcon · Gestão de Condomínios",
+    client: "gstcon",
     category: "Social Media",
-    description: "Planejamento e criação de conteúdo para o Instagram.",
-    image: "",
-    colors: ["#5fb8a5", "#1d5f58"],
-    size: "tall",
+    description: "Peças para as redes sociais de uma gestora de condomínios, comunicando atenção, empatia e profissionalismo.",
+    image: "assets/img/portfolio/gstcon-social-media.jpg",
   },
   {
-    title: "Nome do Projeto 3",
-    client: "Cliente",
-    category: "Sites",
-    description: "Landing page responsiva focada em conversão.",
-    image: "",
-    colors: ["#0f4a47", "#3a8c7d"],
-    size: "",
-  },
-  {
-    title: "Nome do Projeto 4",
-    client: "Cliente",
-    category: "Vídeo",
-    description: "Vídeo institucional com motion graphics.",
-    image: "",
-    colors: ["#a8dccf", "#3a8c7d"],
-    size: "",
-  },
-  {
-    title: "Nome do Projeto 5",
-    client: "Cliente",
+    title: "Logotipos 2021",
+    client: "Diversos clientes",
     category: "Identidade Visual",
-    description: "Rebranding completo com manual de marca.",
-    image: "",
-    colors: ["#062b2e", "#5fb8a5"],
-    size: "",
+    description: "Alguns dos logotipos desenvolvidos em 2021: Alanna Semijoias, Ormond Imports, Nicole Fontes, Instituto Manuela Leite, Paty Bispo, PH Imports, Victor Griff e outros.",
+    image: "assets/img/portfolio/logotipos-2021.jpg",
   },
   {
-    title: "Nome do Projeto 6",
-    client: "Cliente",
+    title: "Hidratante facial",
+    client: "",
+    category: "Fotos com IA",
+    description: "Foto de produto com modelo, criada com Inteligência Artificial.",
+    image: "assets/img/portfolio/ia-produto-hidratante.jpg",
+  },
+  {
+    title: "Clínica Sorriso Prime",
+    client: "Odontologia",
     category: "Social Media",
-    description: "Campanha sazonal com carrosséis e reels.",
-    image: "",
-    colors: ["#3a8c7d", "#a8dccf"],
-    size: "wide",
+    description: "Coleção com identidade visual pensada para o universo odontológico, com imagens criadas com IA.",
+    image: "assets/img/portfolio/clinica-sorriso-prime.jpg",
   },
   {
-    title: "Nome do Projeto 7",
-    client: "Cliente",
-    category: "Sites",
-    description: "Site institucional com blog e otimização para o Google.",
-    image: "",
-    colors: ["#1d5f58", "#022023"],
-    size: "",
+    title: "Bella Massa",
+    client: "Gastronomia",
+    category: "Social Media",
+    description: "Coleção gastronômica envolvente, organizada e apetitosa para as redes sociais.",
+    image: "assets/img/portfolio/bella-massa.jpg",
   },
   {
-    title: "Nome do Projeto 8",
-    client: "Cliente",
-    category: "Vídeo",
-    description: "Série de reels para lançamento de produto.",
-    image: "",
-    colors: ["#5fb8a5", "#0f4a47"],
-    size: "",
+    title: "Retrato para podcast",
+    client: "",
+    category: "Fotos com IA",
+    description: "Retrato profissional em estúdio de podcast, criado com Inteligência Artificial.",
+    image: "assets/img/portfolio/ia-retrato-podcast.jpg",
+  },
+  {
+    title: "Mentoria Conexão & Vendas",
+    client: "Mentoria de vendas",
+    category: "Social Media",
+    description: "Design para redes sociais de uma mentoria de vendas voltada a empreendedoras.",
+    image: "assets/img/portfolio/mentoria-conexao-vendas.jpg",
+  },
+  {
+    title: "Últimos lugares para o feriado",
+    client: "Turismo",
+    category: "Social Media",
+    description: "No turismo, desejo e confiança também começam pela forma como a marca se apresenta.",
+    image: "assets/img/portfolio/turismo-ultimos-lugares.jpg",
+  },
+  {
+    title: "Retrato lifestyle",
+    client: "",
+    category: "Fotos com IA",
+    description: "Retrato em ambiente de cafeteria, criado com Inteligência Artificial.",
+    image: "assets/img/portfolio/ia-retrato-cafe.jpg",
+  },
+  {
+    title: "Fluxo de caixa sob controle",
+    client: "Contabilidade",
+    category: "Social Media",
+    description: "Na contabilidade, clareza e confiança fazem parte do posicionamento.",
+    image: "assets/img/portfolio/contabilidade-fluxo-de-caixa.jpg",
+  },
+  {
+    title: "Nem toda cobertura é igual",
+    client: "Seguros",
+    category: "Social Media",
+    description: "Coleção educativa para simplificar dúvidas importantes sobre coberturas de seguro.",
+    image: "assets/img/portfolio/seguros-colecao-educativa.jpg",
   },
 ];
 

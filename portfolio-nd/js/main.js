@@ -137,7 +137,7 @@
   const mediaHTML = (p, i = projects.indexOf(p)) =>
     p.image
       ? `<img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy" />`
-      : `<div class="cover" style="--c1:${esc(p.colors?.[0] || "#7c5cff")};--c2:${esc(p.colors?.[1] || "#ff6b9a")}"><span>${esc(p.cover || String(i + 1).padStart(2, "0"))}</span></div>`;
+      : `<div class="cover" style="--c1:${esc(p.colors?.[0] || "#3a8c7d")};--c2:${esc(p.colors?.[1] || "#0b3b3d")}"><span>${esc(p.cover || String(i + 1).padStart(2, "0"))}</span></div>`;
 
   grid.innerHTML = projects
     .map(
