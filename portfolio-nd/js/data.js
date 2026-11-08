@@ -13,11 +13,7 @@ window.SITE_CONFIG = {
   instagram: "https://instagram.com/noslidep.design",
   instagramLabel: "@noslidep.design",
 
-  // Showreel: link de incorporação do YouTube ou Vimeo, OU caminho de um MP4.
-  // Ex.: "https://www.youtube.com/embed/XXXXXXXXXXX"
-  //      "https://player.vimeo.com/video/000000000"
-  //      "assets/video/showreel.mp4"
-  showreel: "assets/video/hero.mp4",
+  // O vídeo vertical da seção "Em movimento" fica em assets/video/manifesto.mp4
 };
 
 /* ---------------------------------------------------------

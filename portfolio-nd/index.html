@@ -183,18 +183,23 @@
       </div>
     </section>
 
-    <!-- VÍDEO / SHOWREEL -->
+    <!-- VÍDEO MANIFESTO (vertical) -->
     <section class="section showreel" id="showreel">
-      <div class="container">
-        <div class="showreel__frame reveal" id="showreelFrame">
-          <div class="showreel__bg" aria-hidden="true"></div>
-          <button class="showreel__play magnetic" id="showreelPlay" aria-label="Assistir showreel">
-            <svg viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+      <div class="container showreel__grid">
+        <div class="showreel__text">
+          <p class="eyebrow reveal">Em movimento</p>
+          <h2 class="section__title reveal">Design com um <em>porquê</em>.</h2>
+          <p class="reveal">Não copio concorrente, não faço logo "pra ontem" e não uso imagem sem direito de uso. Cada peça nasce de pesquisa, conceito e testes, com hierarquia, cor e intenção pensadas para o seu negócio.</p>
+          <p class="reveal">Este vídeo resume o meu jeito de trabalhar, e também é um exemplo do meu trabalho com motion.</p>
+          <a href="#contato" class="btn btn--primary reveal">Quero um projeto assim</a>
+        </div>
+        <div class="reel reveal">
+          <video class="reel__video" id="reelVideo" src="assets/video/manifesto.mp4" poster="assets/img/manifesto-poster.jpg" muted loop playsinline preload="metadata" aria-label="Vídeo: o que eu não faço sendo designer, e o que eu faço"></video>
+          <button class="reel__sound" id="reelSound" type="button" aria-pressed="false">
+            <svg class="reel__ico reel__ico--off" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></svg>
+            <svg class="reel__ico reel__ico--on" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+            <span class="reel__label">Ativar som</span>
           </button>
-          <div class="showreel__caption">
-            <p class="eyebrow">Showreel</p>
-            <h3>Veja o meu trabalho em movimento</h3>
-          </div>
         </div>
       </div>
     </section>
@@ -301,12 +306,6 @@
       </div>
     </div>
     <button class="lightbox__nav lightbox__nav--next" id="lbNext" aria-label="Próximo projeto">→</button>
-  </div>
-
-  <!-- Modal do showreel -->
-  <div class="video-modal" id="videoModal" role="dialog" aria-modal="true" aria-label="Showreel" hidden>
-    <button class="lightbox__close" id="vmClose" aria-label="Fechar">✕</button>
-    <div class="video-modal__frame" id="vmFrame"></div>
   </div>
 
   <script src="js/data.js"></script>

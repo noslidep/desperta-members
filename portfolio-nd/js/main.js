@@ -311,31 +311,33 @@
   $("#lbNext").addEventListener("click", () => stepLb(1));
   lb.addEventListener("click", (e) => { if (e.target === lb) { stopLbVideo(); closeModal(lb); } });
 
-  /* ---------- Showreel ---------- */
-  const vm = $("#videoModal");
-  const vmFrame = $("#vmFrame");
-  const openShowreel = () => {
-    const src = cfg.showreel || "";
-    if (/youtube\.com|youtu\.be|vimeo\.com/.test(src)) {
-      const url = src + (src.includes("?") ? "&" : "?") + "autoplay=1";
-      vmFrame.innerHTML = `<iframe src="${esc(url)}" title="Showreel" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
-    } else {
-      vmFrame.innerHTML = `<video src="${esc(src)}" controls autoplay playsinline></video>`;
-    }
-    openModal(vm);
-    $("#vmClose").focus();
-  };
-  $("#showreelPlay").addEventListener("click", openShowreel);
-  $("#vmClose").addEventListener("click", () => closeModal(vm, () => (vmFrame.innerHTML = "")));
-  vm.addEventListener("click", (e) => { if (e.target === vm) closeModal(vm, () => (vmFrame.innerHTML = "")); });
+  /* ---------- Vídeo manifesto: toca sem som ao aparecer; botão liga o som ---------- */
+  const reel = $("#reelVideo");
+  const reelSound = $("#reelSound");
+  if (reel) {
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !reduceMotion) reel.play().catch(() => {});
+      else reel.pause();
+    }, { threshold: 0.4 }).observe(reel);
+    const setSound = (on) => {
+      reel.muted = !on;
+      reelSound.setAttribute("aria-pressed", String(on));
+      reelSound.classList.toggle("is-on", on);
+      $(".reel__label", reelSound).textContent = on ? "Desativar som" : "Ativar som";
+    };
+    reelSound.addEventListener("click", () => {
+      const on = reel.muted;
+      if (on) { reel.currentTime = 0; reel.play().catch(() => {}); }
+      setSound(on);
+    });
+    reel.addEventListener("click", () => (reel.paused ? reel.play() : reel.pause()));
+  }
 
   document.addEventListener("keydown", (e) => {
     if (!lb.hidden) {
       if (e.key === "Escape") { stopLbVideo(); closeModal(lb); }
       if (e.key === "ArrowRight") stepAny(1);
       if (e.key === "ArrowLeft") stepAny(-1);
-    } else if (!vm.hidden && e.key === "Escape") {
-      closeModal(vm, () => (vmFrame.innerHTML = ""));
     } else if (nav.classList.contains("is-open") && e.key === "Escape") {
       setMenu(false);
     }
