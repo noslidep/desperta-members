@@ -284,12 +284,21 @@ em {
 .filter:hover { color: var(--text); border-color: rgba(255,255,255,.3); }
 .filter.is-active { background: var(--text); color: var(--bg); border-color: var(--text); }
 /* grade uniforme: todos os cards 4:5; o destaque ocupa 2x2 quando nenhum filtro está ativo */
-.portfolio__grid { display: grid; gap: clamp(48px, 7vw, 80px); }
+.portfolio__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(48px, 7vw, 80px); }
+.pgroup { min-width: 0; }
 .pgroup__title { display: flex; align-items: baseline; gap: 12px; font-size: clamp(22px, 2.6vw, 30px); margin-bottom: 22px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
 .pgroup__title span { font: 600 13px var(--font-body); color: var(--accent-2); padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; }
-.pgroup__grid { display: grid; grid-template-columns: repeat(var(--cols, 4), 1fr); gap: 18px; }
-/* sites e vídeos são horizontais */
-.pgroup__grid--sites .project, .pgroup__grid--videos .project { aspect-ratio: 16 / 10; }
+/* carrossel contínuo por bloco */
+.pgroup__marquee { position: relative; overflow: hidden; margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px)));
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.pgroup__track { display: flex; gap: 18px; width: max-content; padding-block: 6px; padding-inline: max(16px, env(safe-area-inset-left, 0px));
+  animation: pmarquee var(--dur, 40s) linear infinite; }
+@keyframes pmarquee { from { transform: translateX(0); } to { transform: translateX(var(--shift, -50%)); } }
+.pgroup__marquee:hover .pgroup__track, .pgroup__marquee.is-paused .pgroup__track, body.is-locked .pgroup__track { animation-play-state: paused; }
+.pgroup__marquee.is-static { -webkit-mask-image: none; mask-image: none; }
+.pgroup__track .project { flex: none; width: clamp(190px, 21vw, 280px); }
+.pgroup--sites .project, .pgroup--videos .project { width: clamp(280px, 34vw, 460px); aspect-ratio: 16 / 10; }
 .project__play { position: absolute; left: 50%; top: 78%; width: 56px; height: 56px; margin: -28px 0 0 -28px; border-radius: 50%; background: rgba(255,255,255,.92); color: var(--bg); display: grid; place-items: center; transition: transform .4s var(--ease); }
 .project:hover .project__play { transform: scale(1.1); }
 .lb-video { width: 100%; max-height: calc(100vh - 140px); background: #000; }
@@ -326,10 +335,10 @@ em {
 .project__arrow { flex: none; width: 46px; height: 46px; border-radius: 50%; background: #fff; color: var(--bg); display: grid; place-items: center; font-size: 20px; transform: scale(0) rotate(-45deg); transition: transform .5s var(--ease); }
 .project:hover .project__arrow, .project:focus-visible .project__arrow { transform: scale(1) rotate(0); }
 .project:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 4px; }
-@media (max-width: 960px) { .pgroup__grid { grid-template-columns: repeat(2, 1fr); } .pgroup__grid--sites, .pgroup__grid--videos { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) {
-  .pgroup__grid { gap: 10px; }
-  .pgroup__grid--sites, .pgroup__grid--videos { grid-template-columns: 1fr; }
+  .pgroup__track { gap: 10px; }
+  .pgroup__track .project { width: 44vw; }
+  .pgroup--sites .project, .pgroup--videos .project { width: 78vw; }
   .project { border-radius: var(--radius-sm); }
   /* no celular a arte aparece limpa; nome e descrição abrem ao tocar */
   .project__info { display: none; }

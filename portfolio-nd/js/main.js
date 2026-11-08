@@ -144,7 +144,7 @@
 
   const slug = (t) => t.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   const cardHTML = (p, i, k) => `
-      <button class="project reveal" data-index="${i}" data-cat="${esc(p.category)}" style="--d:${(k % 4) * 0.06}s${p.focus ? `;--pos:${esc(p.focus)}` : ""}" aria-label="Ver projeto ${esc(p.title)}">
+      <button class="project" data-index="${i}" data-cat="${esc(p.category)}" style="--d:${(k % 4) * 0.06}s${p.focus ? `;--pos:${esc(p.focus)}` : ""}" aria-label="Ver projeto ${esc(p.title)}">
         <div class="project__media">${p.video ? `<img src="${esc(p.poster || "")}" alt="${esc(p.title)}" loading="lazy" /><span class="project__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26"><path fill="currentColor" d="M8 5v14l11-7z"/></svg></span>` : mediaHTML(p, i)}</div>
         ${p.video ? "" : imagesOf(p).length > 1 ? `<span class="project__count" title="${imagesOf(p).length} imagens">${STACK_ICON}${imagesOf(p).length}</span>` : ""}
         <div class="project__info">
@@ -161,12 +161,49 @@
       const items = projects.map((p, i) => [p, i]).filter(([p]) => p.category === c);
       items.forEach(([, i]) => visibleIdx.push(i));
       return `
-      <div class="pgroup" id="port-${slug(c)}">
-        <h3 class="pgroup__title reveal">${esc(c)} <span>${items.length}</span></h3>
-        <div class="pgroup__grid pgroup__grid--${slug(c)}" style="--cols:${["sites", "videos"].includes(slug(c)) ? Math.max(2, Math.min(items.length, 3)) : items.length <= 3 ? items.length : 4}">${items.map(([p, i], k) => cardHTML(p, i, k)).join("")}</div>
+      <div class="pgroup pgroup--${slug(c)} reveal" id="port-${slug(c)}">
+        <h3 class="pgroup__title">${esc(c)} <span>${items.length}</span></h3>
+        <div class="pgroup__marquee${items.length < 3 ? " is-static" : ""}">
+          <div class="pgroup__track" data-set="${encodeURIComponent(items.map(([p, i], k) => cardHTML(p, i, k)).join(""))}"></div>
+        </div>
       </div>`;
     })
     .join("");
+
+  /* Carrosséis com movimento contínuo: o conjunto de cards é repetido até
+     cobrir a tela e duplicado; a animação desloca exatamente um conjunto. */
+  const SPEED = 38; // pixels por segundo
+  const buildMarquees = () => {
+    $$(".pgroup__track", grid).forEach((track, g) => {
+      const set = decodeURIComponent(track.dataset.set);
+      const box = track.parentElement;
+      if (box.classList.contains("is-static") || reduceMotion) {
+        track.innerHTML = set;
+        track.style.animation = "none";
+        return;
+      }
+      track.innerHTML = set;
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      const setW = track.children.length * (track.children[0].getBoundingClientRect().width + gap);
+      const reps = Math.max(1, Math.ceil(box.clientWidth / setW));
+      const block = set.repeat(reps);
+      const clone = block.replace(/<button class="project"/g, '<button class="project" tabindex="-1" aria-hidden="true"');
+      track.innerHTML = block + clone;
+      track.style.setProperty("--shift", `${-setW * reps}px`);
+      track.style.setProperty("--dur", `${(setW * reps) / SPEED}s`);
+      track.style.animationDirection = g % 2 ? "reverse" : "normal";
+    });
+  };
+  buildMarquees();
+  let rsz;
+  let lastW = innerWidth;
+  window.addEventListener("resize", () => {
+    clearTimeout(rsz);
+    rsz = setTimeout(() => { if (innerWidth !== lastW) { lastW = innerWidth; buildMarquees(); } }, 250);
+  });
+  // segura o carrossel enquanto o dedo está sobre ele
+  grid.addEventListener("touchstart", (e) => e.target.closest(".pgroup__marquee")?.classList.add("is-paused"), { passive: true });
+  grid.addEventListener("touchend", (e) => e.target.closest(".pgroup__marquee")?.classList.remove("is-paused"));
 
   // botões do topo levam até o bloco do serviço
   filtersEl.setAttribute("role", "navigation");
