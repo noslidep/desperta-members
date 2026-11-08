@@ -429,6 +429,19 @@
     }));
   }
 
+  /* ---------- Nome gigante do rodapé: ocupa exatamente a largura ---------- */
+  const fitWord = () => {
+    const word = $(".footer__word");
+    if (!word) return;
+    const box = word.parentElement;
+    word.style.setProperty("--fw", "100px");
+    const w = word.getBoundingClientRect().width;
+    if (w) word.style.setProperty("--fw", `${Math.floor((100 * box.clientWidth) / w) - 1}px`);
+  };
+  fitWord();
+  document.fonts?.ready.then(fitWord);
+  window.addEventListener("resize", fitWord);
+
   /* ---------- Revelação ao rolar + contadores ---------- */
   const animateCount = (el) => {
     const target = Number(el.dataset.count) || 0;
