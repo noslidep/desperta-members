@@ -25,6 +25,10 @@ window.SITE_CONFIG = {
    - category: precisa bater com um item de CATEGORIES
    - image: caminho da imagem (salve em assets/img/portfolio/).
             Se ficar vazio, aparece uma capa colorida automática.
+   - images: use no lugar de "image" quando o trabalho tiver VÁRIAS
+            imagens (mockups, slides de carrossel...). A primeira é a capa.
+            Ex.: images: ["assets/img/portfolio/marca.jpg",
+                          "assets/img/portfolio/marca-mockup.jpg"],
    - client: aparece ao lado da categoria quando o trabalho é aberto
    A ordem da lista é a ordem em que aparecem no site.
    --------------------------------------------------------- */
@@ -43,7 +47,7 @@ window.PROJECTS = [
     client: "Semijoias",
     category: "Identidade Visual",
     description: "Logotipo com diamante coroado e tipografia refinada, transmitindo delicadeza e valor.",
-    image: "assets/img/portfolio/logo-alanna-semijoias.jpg",
+    images: ["assets/img/portfolio/logo-alanna-semijoias.jpg", "assets/img/portfolio/mockup-alanna-semijoias.jpg"],
   },
   {
     title: "Hidratante facial",
@@ -71,7 +75,7 @@ window.PROJECTS = [
     client: "Dermatologia & Estética",
     category: "Identidade Visual",
     description: "Monograma em caligrafia dentro de um selo circular, unindo sofisticação e cuidado.",
-    image: "assets/img/portfolio/logo-nicole-fontes.jpg",
+    images: ["assets/img/portfolio/logo-nicole-fontes.jpg", "assets/img/portfolio/mockup-nicole-fontes.jpg"],
   },
   {
     title: "Retrato para podcast",
@@ -106,7 +110,7 @@ window.PROJECTS = [
     client: "",
     category: "Identidade Visual",
     description: "Logotipo que combina letras fortes com assinatura cursiva, equilibrando solidez e estilo.",
-    image: "assets/img/portfolio/logo-ormond-imports.jpg",
+    images: ["assets/img/portfolio/logo-ormond-imports.jpg", "assets/img/portfolio/mockup-ormond-imports.jpg"],
   },
   {
     title: "Fluxo de caixa sob controle",

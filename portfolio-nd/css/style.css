@@ -431,6 +431,20 @@ em {
 .is-open .lightbox__content { transform: none; }
 .lightbox__media { position: relative; min-height: 420px; background: #000; display: grid; place-items: center; }
 .lightbox__media img { width: 100%; height: auto; max-height: calc(100vh - 140px); object-fit: contain; }
+/* galeria com várias imagens do mesmo trabalho */
+.gal { position: relative; width: 100%; overflow: hidden; align-self: stretch; display: grid; align-items: center; }
+.gal__track { display: flex; transition: transform .55s var(--ease); }
+.gal__slide { flex: 0 0 100%; display: grid; place-items: center; }
+.gal__count { position: absolute; top: 14px; left: 14px; padding: 5px 11px; border-radius: 999px; background: rgba(1,20,23,.7); backdrop-filter: blur(6px); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; color: #fff; }
+.gal__btn { position: absolute; top: 50%; transform: translateY(-50%); width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(255,255,255,.25); background: rgba(1,20,23,.6); backdrop-filter: blur(6px); color: #fff; font-size: 24px; line-height: 1; display: grid; place-items: center; transition: background .3s, opacity .3s; }
+.gal__btn:hover:not(:disabled) { background: var(--accent); }
+.gal__btn:disabled { opacity: 0; pointer-events: none; }
+.gal__btn--prev { left: 12px; } .gal__btn--next { right: 12px; }
+.gal__dots { position: absolute; left: 0; right: 0; bottom: 14px; display: flex; justify-content: center; gap: 6px; }
+.gal__dots button { width: 7px; height: 7px; padding: 0; border: 0; border-radius: 7px; background: rgba(255,255,255,.45); transition: width .35s var(--ease), background .35s; }
+.gal__dots button.is-active { width: 22px; background: #fff; }
+/* selo de "várias imagens" no card do portfólio */
+.project__count { position: absolute; top: 12px; right: 12px; z-index: 2; display: inline-flex; align-items: center; gap: 5px; padding: 5px 9px; border-radius: 999px; background: rgba(1,20,23,.72); backdrop-filter: blur(6px); color: #fff; font-size: 12px; font-weight: 600; }
 .lightbox__info { padding: 40px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
 .lightbox__info h3 { font-size: 32px; margin-bottom: 14px; }
 .lightbox__info p:not(.eyebrow) { color: var(--muted); margin: 0 0 26px; }

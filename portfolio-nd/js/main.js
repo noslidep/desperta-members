@@ -134,9 +134,12 @@
   const grid = $("#portfolioGrid");
   const filtersEl = $("#filters");
   const initials = (t) => t.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
+  // um trabalho pode ter várias imagens (images: [...]) ou uma só (image: "...")
+  const imagesOf = (p) => (Array.isArray(p.images) && p.images.length ? p.images : p.image ? [p.image] : []);
+  const STACK_ICON = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="7" y="7" width="13" height="13" rx="2"/><path d="M4 16V5a1 1 0 0 1 1-1h11"/></svg>';
   const mediaHTML = (p, i = projects.indexOf(p)) =>
-    p.image
-      ? `<img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy" />`
+    imagesOf(p).length
+      ? `<img src="${esc(imagesOf(p)[0])}" alt="${esc(p.title)}" loading="lazy" />`
       : `<div class="cover" style="--c1:${esc(p.colors?.[0] || "#3a8c7d")};--c2:${esc(p.colors?.[1] || "#0b3b3d")}"><span>${esc(p.cover || String(i + 1).padStart(2, "0"))}</span></div>`;
 
   grid.innerHTML = projects
@@ -144,6 +147,7 @@
       (p, i) => `
       <button class="project ${esc(p.size || "")} reveal" data-index="${i}" data-cat="${esc(p.category)}" style="--d:${(i % 3) * 0.08}s" aria-label="Ver projeto ${esc(p.title)}">
         <div class="project__media">${mediaHTML(p, i)}</div>
+        ${imagesOf(p).length > 1 ? `<span class="project__count" title="${imagesOf(p).length} imagens">${STACK_ICON}${imagesOf(p).length}</span>` : ""}
         <div class="project__info">
           <div><small>${esc(p.category)}</small><h3>${esc(p.title)}</h3></div>
           <span class="project__arrow" aria-hidden="true">↗</span>
@@ -198,9 +202,39 @@
     document.body.classList.remove("is-locked");
     if (lastFocus) lastFocus.focus();
   };
-  const renderLb = () => {
+  /* Galeria dentro do trabalho aberto */
+  let lbImg = 0;
+  const lbMedia = $("#lbMedia");
+  const showImg = (n) => {
+    const imgs = imagesOf(projects[lbIndex]);
+    if (imgs.length < 2) return;
+    lbImg = Math.max(0, Math.min(n, imgs.length - 1));
+    $(".gal__track", lbMedia).style.transform = `translateX(-${lbImg * 100}%)`;
+    $$(".gal__dots button", lbMedia).forEach((d, i) => {
+      d.classList.toggle("is-active", i === lbImg);
+      d.setAttribute("aria-current", i === lbImg ? "true" : "false");
+    });
+    $(".gal__count", lbMedia).textContent = `${lbImg + 1} / ${imgs.length}`;
+    $(".gal__btn--prev", lbMedia).disabled = lbImg === 0;
+    $(".gal__btn--next", lbMedia).disabled = lbImg === imgs.length - 1;
+  };
+  const renderLb = (startAt = 0) => {
     const p = projects[lbIndex];
-    $("#lbMedia").innerHTML = mediaHTML(p);
+    const imgs = imagesOf(p);
+    if (imgs.length > 1) {
+      lbMedia.innerHTML = `
+        <div class="gal" aria-roledescription="carrossel" aria-label="Imagens de ${esc(p.title)}">
+          <div class="gal__track">${imgs.map((src, i) => `<div class="gal__slide"><img src="${esc(src)}" alt="${esc(p.title)}, imagem ${i + 1} de ${imgs.length}" /></div>`).join("")}</div>
+          <span class="gal__count"></span>
+          <button class="gal__btn gal__btn--prev" type="button" aria-label="Imagem anterior">‹</button>
+          <button class="gal__btn gal__btn--next" type="button" aria-label="Próxima imagem">›</button>
+          <div class="gal__dots">${imgs.map((_, i) => `<button type="button" aria-label="Ver imagem ${i + 1}"></button>`).join("")}</div>
+        </div>`;
+      showImg(startAt < 0 ? imgs.length - 1 : startAt);
+    } else {
+      lbImg = 0;
+      lbMedia.innerHTML = mediaHTML(p);
+    }
     $("#lbCat").textContent = `${p.category}${p.client ? " · " + p.client : ""}`;
     $("#lbTitle").textContent = p.title;
     $("#lbDesc").textContent = p.description || "";
@@ -208,8 +242,31 @@
   const stepLb = (dir) => {
     const pos = visibleIdx.indexOf(lbIndex);
     lbIndex = visibleIdx[(pos + dir + visibleIdx.length) % visibleIdx.length];
-    renderLb();
+    renderLb(dir < 0 ? -1 : 0);
   };
+  // setas do teclado e arrastar: primeiro percorrem as imagens do trabalho, depois passam para o próximo
+  const stepAny = (dir) => {
+    const n = imagesOf(projects[lbIndex]).length;
+    const next = lbImg + dir;
+    if (n > 1 && next >= 0 && next < n) showImg(next);
+    else stepLb(dir);
+  };
+  lbMedia.addEventListener("click", (e) => {
+    if (e.target.closest(".gal__btn--prev")) showImg(lbImg - 1);
+    else if (e.target.closest(".gal__btn--next")) showImg(lbImg + 1);
+    else {
+      const dot = e.target.closest(".gal__dots button");
+      if (dot) showImg($$(".gal__dots button", lbMedia).indexOf(dot));
+    }
+  });
+  let galX = null;
+  lbMedia.addEventListener("touchstart", (e) => (galX = e.touches[0].clientX), { passive: true });
+  lbMedia.addEventListener("touchend", (e) => {
+    if (galX === null) return;
+    const dx = e.changedTouches[0].clientX - galX;
+    galX = null;
+    if (Math.abs(dx) > 40) stepAny(dx < 0 ? 1 : -1);
+  });
   grid.addEventListener("click", (e) => {
     const card = e.target.closest(".project");
     if (!card) return;
@@ -244,8 +301,8 @@
   document.addEventListener("keydown", (e) => {
     if (!lb.hidden) {
       if (e.key === "Escape") closeModal(lb);
-      if (e.key === "ArrowRight") stepLb(1);
-      if (e.key === "ArrowLeft") stepLb(-1);
+      if (e.key === "ArrowRight") stepAny(1);
+      if (e.key === "ArrowLeft") stepAny(-1);
     } else if (!vm.hidden && e.key === "Escape") {
       closeModal(vm, () => (vmFrame.innerHTML = ""));
     } else if (nav.classList.contains("is-open") && e.key === "Escape") {
