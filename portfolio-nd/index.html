@@ -120,7 +120,7 @@
     </section>
 
     <!-- SERVIÇOS -->
-    <section class="section services" id="servicos">
+    <section class="section section--light services" id="servicos">
       <div class="container">
         <div class="section__head">
           <p class="eyebrow reveal">O que eu faço</p>
@@ -198,7 +198,7 @@
     </section>
 
     <!-- PROCESSO -->
-    <section class="section process" id="processo">
+    <section class="section section--light process" id="processo">
       <div class="container">
         <div class="section__head">
           <p class="eyebrow reveal">Como eu trabalho</p>
@@ -210,6 +210,18 @@
           <li class="step reveal"><span class="step__num">03</span><h3>Criação</h3><p>Desenvolvo as peças e apresento para a sua aprovação.</p></li>
           <li class="step reveal"><span class="step__num">04</span><h3>Entrega</h3><p>Arquivos finais organizados e suporte para colocar tudo no ar.</p></li>
         </ol>
+      </div>
+    </section>
+
+    <!-- DÚVIDAS FREQUENTES (aparece quando houver respostas em js/data.js) -->
+    <section class="section faq" id="faq" hidden>
+      <div class="container faq__grid">
+        <div class="section__head">
+          <p class="eyebrow reveal">Dúvidas frequentes</p>
+          <h2 class="section__title reveal">Antes de <em>começar</em>.</h2>
+          <p class="faq__note reveal">Não achou a sua dúvida? Me chama no WhatsApp.</p>
+        </div>
+        <div class="faq__list" id="faqList"></div>
       </div>
     </section>
 
@@ -284,6 +296,7 @@
     <button class="lightbox__nav lightbox__nav--next" id="lbNext" aria-label="Próximo projeto">→</button>
   </div>
 
+  <script src="js/vendor/lenis.min.js"></script>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>

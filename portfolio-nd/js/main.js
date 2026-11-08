@@ -13,6 +13,30 @@
   const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
+  /* ---------- Rolagem suave (Lenis) ---------- */
+  let lenis = null;
+  if (window.Lenis && !reduceMotion) {
+    lenis = new window.Lenis({ duration: 1.15, easing: (t) => 1 - Math.pow(1 - t, 4), smoothWheel: true });
+    const raf = (time) => { lenis.raf(time); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+    // trava a rolagem enquanto menu, janelas de trabalho ou vídeo estão abertos
+    new MutationObserver(() => (document.body.classList.contains("is-locked") ? lenis.stop() : lenis.start()))
+      .observe(document.body, { attributes: true, attributeFilter: ["class"] });
+    // links internos (#portfolio, #contato...) deslizam até a seção
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest('a[href^="#"]');
+      if (!a) return;
+      const id = a.getAttribute("href");
+      if (id.length < 2) return;
+      const target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      lenis.start();
+      lenis.scrollTo(target, { offset: id === "#inicio" ? 0 : -70 });
+      history.replaceState(null, "", id);
+    });
+  }
+
   /* ---------- Preloader ---------- */
   const preloader = $("#preloader");
   const hidePreloader = () => {
@@ -114,6 +138,21 @@
     const sec = $(a.getAttribute("href"));
     if (sec) sectionObserver.observe(sec);
   });
+
+  /* ---------- Título do topo: letras surgindo uma a uma ---------- */
+  $$(".hero__title .line").forEach((line) => {
+    if (line.querySelector(".rotator")) return;
+    const text = line.textContent.trim();
+    let n = 0;
+    line.setAttribute("aria-label", text);
+    line.innerHTML = text
+      .split(" ")
+      .map((w) => `<span class="w" aria-hidden="true">${[...w].map((ch) => `<span class="ch" style="--i:${n++}">${esc(ch)}</span>`).join("")}</span>`)
+      .join(" ");
+    line.classList.add("split");
+  });
+  // a segunda linha começa depois da primeira
+  $$(".hero__title .line.split").forEach((line, k) => line.style.setProperty("--base", `${k * 0.32}s`));
 
   /* ---------- Palavras rotativas ---------- */
   const words = $$(".rotator__word");
@@ -372,6 +411,23 @@
   window.addEventListener("resize", () => { clearTimeout(chatsT); chatsT = setTimeout(() => { if (innerWidth !== chatsW) { chatsW = innerWidth; buildChats(); } }, 250); });
   chatsBox.addEventListener("touchstart", () => chatsBox.classList.add("is-paused"), { passive: true });
   chatsBox.addEventListener("touchend", () => chatsBox.classList.remove("is-paused"));
+
+  /* ---------- Dúvidas frequentes ---------- */
+  const faq = (window.FAQ || []).filter((f) => f.q && f.a && f.a.trim());
+  if (faq.length) {
+    $("#faq").hidden = false;
+    $("#faqList").innerHTML = faq
+      .map((f, k) => `
+      <details class="faq__item reveal" style="--d:${k * 0.06}s">
+        <summary><span class="faq__num">${String(k + 1).padStart(2, "0")}</span><span class="faq__q">${esc(f.q)}</span><span class="faq__icon" aria-hidden="true"></span></summary>
+        <div class="faq__a"><p>${esc(f.a)}</p></div>
+      </details>`)
+      .join("");
+    // abre um de cada vez
+    $$(".faq__item").forEach((d) => d.addEventListener("toggle", () => {
+      if (d.open) $$(".faq__item").forEach((o) => o !== d && (o.open = false));
+    }));
+  }
 
   /* ---------- Revelação ao rolar + contadores ---------- */
   const animateCount = (el) => {

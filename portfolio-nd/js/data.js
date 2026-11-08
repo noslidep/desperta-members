@@ -201,3 +201,16 @@ window.TESTIMONIALS = [
     ],
   },
 ];
+
+/* ---------------------------------------------------------
+   DÚVIDAS FREQUENTES — a seção só aparece no site quando
+   pelo menos uma pergunta tiver resposta (campo "a").
+   --------------------------------------------------------- */
+window.FAQ = [
+  { q: "Qual é o prazo de entrega?", a: "" },
+  { q: "Quantas alterações estão incluídas?", a: "" },
+  { q: "Como funciona o pagamento?", a: "" },
+  { q: "Recebo os arquivos editáveis?", a: "" },
+  { q: "Atende clientes de outras cidades?", a: "" },
+  { q: "Preciso ter uma ideia pronta para começar?", a: "" },
+];
