@@ -40,9 +40,9 @@
         <img src="assets/img/logo.png" alt="Noslidep Soluções Criativas" width="635" height="112" />
       </a>
       <nav class="nav" id="nav" aria-label="Menu principal">
-        <a href="#sobre">Sobre</a>
-        <a href="#servicos">Serviços</a>
         <a href="#portfolio">Portfólio</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#sobre">Sobre</a>
         <a href="#processo">Processo</a>
         <a href="#contato">Contato</a>
         <a href="#contato" class="btn btn--sm btn--primary nav__cta">Pedir orçamento</a>
@@ -94,7 +94,7 @@
         </div>
       </div>
 
-      <a href="#sobre" class="hero__scroll" aria-label="Rolar para baixo"><span></span></a>
+      <a href="#portfolio" class="hero__scroll" aria-label="Rolar para baixo"><span></span></a>
     </section>
 
     <!-- Faixa de serviços em movimento -->
@@ -105,27 +105,17 @@
       </div>
     </div>
 
-    <!-- SOBRE -->
-    <section class="section about" id="sobre">
-      <div class="container about__grid">
-        <div class="about__visual reveal">
-          <div class="about__card about__card--main about__card--photo"><img src="assets/img/sobre.jpg" alt="Retrato do criador da Noslidep Soluções Criativas" loading="lazy" width="970" height="1213" /></div>
-          <div class="about__card about__card--float">
-            <strong>+ criatividade</strong>
-            <small>com estratégia</small>
+    <!-- PORTFÓLIO -->
+    <section class="section portfolio" id="portfolio">
+      <div class="container">
+        <div class="section__head section__head--row">
+          <div>
+            <p class="eyebrow reveal">Portfólio</p>
+            <h2 class="section__title reveal">Projetos que <em>falam por mim</em>.</h2>
           </div>
+          <div class="filters reveal" id="filters" role="tablist" aria-label="Filtrar projetos"></div>
         </div>
-        <div class="about__text">
-          <p class="eyebrow reveal">Sobre mim</p>
-          <h2 class="section__title reveal">Design com propósito, feito para <em>gerar resultado</em>.</h2>
-          <p class="reveal">Na Noslidep Soluções Criativas, eu uno estratégia, estética e tecnologia para tirar a sua marca do lugar comum. Cada projeto começa entendendo o seu público e termina com peças que comunicam, encantam e vendem.</p>
-          <p class="reveal">Do logo ao vídeo, do feed ao site: cuido de toda a presença visual do seu negócio, com atendimento direto comigo do início ao fim.</p>
-          <!-- Ajuste os números em data-count -->
-          <div class="stats">
-            <div class="stat reveal"><strong data-count="280" data-prefix="+">0</strong><span>Projetos entregues</span></div>
-            <div class="stat reveal"><strong data-count="7" data-prefix="+" data-suffix=" anos">0</strong><span>De experiência</span></div>
-          </div>
-        </div>
+        <div class="portfolio__grid" id="portfolioGrid"></div>
       </div>
     </section>
 
@@ -171,17 +161,39 @@
       </div>
     </section>
 
-    <!-- PORTFÓLIO -->
-    <section class="section portfolio" id="portfolio">
-      <div class="container">
-        <div class="section__head section__head--row">
-          <div>
-            <p class="eyebrow reveal">Portfólio</p>
-            <h2 class="section__title reveal">Projetos que <em>falam por mim</em>.</h2>
+    <!-- SOBRE -->
+    <section class="section about" id="sobre">
+      <div class="container about__grid">
+        <div class="about__visual reveal">
+          <div class="about__card about__card--main about__card--photo"><img src="assets/img/sobre.jpg" alt="Retrato do criador da Noslidep Soluções Criativas" loading="lazy" width="970" height="1213" /></div>
+          <div class="about__card about__card--float">
+            <strong>+ criatividade</strong>
+            <small>com estratégia</small>
           </div>
-          <div class="filters reveal" id="filters" role="tablist" aria-label="Filtrar projetos"></div>
         </div>
-        <div class="portfolio__grid" id="portfolioGrid"></div>
+        <div class="about__text">
+          <p class="eyebrow reveal">Sobre mim</p>
+          <h2 class="section__title reveal">Design com propósito, feito para <em>gerar resultado</em>.</h2>
+          <p class="reveal">Na Noslidep Soluções Criativas, eu uno estratégia, estética e tecnologia para tirar a sua marca do lugar comum. Cada projeto começa entendendo o seu público e termina com peças que comunicam, encantam e vendem.</p>
+          <p class="reveal">Do logo ao vídeo, do feed ao site: cuido de toda a presença visual do seu negócio, com atendimento direto comigo do início ao fim.</p>
+          <!-- Ajuste os números em data-count -->
+          <div class="stats">
+            <div class="stat reveal"><strong data-count="280" data-prefix="+">0</strong><span>Projetos entregues</span></div>
+            <div class="stat reveal"><strong data-count="7" data-prefix="+" data-suffix=" anos">0</strong><span>De experiência</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEPOIMENTOS: mensagens reais de clientes (edite em js/data.js) -->
+    <section class="section testimonials" id="depoimentos">
+      <div class="container">
+        <div class="section__head">
+          <p class="eyebrow reveal">Depoimentos</p>
+          <h2 class="section__title reveal">Quem confia, <em>recomenda</em>.</h2>
+          <p class="testimonials__note reveal">Mensagens reais que recebi de clientes no WhatsApp após a entrega.</p>
+        </div>
+        <div class="chats" id="chats"></div>
       </div>
     </section>
 
@@ -198,18 +210,6 @@
           <li class="step reveal"><span class="step__num">03</span><h3>Criação</h3><p>Desenvolvo as peças e apresento para a sua aprovação.</p></li>
           <li class="step reveal"><span class="step__num">04</span><h3>Entrega</h3><p>Arquivos finais organizados e suporte para colocar tudo no ar.</p></li>
         </ol>
-      </div>
-    </section>
-
-    <!-- DEPOIMENTOS: mensagens reais de clientes (edite em js/data.js) -->
-    <section class="section testimonials" id="depoimentos">
-      <div class="container">
-        <div class="section__head">
-          <p class="eyebrow reveal">Depoimentos</p>
-          <h2 class="section__title reveal">Quem confia, <em>recomenda</em>.</h2>
-          <p class="testimonials__note reveal">Mensagens reais que recebi de clientes no WhatsApp após a entrega.</p>
-        </div>
-        <div class="chats" id="chats"></div>
       </div>
     </section>
 
@@ -252,6 +252,7 @@
         </form>
       </div>
     </section>
+
   </main>
 
   <footer class="footer">
