@@ -625,3 +625,26 @@ em {
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
   animation: btn-orbit 3.2s linear infinite; }
+
+/* ---------- Contato: WhatsApp em destaque + demais ícones ---------- */
+.contact__channels { display: grid; justify-items: start; gap: 22px; }
+.btn--wa { background: #25d366; color: #06301a; font-size: 16px; padding: 18px 30px; box-shadow: 0 14px 34px -14px rgba(37,211,102,.75); }
+.btn--wa:hover { background: #2fe072; }
+.btn--wa::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 2px; pointer-events: none; z-index: 1;
+  background: conic-gradient(from var(--btn-ang), transparent 0deg 250deg, rgba(255,255,255,.35) 290deg, #fff 340deg, rgba(255,255,255,.6) 350deg, transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: btn-orbit 3.2s linear infinite; }
+
+/* cores de cada rede ao passar o mouse */
+.social--whatsapp:hover, .social--whatsapp:focus-visible { background: #25d366; border-color: #25d366; box-shadow: 0 14px 30px -12px rgba(37,211,102,.7); }
+.social--instagram:hover, .social--instagram:focus-visible { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285aeb 90%); border-color: transparent; box-shadow: 0 14px 30px -12px rgba(214,36,159,.7); }
+.social--behance:hover, .social--behance:focus-visible { background: #1769ff; border-color: #1769ff; box-shadow: 0 14px 30px -12px rgba(23,105,255,.7); }
+.social--email:hover, .social--email:focus-visible { background: var(--accent); border-color: var(--accent); }
+
+/* ---------- Ícones no rodapé ---------- */
+.footer__social { list-style: none; margin: 0; padding: 0; display: flex; gap: 10px; }
+.social--sm { width: 42px; height: 42px; }
+.social--sm:hover, .social--sm:focus-visible { transform: translateY(-3px); }
+.footer__inner { row-gap: 24px; }
+@media (max-width: 760px) { .footer__inner { justify-content: flex-start; } }
