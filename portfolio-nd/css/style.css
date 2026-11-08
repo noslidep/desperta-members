@@ -228,6 +228,10 @@ em {
 .about__card--main { position: absolute; inset: 0 12% 8% 0; border-radius: var(--radius); background: var(--grad); display: grid; place-items: center; overflow: hidden; }
 .about__card--main::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 70% 20%, rgba(255,255,255,.35), transparent 50%); }
 .about__card--main img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.about__card--photo { background: var(--surface); }
+.about__card--photo::after { background: linear-gradient(180deg, transparent 60%, rgba(1,20,23,.35)); }
+.about__card--photo img { object-position: center top; transition: transform 1.2s var(--ease); }
+.about__visual:hover .about__card--photo img { transform: scale(1.04); }
 .about__card--main span { font: 800 clamp(90px, 14vw, 180px) var(--font-display); color: rgba(255,255,255,.9); letter-spacing: -.05em; }
 .about__card--float { position: absolute; right: 0; bottom: 0; padding: 22px 26px; border-radius: var(--radius-sm); background: rgba(2,32,35,.85); backdrop-filter: blur(16px); border: 1px solid var(--line); animation: bob 6s ease-in-out infinite; }
 .about__card--float strong { display: block; font: 700 22px var(--font-display); }
@@ -236,7 +240,7 @@ em {
 .about__text > p { color: var(--muted); font-size: 17px; }
 .about__text .section__title { margin-bottom: 24px; }
 .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--line); }
-.stat strong { display: block; font: 800 clamp(30px, 4vw, 46px) var(--font-display); background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; line-height: 1.1; }
+.stat strong { display: block; white-space: nowrap; font: 800 clamp(26px, 3.2vw, 40px) var(--font-display); background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; line-height: 1.1; }
 .stat span { font-size: 14px; color: var(--muted); }
 @media (max-width: 860px) {
   .about__grid { grid-template-columns: 1fr; }
