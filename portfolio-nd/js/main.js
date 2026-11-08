@@ -377,13 +377,14 @@
   const animateCount = (el) => {
     const target = Number(el.dataset.count) || 0;
     const suffix = el.dataset.suffix || "";
-    if (reduceMotion) { el.textContent = target + suffix; return; }
+    const prefix = el.dataset.prefix || "";
+    if (reduceMotion) { el.textContent = prefix + target + suffix; return; }
     const dur = 1800;
     const t0 = performance.now();
     const tick = (now) => {
       const p = Math.min((now - t0) / dur, 1);
       const eased = 1 - Math.pow(1 - p, 4);
-      el.textContent = Math.round(target * eased) + suffix;
+      el.textContent = prefix + Math.round(target * eased) + suffix;
       if (p < 1) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
