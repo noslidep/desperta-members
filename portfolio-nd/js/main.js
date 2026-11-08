@@ -321,51 +321,23 @@
     }
   });
 
-  /* ---------- Depoimentos ---------- */
+  /* ---------- Depoimentos (conversas de WhatsApp) ---------- */
   const testimonials = window.TESTIMONIALS || [];
-  const track = $("#sliderTrack");
-  const dots = $("#sliderDots");
-  track.innerHTML = testimonials
+  const CHECKS = '<svg viewBox="0 0 18 12" width="16" height="11" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6.5 4.5 10 11 2M7 9.5l.5.5L14 2"/></svg>';
+  $("#chats").innerHTML = testimonials
     .map(
-      (t) => `
-      <figure class="quote">
-        <blockquote>${esc(t.text)}</blockquote>
-        <figcaption>
-          <span class="quote__avatar">${esc(initials(t.name))}</span>
-          <div><strong>${esc(t.name)}</strong><span>${esc(t.role)}</span></div>
+      (t, k) => `
+      <figure class="chat reveal" style="--d:${k * 0.12}s">
+        <figcaption class="chat__head">
+          <span class="chat__avatar" aria-hidden="true">${esc((t.segment || "C").charAt(0).toUpperCase())}</span>
+          <span><strong>${esc(t.name || "Cliente")}</strong><small>${esc(t.segment || "")}</small></span>
         </figcaption>
+        <div class="chat__body">
+          ${t.messages.map((m) => `<p class="bubble${m.me ? " bubble--me" : ""}">${esc(m.text)}<time>${esc(m.time || "")}${m.me ? CHECKS : ""}</time></p>`).join("")}
+        </div>
       </figure>`
     )
     .join("");
-  dots.innerHTML = testimonials.map((_, i) => `<button aria-label="Depoimento ${i + 1}"${i === 0 ? ' class="is-active"' : ""}></button>`).join("");
-  let slide = 0;
-  let autoplay;
-  const goTo = (n) => {
-    if (!testimonials.length) return;
-    slide = (n + testimonials.length) % testimonials.length;
-    track.style.transform = `translateX(-${slide * 100}%)`;
-    $$("button", dots).forEach((d, i) => d.classList.toggle("is-active", i === slide));
-  };
-  const startAuto = () => {
-    clearInterval(autoplay);
-    if (!reduceMotion) autoplay = setInterval(() => goTo(slide + 1), 6000);
-  };
-  $("#sliderPrev").addEventListener("click", () => { goTo(slide - 1); startAuto(); });
-  $("#sliderNext").addEventListener("click", () => { goTo(slide + 1); startAuto(); });
-  dots.addEventListener("click", (e) => {
-    const i = $$("button", dots).indexOf(e.target);
-    if (i >= 0) { goTo(i); startAuto(); }
-  });
-  // arrastar no celular
-  let touchX = null;
-  track.addEventListener("touchstart", (e) => (touchX = e.touches[0].clientX), { passive: true });
-  track.addEventListener("touchend", (e) => {
-    if (touchX === null) return;
-    const dx = e.changedTouches[0].clientX - touchX;
-    if (Math.abs(dx) > 40) { goTo(slide + (dx < 0 ? 1 : -1)); startAuto(); }
-    touchX = null;
-  });
-  startAuto();
 
   /* ---------- Revelação ao rolar + contadores ---------- */
   const animateCount = (el) => {

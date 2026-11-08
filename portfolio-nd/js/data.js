@@ -158,23 +158,30 @@ window.PROJECTS = [
 ];
 
 /* ---------------------------------------------------------
-   DEPOIMENTOS — substitua pelos depoimentos REAIS dos seus
-   clientes (com autorização deles) antes de publicar.
+   DEPOIMENTOS — mensagens reais recebidas de clientes.
+   - name: nome do cliente (deixe "Cliente" se preferir não identificar)
+   - segment: ramo do cliente
+   - messages: as mensagens, na ordem. "me: true" = mensagem sua.
    --------------------------------------------------------- */
 window.TESTIMONIALS = [
   {
-    text: "Escreva aqui o depoimento de um cliente real sobre a experiência de trabalhar comigo.",
-    name: "Nome do Cliente",
-    role: "Empresa / Cargo",
+    name: "Cliente",
+    segment: "Cafeteria",
+    messages: [
+      { text: "Que maravilha", time: "12:02" },
+      { text: "Ficou show!!!", time: "12:02" },
+      { text: "Gratidão 😄", time: "12:03" },
+      { text: "Que bom que gostou... Boa semana e boas vendas!", time: "12:05", me: true },
+      { text: "Obrigada 🙏", time: "13:18" },
+    ],
   },
   {
-    text: "Outro depoimento real: fale do resultado que o projeto trouxe para o negócio.",
-    name: "Nome do Cliente",
-    role: "Empresa / Cargo",
-  },
-  {
-    text: "Mais um depoimento: destaque o atendimento, os prazos e a qualidade das entregas.",
-    name: "Nome do Cliente",
-    role: "Empresa / Cargo",
+    name: "Cliente",
+    segment: "Curso de maquiagem",
+    messages: [
+      { text: "Veja o que achou sem pressa", time: "10:14" },
+      { text: "Esse é nosso último produto desse pacote, obrigada", time: "10:14" },
+      { text: "Aprovado", time: "13:18" },
+    ],
   },
 ];
