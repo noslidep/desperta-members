@@ -78,6 +78,26 @@ em {
 .btn--ghost { border-color: rgba(255,255,255,.25); background: rgba(255,255,255,.04); backdrop-filter: blur(8px); }
 .btn--ghost:hover { border-color: #fff; background: rgba(255,255,255,.1); }
 .btn--sm { padding: 11px 20px; font-size: 14px; }
+/* luz circulando pela borda dos botões */
+@property --btn-ang { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.btn--primary, .btn--ghost { isolation: isolate; }
+.btn--primary::before, .btn--ghost::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 2px; pointer-events: none; z-index: 1;
+  background: conic-gradient(from var(--btn-ang), transparent 0deg 250deg, rgba(168,220,207,.25) 290deg, #fff 340deg, rgba(168,220,207,.6) 350deg, transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: btn-orbit 3.2s linear infinite;
+}
+.btn--ghost::before { animation-delay: -1.6s; }
+/* brilho suave que acompanha a luz */
+.btn--primary::after, .btn--ghost::after {
+  content: ""; position: absolute; inset: -40%; z-index: -1; pointer-events: none; opacity: .55;
+  background: conic-gradient(from var(--btn-ang), transparent 0deg 300deg, rgba(168,220,207,.35) 345deg, transparent 360deg);
+  filter: blur(14px); animation: btn-orbit 3.2s linear infinite;
+}
+.btn--ghost::after { animation-delay: -1.6s; }
+.btn:hover::before, .btn:hover::after { animation-duration: 1.4s; }
+@keyframes btn-orbit { to { --btn-ang: 360deg; } }
 .btn--block { width: 100%; }
 
 /* ---------- Preloader ---------- */
