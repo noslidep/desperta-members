@@ -439,6 +439,9 @@
     if (w) word.style.setProperty("--fw", `${Math.floor((100 * box.clientWidth) / w) - 1}px`);
   };
   fitWord();
+  // letras sobem toda vez que o rodapé entra na tela (e descem ao sair)
+  const mark = $(".footer__mark");
+  if (mark) new IntersectionObserver(([e]) => mark.classList.toggle("is-in", e.isIntersecting), { threshold: 0.35 }).observe(mark);
   document.fonts?.ready.then(fitWord);
   window.addEventListener("resize", fitWord);
 
