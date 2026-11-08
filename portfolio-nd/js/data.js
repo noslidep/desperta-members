@@ -39,11 +39,11 @@ window.PROJECTS = [
     image: "assets/img/portfolio/gstcon-social-media.jpg",
   },
   {
-    title: "Logotipos 2021",
-    client: "Diversos clientes",
+    title: "Alanna Semijoias",
+    client: "Semijoias",
     category: "Identidade Visual",
-    description: "Alguns dos logotipos desenvolvidos em 2021: Alanna Semijoias, Ormond Imports, Nicole Fontes, Instituto Manuela Leite, Paty Bispo, PH Imports, Victor Griff e outros.",
-    image: "assets/img/portfolio/logotipos-2021.jpg",
+    description: "Logotipo com diamante coroado e tipografia refinada, transmitindo delicadeza e valor.",
+    image: "assets/img/portfolio/logo-alanna-semijoias.jpg",
   },
   {
     title: "Hidratante facial",
@@ -65,6 +65,13 @@ window.PROJECTS = [
     category: "Social Media",
     description: "Coleção gastronômica envolvente, organizada e apetitosa para as redes sociais.",
     image: "assets/img/portfolio/bella-massa.jpg",
+  },
+  {
+    title: "Nicole Fontes",
+    client: "Dermatologia & Estética",
+    category: "Identidade Visual",
+    description: "Monograma em caligrafia dentro de um selo circular, unindo sofisticação e cuidado.",
+    image: "assets/img/portfolio/logo-nicole-fontes.jpg",
   },
   {
     title: "Retrato para podcast",
@@ -93,6 +100,13 @@ window.PROJECTS = [
     category: "Fotos com IA",
     description: "Retrato em ambiente de cafeteria, criado com Inteligência Artificial.",
     image: "assets/img/portfolio/ia-retrato-cafe.jpg",
+  },
+  {
+    title: "Victor Griff",
+    client: "",
+    category: "Identidade Visual",
+    description: "Brasão com monograma e coroa, com presença forte e atitude.",
+    image: "assets/img/portfolio/logo-victor-griff.jpg",
   },
   {
     title: "Fluxo de caixa sob controle",
