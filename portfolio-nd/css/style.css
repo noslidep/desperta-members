@@ -365,7 +365,14 @@ em {
 /* ---------- Depoimentos ---------- */
 .testimonials { background: var(--bg-2); overflow: hidden; }
 .testimonials__note { color: var(--muted); margin: 14px 0 0; }
-.chats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); gap: 22px; align-items: start; }
+.chats { position: relative; overflow: hidden; margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px)));
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.chats__track { display: flex; align-items: flex-start; gap: 22px; width: max-content; padding-inline: max(16px, env(safe-area-inset-left, 0px));
+  animation: pmarquee var(--dur, 40s) linear infinite; }
+.chats:hover .chats__track, .chats.is-paused .chats__track { animation-play-state: paused; }
+.chats.is-static { -webkit-mask-image: none; mask-image: none; overflow-x: auto; }
+.chats__track .chat { flex: none; width: min(360px, 72vw); }
 .chat { margin: 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: #0b141a; }
 .chat__head { display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: #1f2c34; }
 .chat__head strong { display: block; font-size: 15px; color: #e9edef; }

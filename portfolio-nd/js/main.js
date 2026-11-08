@@ -324,10 +324,10 @@
   /* ---------- Depoimentos (conversas de WhatsApp) ---------- */
   const testimonials = window.TESTIMONIALS || [];
   const CHECKS = '<svg viewBox="0 0 18 12" width="16" height="11" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6.5 4.5 10 11 2M7 9.5l.5.5L14 2"/></svg>';
-  $("#chats").innerHTML = testimonials
+  const chatsSet = testimonials
     .map(
       (t, k) => `
-      <figure class="chat reveal" style="--d:${k * 0.12}s">
+      <figure class="chat">
         <figcaption class="chat__head">
           <span class="chat__avatar" aria-hidden="true">${esc((t.segment || "C").charAt(0).toUpperCase())}</span>
           <span><strong>${esc(t.name || "Cliente")}</strong><small>${esc(t.segment || "")}</small></span>
@@ -352,6 +352,26 @@
       </figure>`
     )
     .join("");
+  // conversas em carrossel contínuo (mesma lógica do portfólio)
+  const chatsBox = $("#chats");
+  chatsBox.innerHTML = `<div class="chats__track"></div>`;
+  const chatsTrack = $(".chats__track", chatsBox);
+  const buildChats = () => {
+    chatsTrack.innerHTML = chatsSet;
+    if (reduceMotion) { chatsTrack.style.animation = "none"; chatsBox.classList.add("is-static"); return; }
+    const gap = parseFloat(getComputedStyle(chatsTrack).columnGap) || 0;
+    const setW = chatsTrack.children.length * (chatsTrack.children[0].getBoundingClientRect().width + gap);
+    const reps = Math.max(1, Math.ceil(chatsBox.clientWidth / setW));
+    const block = chatsSet.repeat(reps);
+    chatsTrack.innerHTML = block + block.replace(/<figure class="chat">/g, '<figure class="chat" aria-hidden="true">');
+    chatsTrack.style.setProperty("--shift", `${-setW * reps}px`);
+    chatsTrack.style.setProperty("--dur", `${(setW * reps) / 30}s`);
+  };
+  buildChats();
+  let chatsW = innerWidth, chatsT;
+  window.addEventListener("resize", () => { clearTimeout(chatsT); chatsT = setTimeout(() => { if (innerWidth !== chatsW) { chatsW = innerWidth; buildChats(); } }, 250); });
+  chatsBox.addEventListener("touchstart", () => chatsBox.classList.add("is-paused"), { passive: true });
+  chatsBox.addEventListener("touchend", () => chatsBox.classList.remove("is-paused"));
 
   /* ---------- Revelação ao rolar + contadores ---------- */
   const animateCount = (el) => {
