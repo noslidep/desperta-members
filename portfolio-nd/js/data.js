@@ -56,6 +56,13 @@ window.PROJECTS = [
     images: ["assets/img/portfolio/mockup-ormond-imports.jpg", "assets/img/portfolio/logo-ormond-imports.jpg"],
   },
   {
+    title: "Frank Marques",
+    client: "",
+    category: "Identidade Visual",
+    description: "Monograma FM com linhas fluidas em dourado sobre azul-marinho, unindo sofisticação e solidez.",
+    image: "assets/img/portfolio/logo-frank-marques.jpg",
+  },
+  {
     title: "gstcon · Gestão de Condomínios",
     client: "gstcon",
     category: "Social Media",
