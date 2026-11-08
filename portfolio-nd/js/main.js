@@ -58,11 +58,12 @@
   });
   $$(".js-email").forEach((a) => (a.href = `mailto:${cfg.email || ""}`));
   $$(".js-instagram").forEach((a) => (a.href = cfg.instagram || "#"));
+  $$(".js-behance").forEach((a) => (a.href = cfg.behance || "#"));
   $$(".js-phone-label").forEach((el) => (el.textContent = cfg.whatsappLabel || ""));
   $$(".js-email-label").forEach((el) => (el.textContent = cfg.email || ""));
   $$(".js-instagram-label").forEach((el) => (el.textContent = cfg.instagramLabel || ""));
   // dica ao passar o mouse nos ícones de contato
-  const tips = { "js-whatsapp": `WhatsApp ${cfg.whatsappLabel || ""}`, "js-email": cfg.email, "js-instagram": cfg.instagramLabel };
+  const tips = { "js-whatsapp": `WhatsApp ${cfg.whatsappLabel || ""}`, "js-email": cfg.email, "js-instagram": cfg.instagramLabel, "js-behance": "Behance" };
   $$(".social").forEach((a) => {
     const key = Object.keys(tips).find((k) => a.classList.contains(k));
     if (key && tips[key]) a.title = tips[key].trim();
@@ -131,13 +132,33 @@
   const sectionObserver = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
       if (!e.isIntersecting) return;
-      navLinks.forEach((a) => a.classList.toggle("is-active", a.getAttribute("href") === `#${e.target.id}`));
+      const id = e.target.id;
+      if (!navLinks.some((a) => a.getAttribute("href") === `#${id}`) && id !== "inicio") return;
+      navLinks.forEach((a) => a.classList.toggle("is-active", a.getAttribute("href") === `#${id}`));
+      movePill();
     });
   }, { rootMargin: "-45% 0px -50% 0px" });
   navLinks.forEach((a) => {
     const sec = $(a.getAttribute("href"));
     if (sec) sectionObserver.observe(sec);
   });
+  // pílula que desliza até o link da seção atual
+  const pill = $(".nav__pill");
+  const movePill = () => {
+    if (!pill) return;
+    const active = navLinks.find((a) => a.classList.contains("is-active"));
+    const atTop = window.scrollY < window.innerHeight * 0.6;
+    const on = !!active && !atTop && getComputedStyle(pill).display !== "none";
+    if (on) {
+      pill.style.width = `${active.offsetWidth}px`;
+      pill.style.transform = `translateX(${active.offsetLeft}px)`;
+    }
+    if (pill.classList.contains("is-on") !== on) pill.classList.toggle("is-on", on);
+  };
+  window.addEventListener("scroll", movePill, { passive: true });
+  window.addEventListener("resize", movePill);
+  // no topo do site nenhum link fica ativo
+  sectionObserver.observe($("#inicio"));
 
   /* ---------- Título do topo: letras surgindo uma a uma ---------- */
   $$(".hero__title .line").forEach((line) => {

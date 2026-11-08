@@ -13,6 +13,8 @@ window.SITE_CONFIG = {
   instagram: "https://instagram.com/noslidep.design",
   instagramLabel: "@noslidep.design",
 
+  behance: "https://www.behance.net/edilsonpereira3",
+
 };
 
 /* ---------------------------------------------------------
