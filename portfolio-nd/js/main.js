@@ -335,7 +335,12 @@
         <div class="chat__body">
           ${t.messages
             .map((m) =>
-              m.images
+              m.file
+                ? `<div class="bubble bubble--file${m.me ? " bubble--me" : ""}">
+                    <span class="file"><span class="file__ico" aria-hidden="true">${esc((m.file.name.split(".").pop() || "").toUpperCase())}</span><span><strong>${esc(m.file.name)}</strong><small>${esc(m.file.size || "")}</small></span></span>
+                    <time>${esc(m.time || "")}${m.me ? CHECKS : ""}</time>
+                  </div>`
+                : m.images
                 ? `<div class="bubble bubble--media${m.me ? " bubble--me" : ""}" role="img" aria-label="Imagens enviadas ao cliente (borradas para preservar o trabalho)">
                     <div class="bubble__grid">${m.images.map((src, n) => `<span style="background-image:url('${esc(src)}')">${m.more && n === m.images.length - 1 ? `<b>+${m.more}</b>` : ""}</span>`).join("")}</div>
                     <time>${esc(m.time || "")}${m.me ? CHECKS : ""}</time>

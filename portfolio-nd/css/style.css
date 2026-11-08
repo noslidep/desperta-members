@@ -365,7 +365,7 @@ em {
 /* ---------- Depoimentos ---------- */
 .testimonials { background: var(--bg-2); overflow: hidden; }
 .testimonials__note { color: var(--muted); margin: 14px 0 0; }
-.chats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 24px; max-width: 900px; }
+.chats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); gap: 22px; align-items: start; }
 .chat { margin: 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: #0b141a; }
 .chat__head { display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: #1f2c34; }
 .chat__head strong { display: block; font-size: 15px; color: #e9edef; }
@@ -378,6 +378,12 @@ em {
 .bubble--me { align-self: flex-end; background: #005c4b; border-radius: 12px 4px 12px 12px; }
 .bubble time { margin-left: auto; font-size: 11px; color: rgba(233,237,239,.6); display: inline-flex; align-items: center; gap: 3px; transform: translateY(2px); }
 .bubble--me time svg { color: #53bdeb; }
+.bubble--file { display: block; padding: 5px 5px 20px; width: min(270px, 88%); position: relative; }
+.file { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 8px; background: rgba(0,0,0,.18); }
+.file__ico { flex: none; width: 32px; height: 38px; border-radius: 4px; background: #8696a0; color: #fff; font-size: 9px; font-weight: 700; display: grid; place-items: end center; padding-bottom: 6px; clip-path: polygon(0 0, 70% 0, 100% 22%, 100% 100%, 0 100%); }
+.file strong { display: block; font-size: 14px; font-weight: 500; overflow-wrap: anywhere; }
+.file small { font-size: 12px; color: rgba(233,237,239,.6); }
+.bubble--file time { position: absolute; right: 9px; bottom: 4px; }
 .bubble--media { padding: 4px; width: min(250px, 85%); display: block; position: relative; }
 .bubble__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; border-radius: 8px; overflow: hidden; }
 .bubble__grid span { position: relative; aspect-ratio: 1; background-size: cover; background-position: center; }

@@ -163,6 +163,7 @@ window.PROJECTS = [
    - segment: ramo do cliente
    - messages: as mensagens, na ordem. "me: true" = mensagem sua.
      Para imagens: { images: [...4 imagens...], more: 2 } (more = "+2" na última)
+     Para arquivos: { file: { name: "video.mp4", size: "57 MB" } }
    --------------------------------------------------------- */
 window.TESTIMONIALS = [
   {
@@ -185,6 +186,18 @@ window.TESTIMONIALS = [
       { text: "Esse é nosso último produto desse pacote, obrigada", time: "10:14" },
       { images: ["assets/img/depoimentos/maquiagem-1.jpg", "assets/img/depoimentos/maquiagem-2.jpg", "assets/img/depoimentos/maquiagem-3.jpg", "assets/img/depoimentos/maquiagem-4.jpg"], more: 2, time: "13:17", me: true },
       { text: "Aprovado", time: "13:18" },
+    ],
+  },
+  {
+    name: "Cliente",
+    segment: "Mentoria",
+    messages: [
+      { file: { name: "IMG_4617.MP4", size: "38 MB" }, time: "16:11" },
+      { file: { name: "IMG_4618.MP4", size: "55 MB" }, time: "16:12" },
+      { file: { name: "IMG_4616.MP4", size: "54 MB" }, time: "16:12" },
+      { file: { name: "video-final.mp4", size: "57 MB" }, time: "16:57", me: true },
+      { text: "Sensacional", time: "17:01" },
+      { text: "Obrigada", time: "17:01" },
     ],
   },
 ];
