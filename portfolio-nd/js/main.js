@@ -216,8 +216,8 @@
 
   const slug = (t) => t.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   const cardHTML = (p, i, k) => `
-      <button class="project" data-index="${i}" data-cat="${esc(p.category)}" style="--d:${(k % 4) * 0.06}s${p.focus ? `;--pos:${esc(p.focus)}` : ""}" aria-label="Ver projeto ${esc(p.title)}">
-        <div class="project__media">${p.video ? `<img src="${esc(p.poster || "")}" alt="${esc(p.title)}" loading="lazy" /><span class="project__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26"><path fill="currentColor" d="M8 5v14l11-7z"/></svg></span>` : mediaHTML(p, i)}</div>
+      <button class="project${p.vertical ? " project--vertical" : ""}" data-index="${i}" data-cat="${esc(p.category)}" style="--d:${(k % 4) * 0.06}s${p.focus ? `;--pos:${esc(p.focus)}` : ""}" aria-label="Ver projeto ${esc(p.title)}">
+        <div class="project__media">${p.video ? `<video class="project__video" src="${esc(p.video)}" poster="${esc(p.poster || "")}" muted loop playsinline preload="none" aria-hidden="true"></video><span class="project__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26"><path fill="currentColor" d="M8 5v14l11-7z"/></svg></span>` : mediaHTML(p, i)}</div>
         ${p.video ? "" : imagesOf(p).length > 1 ? `<span class="project__count" title="${imagesOf(p).length} imagens">${STACK_ICON}${imagesOf(p).length}</span>` : ""}
         <div class="project__info">
           <div><small>${esc(p.category)}</small><h3>${esc(p.title)}</h3></div>
@@ -235,7 +235,7 @@
       return `
       <div class="pgroup pgroup--${slug(c)} reveal" id="port-${slug(c)}">
         <h3 class="pgroup__title">${esc(c)} <span>${items.length}</span></h3>
-        <div class="pgroup__marquee${items.length < 3 ? " is-static" : ""}">
+        <div class="pgroup__marquee${items.length < 3 || slug(c) === "videos" ? " is-static" : ""}">
           <div class="pgroup__track" data-set="${encodeURIComponent(items.map(([p, i], k) => cardHTML(p, i, k)).join(""))}"></div>
         </div>
       </div>`;
@@ -322,6 +322,14 @@
     }
   }
 
+  // vídeos dos cards tocam sozinhos (sem som) quando aparecem na tela
+  const cardVideoObs = new IntersectionObserver((entries) => entries.forEach((e) => {
+    const v = e.target;
+    if (e.isIntersecting && !reduceMotion) { v.preload = "auto"; v.play().catch(() => {}); } else v.pause();
+  }), { threshold: 0.4 });
+  const watchCardVideos = () => $$(".project__video", grid).forEach((v) => cardVideoObs.observe(v));
+  watchCardVideos();
+
   // botões do topo levam até o bloco do serviço
   filtersEl.setAttribute("role", "navigation");
   filtersEl.setAttribute("aria-label", "Ir para o tipo de serviço");
@@ -377,7 +385,7 @@
       showImg(startAt < 0 ? imgs.length - 1 : startAt);
     } else if (p.video) {
       lbImg = 0;
-      lbMedia.innerHTML = `<video class="lb-video" src="${esc(p.video)}" ${p.poster ? `poster="${esc(p.poster)}"` : ""} controls autoplay muted loop playsinline></video>`;
+      lbMedia.innerHTML = `<video class="lb-video${p.vertical ? " lb-video--vertical" : ""}" src="${esc(p.video)}" ${p.poster ? `poster="${esc(p.poster)}"` : ""} controls autoplay loop playsinline></video>`;
     } else {
       lbImg = 0;
       lbMedia.innerHTML = mediaHTML(p);

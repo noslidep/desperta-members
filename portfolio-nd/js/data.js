@@ -164,6 +164,24 @@ window.PROJECTS = [
     video: "assets/video/hero.mp4",
     poster: "assets/img/hero-poster.jpg",
   },
+  {
+    title: "Dia da Independência",
+    client: "Data comemorativa",
+    category: "Vídeos",
+    description: "Animação vertical para Reels e Stories: a bandeira se movendo diante do quadro histórico, com tipografia e composição clássicas.",
+    video: "assets/video/brasil.mp4",
+    poster: "assets/img/portfolio/video-brasil.jpg",
+    vertical: true,
+  },
+  {
+    title: "Retrato em multidão",
+    client: "Peça autoral",
+    category: "Vídeos",
+    description: "Animação de um perfil formado por centenas de pessoas em movimento, criada com IA.",
+    video: "assets/video/perfil.mp4",
+    poster: "assets/img/portfolio/video-perfil.jpg",
+    vertical: true,
+  },
 ];
 
 /* ---------------------------------------------------------
