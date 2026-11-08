@@ -207,10 +207,24 @@ window.TESTIMONIALS = [
    pelo menos uma pergunta tiver resposta (campo "a").
    --------------------------------------------------------- */
 window.FAQ = [
-  { q: "Qual é o prazo de entrega?", a: "" },
-  { q: "Quantas alterações estão incluídas?", a: "" },
-  { q: "Como funciona o pagamento?", a: "" },
-  { q: "Recebo os arquivos editáveis?", a: "" },
-  { q: "Atende clientes de outras cidades?", a: "" },
-  { q: "Preciso ter uma ideia pronta para começar?", a: "" },
+  {
+    q: "Qual é o prazo de entrega?",
+    a: "De 24 a 72 horas, contadas a partir do recebimento do material que você enviar (textos, fotos, logo, referências). Posts e artes avulsas costumam ficar no início dessa faixa; projetos com mais peças, como uma identidade visual completa ou um site, podem usar o prazo todo. O prazo de cada projeto é combinado antes de começar.",
+  },
+  {
+    q: "Quantas alterações estão incluídas?",
+    a: "De 2 a 3 rodadas de alterações, conforme o projeto. Você recebe a arte, me passa os ajustes que quer e eu aplico. Assim a peça chega ao resultado final com a sua participação.",
+  },
+  {
+    q: "Como funciona o pagamento?",
+    a: "Você escolhe a forma que for melhor: à vista, em duas partes (50% para iniciar e 50% na entrega) ou no cartão de crédito pelo Mercado Pago.",
+  },
+  {
+    q: "Atende clientes de outras cidades?",
+    a: "Sim. Atendo clientes de todo o Brasil e também de outros países. Todo o atendimento é online, então a distância não faz diferença.",
+  },
+  {
+    q: "Preciso ter uma ideia pronta para começar?",
+    a: "Não necessariamente. Se você tiver referências, cores ou exemplos de que gosta, isso ajuda a acertar o caminho mais rápido. Se não tiver, a gente conversa no briefing e eu te ajudo a definir a melhor direção para a sua marca.",
+  },
 ];
