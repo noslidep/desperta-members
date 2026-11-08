@@ -214,11 +214,11 @@ em {
 @keyframes scrollDot { 0% { opacity: 0; transform: translateY(0); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(14px); } }
 
 /* ---------- Marquee ---------- */
-.marquee { border-block: 1px solid var(--line); padding: 26px 0; overflow: hidden; background: var(--bg-2); }
+.marquee { padding: 22px 0; overflow: hidden; background: var(--accent); color: #fff; }
 .marquee__track { display: flex; gap: 40px; width: max-content; animation: marquee 32s linear infinite; font: 700 clamp(22px, 3vw, 36px) var(--font-display); }
 .marquee__track span { white-space: nowrap; }
-.marquee__track span:nth-child(4n+1) { -webkit-text-stroke: 1px rgba(255,255,255,.5); color: transparent; }
-.marquee__track i { font-style: normal; color: var(--accent-2); }
+.marquee__track span:nth-child(4n+1) { -webkit-text-stroke: 1.2px #fff; color: transparent; }
+.marquee__track i { font-style: normal; color: var(--bg); }
 .marquee:hover .marquee__track { animation-play-state: paused; }
 @keyframes marquee { to { transform: translateX(-50%); } }
 
