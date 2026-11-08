@@ -246,7 +246,10 @@ em {
 
 /* ---------- Serviços ---------- */
 .services { background: var(--bg-2); }
-.services__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.services__grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; }
+/* 5 serviços: 3 na primeira linha, 2 maiores na segunda */
+.services__grid > .service { grid-column: span 2; }
+.services__grid > .service:nth-child(n+4) { grid-column: span 3; }
 .service {
   position: relative; padding: 36px 32px 40px; border-radius: var(--radius);
   background: var(--surface); border: 1px solid var(--line); overflow: hidden;
@@ -264,7 +267,11 @@ em {
 .service h3 { font-size: 23px; margin-bottom: 12px; }
 .service p { color: var(--muted); margin: 0; font-size: 15px; }
 .service__num { position: absolute; top: 28px; right: 30px; font: 700 15px var(--font-display); color: rgba(255,255,255,.18); }
-@media (max-width: 960px) { .services__grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 960px) {
+  .services__grid { grid-template-columns: 1fr 1fr; }
+  .services__grid > .service, .services__grid > .service:nth-child(n+4) { grid-column: auto; }
+  .services__grid > .service:last-child { grid-column: 1 / -1; }
+}
 @media (max-width: 600px) { .services__grid { grid-template-columns: 1fr; } }
 
 /* ---------- Portfólio ---------- */
