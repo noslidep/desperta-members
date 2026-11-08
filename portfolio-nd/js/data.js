@@ -30,11 +30,11 @@ window.SITE_CONFIG = {
             Ex.: images: ["assets/img/portfolio/marca.jpg",
                           "assets/img/portfolio/marca-mockup.jpg"],
    - client: aparece ao lado da categoria quando o trabalho é aberto
-   - featured: true deixa o card em destaque (tamanho grande). Use em UM só.
+   - video: para a categoria Vídeos, caminho do MP4 (e poster: imagem de capa)
    - focus: ponto da imagem que fica visível no card (ex.: "center 30%")
    A ordem da lista é a ordem em que aparecem no site.
    --------------------------------------------------------- */
-window.CATEGORIES = ["Todos", "Identidade Visual", "Social Media", "Fotos com IA"];
+window.CATEGORIES = ["Identidade Visual", "Social Media", "Fotos com IA", "Sites", "Vídeos"];
 
 window.PROJECTS = [
   {
@@ -42,22 +42,21 @@ window.PROJECTS = [
     client: "Semijoias",
     category: "Identidade Visual",
     description: "Logotipo com diamante coroado e tipografia refinada, transmitindo delicadeza e valor. Aplicado em embalagens, papelaria e site.",
-    images: ["assets/img/portfolio/mockup-alanna-semijoias.jpg", "assets/img/portfolio/logo-alanna-semijoias.jpg", "assets/img/portfolio/site-alanna-semijoias.jpg"],
-    featured: true,
+    images: ["assets/img/portfolio/mockup-alanna-semijoias.jpg", "assets/img/portfolio/logo-alanna-semijoias.jpg"],
   },
   {
     title: "Nicole Fontes",
     client: "Dermatologia & Estética",
     category: "Identidade Visual",
     description: "Monograma em caligrafia dentro de um selo circular, unindo sofisticação e cuidado. Aplicado em papelaria, comunicação visual e site.",
-    images: ["assets/img/portfolio/mockup-nicole-fontes.jpg", "assets/img/portfolio/logo-nicole-fontes.jpg", "assets/img/portfolio/site-nicole-fontes.jpg"],
+    images: ["assets/img/portfolio/mockup-nicole-fontes.jpg", "assets/img/portfolio/logo-nicole-fontes.jpg"],
   },
   {
     title: "Ormond Imports",
     client: "",
     category: "Identidade Visual",
     description: "Logotipo que combina letras fortes com assinatura cursiva, equilibrando solidez e estilo. Aplicado em embalagens, papelaria e site.",
-    images: ["assets/img/portfolio/mockup-ormond-imports.jpg", "assets/img/portfolio/logo-ormond-imports.jpg", "assets/img/portfolio/site-ormond-imports.jpg"],
+    images: ["assets/img/portfolio/mockup-ormond-imports.jpg", "assets/img/portfolio/logo-ormond-imports.jpg"],
   },
   {
     title: "gstcon · Gestão de Condomínios",
@@ -131,6 +130,35 @@ window.PROJECTS = [
     description: "Retrato em ambiente de cafeteria, criado com Inteligência Artificial.",
     image: "assets/img/portfolio/ia-retrato-cafe.jpg",
     focus: "center 25%",
+  },
+  {
+    title: "Site Alanna Semijoias",
+    client: "Alanna Semijoias",
+    category: "Sites",
+    description: "Página inicial com a identidade da marca: tons de chocolate e dourado, tipografia elegante e chamada para a coleção.",
+    image: "assets/img/portfolio/site-alanna-semijoias.jpg",
+  },
+  {
+    title: "Site Nicole Fontes",
+    client: "Nicole Fontes",
+    category: "Sites",
+    description: "Página inicial em verde-sálvia, transmitindo cuidado e confiança, com chamada direta para agendar consulta.",
+    image: "assets/img/portfolio/site-nicole-fontes.jpg",
+  },
+  {
+    title: "Site Ormond Imports",
+    client: "Ormond Imports",
+    category: "Sites",
+    description: "Página inicial em azul e dourado, apresentando a curadoria de produtos importados.",
+    image: "assets/img/portfolio/site-ormond-imports.jpg",
+  },
+  {
+    title: "Animação do logo Noslidep",
+    client: "Noslidep Soluções Criativas",
+    category: "Vídeos",
+    description: "Animação do logotipo com partículas e brilho, usada na abertura do site e nas redes sociais.",
+    video: "assets/video/hero.mp4",
+    poster: "assets/img/hero-poster.jpg",
   },
 ];
 

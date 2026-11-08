@@ -142,47 +142,36 @@
       ? `<img src="${esc(imagesOf(p)[0])}" alt="${esc(p.title)}" loading="lazy" />`
       : `<div class="cover" style="--c1:${esc(p.colors?.[0] || "#3a8c7d")};--c2:${esc(p.colors?.[1] || "#0b3b3d")}"><span>${esc(p.cover || String(i + 1).padStart(2, "0"))}</span></div>`;
 
-  grid.innerHTML = projects
-    .map(
-      (p, i) => `
-      <button class="project${p.featured ? " is-featured" : ""} reveal" data-index="${i}" data-cat="${esc(p.category)}" style="--d:${(i % 4) * 0.06}s${p.focus ? `;--pos:${esc(p.focus)}` : ""}" aria-label="Ver projeto ${esc(p.title)}">
-        <div class="project__media">${mediaHTML(p, i)}</div>
-        ${imagesOf(p).length > 1 ? `<span class="project__count" title="${imagesOf(p).length} imagens">${STACK_ICON}${imagesOf(p).length}</span>` : ""}
+  const slug = (t) => t.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const cardHTML = (p, i, k) => `
+      <button class="project reveal" data-index="${i}" data-cat="${esc(p.category)}" style="--d:${(k % 4) * 0.06}s${p.focus ? `;--pos:${esc(p.focus)}` : ""}" aria-label="Ver projeto ${esc(p.title)}">
+        <div class="project__media">${p.video ? `<img src="${esc(p.poster || "")}" alt="${esc(p.title)}" loading="lazy" /><span class="project__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26"><path fill="currentColor" d="M8 5v14l11-7z"/></svg></span>` : mediaHTML(p, i)}</div>
+        ${p.video ? "" : imagesOf(p).length > 1 ? `<span class="project__count" title="${imagesOf(p).length} imagens">${STACK_ICON}${imagesOf(p).length}</span>` : ""}
         <div class="project__info">
           <div><small>${esc(p.category)}</small><h3>${esc(p.title)}</h3></div>
           <span class="project__arrow" aria-hidden="true">↗</span>
         </div>
-      </button>`
-    )
+      </button>`;
+
+  // blocos por tipo de serviço, na ordem de CATEGORIES
+  const cats = (window.CATEGORIES || []).filter((c) => projects.some((p) => p.category === c));
+  const visibleIdx = [];
+  grid.innerHTML = cats
+    .map((c) => {
+      const items = projects.map((p, i) => [p, i]).filter(([p]) => p.category === c);
+      items.forEach(([, i]) => visibleIdx.push(i));
+      return `
+      <div class="pgroup" id="port-${slug(c)}">
+        <h3 class="pgroup__title reveal">${esc(c)} <span>${items.length}</span></h3>
+        <div class="pgroup__grid pgroup__grid--${slug(c)}" style="--cols:${["sites", "videos"].includes(slug(c)) ? Math.max(2, Math.min(items.length, 3)) : items.length <= 3 ? items.length : 4}">${items.map(([p, i], k) => cardHTML(p, i, k)).join("")}</div>
+      </div>`;
+    })
     .join("");
 
-  const cats = (window.CATEGORIES || ["Todos"]).filter((c) => c === "Todos" || projects.some((p) => p.category === c));
-  filtersEl.innerHTML = cats
-    .map((c, i) => `<button class="filter${i === 0 ? " is-active" : ""}" role="tab" aria-selected="${i === 0}" data-filter="${esc(c)}">${esc(c)}</button>`)
-    .join("");
-
-  let visibleIdx = projects.map((_, i) => i);
-  filtersEl.addEventListener("click", (e) => {
-    const btn = e.target.closest(".filter");
-    if (!btn) return;
-    $$(".filter", filtersEl).forEach((b) => {
-      b.classList.toggle("is-active", b === btn);
-      b.setAttribute("aria-selected", String(b === btn));
-    });
-    const f = btn.dataset.filter;
-    grid.classList.toggle("is-filtered", f !== "Todos");
-    visibleIdx = [];
-    $$(".project", grid).forEach((el) => {
-      const show = f === "Todos" || el.dataset.cat === f;
-      el.classList.toggle("is-hidden", !show);
-      el.classList.remove("is-entering");
-      if (show) {
-        visibleIdx.push(Number(el.dataset.index));
-        void el.offsetWidth; // reinicia a animação
-        el.classList.add("is-entering", "is-visible");
-      }
-    });
-  });
+  // botões do topo levam até o bloco do serviço
+  filtersEl.setAttribute("role", "navigation");
+  filtersEl.setAttribute("aria-label", "Ir para o tipo de serviço");
+  filtersEl.innerHTML = cats.map((c) => `<a class="filter" href="#port-${slug(c)}">${esc(c)}</a>`).join("");
 
   /* ---------- Lightbox ---------- */
   const lb = $("#lightbox");
@@ -232,6 +221,9 @@
           <div class="gal__dots">${imgs.map((_, i) => `<button type="button" aria-label="Ver imagem ${i + 1}"></button>`).join("")}</div>
         </div>`;
       showImg(startAt < 0 ? imgs.length - 1 : startAt);
+    } else if (p.video) {
+      lbImg = 0;
+      lbMedia.innerHTML = `<video class="lb-video" src="${esc(p.video)}" ${p.poster ? `poster="${esc(p.poster)}"` : ""} controls autoplay muted loop playsinline></video>`;
     } else {
       lbImg = 0;
       lbMedia.innerHTML = mediaHTML(p);
@@ -276,10 +268,11 @@
     openModal(lb);
     $("#lbClose").focus();
   });
-  $("#lbClose").addEventListener("click", () => closeModal(lb));
+  const stopLbVideo = () => $$("video", lbMedia).forEach((v) => v.pause());
+  $("#lbClose").addEventListener("click", () => { stopLbVideo(); closeModal(lb); });
   $("#lbPrev").addEventListener("click", () => stepLb(-1));
   $("#lbNext").addEventListener("click", () => stepLb(1));
-  lb.addEventListener("click", (e) => { if (e.target === lb) closeModal(lb); });
+  lb.addEventListener("click", (e) => { if (e.target === lb) { stopLbVideo(); closeModal(lb); } });
 
   /* ---------- Showreel ---------- */
   const vm = $("#videoModal");
@@ -301,7 +294,7 @@
 
   document.addEventListener("keydown", (e) => {
     if (!lb.hidden) {
-      if (e.key === "Escape") closeModal(lb);
+      if (e.key === "Escape") { stopLbVideo(); closeModal(lb); }
       if (e.key === "ArrowRight") stepAny(1);
       if (e.key === "ArrowLeft") stepAny(-1);
     } else if (!vm.hidden && e.key === "Escape") {
