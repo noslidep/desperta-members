@@ -47,7 +47,7 @@ window.PROJECTS = [
     client: "Semijoias",
     category: "Identidade Visual",
     description: "Logotipo com diamante coroado e tipografia refinada, transmitindo delicadeza e valor.",
-    images: ["assets/img/portfolio/logo-alanna-semijoias.jpg", "assets/img/portfolio/mockup-alanna-semijoias.jpg"],
+    images: ["assets/img/portfolio/mockup-alanna-semijoias.jpg", "assets/img/portfolio/logo-alanna-semijoias.jpg"],
   },
   {
     title: "Hidratante facial",
@@ -75,7 +75,7 @@ window.PROJECTS = [
     client: "Dermatologia & Estética",
     category: "Identidade Visual",
     description: "Monograma em caligrafia dentro de um selo circular, unindo sofisticação e cuidado.",
-    images: ["assets/img/portfolio/logo-nicole-fontes.jpg", "assets/img/portfolio/mockup-nicole-fontes.jpg"],
+    images: ["assets/img/portfolio/mockup-nicole-fontes.jpg", "assets/img/portfolio/logo-nicole-fontes.jpg"],
   },
   {
     title: "Retrato para podcast",
@@ -110,7 +110,7 @@ window.PROJECTS = [
     client: "",
     category: "Identidade Visual",
     description: "Logotipo que combina letras fortes com assinatura cursiva, equilibrando solidez e estilo.",
-    images: ["assets/img/portfolio/logo-ormond-imports.jpg", "assets/img/portfolio/mockup-ormond-imports.jpg"],
+    images: ["assets/img/portfolio/mockup-ormond-imports.jpg", "assets/img/portfolio/logo-ormond-imports.jpg"],
   },
   {
     title: "Fluxo de caixa sob controle",
