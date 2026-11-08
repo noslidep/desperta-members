@@ -102,11 +102,11 @@ window.PROJECTS = [
     image: "assets/img/portfolio/ia-retrato-cafe.jpg",
   },
   {
-    title: "Victor Griff",
+    title: "Ormond Imports",
     client: "",
     category: "Identidade Visual",
-    description: "Brasão com monograma e coroa, com presença forte e atitude.",
-    image: "assets/img/portfolio/logo-victor-griff.jpg",
+    description: "Logotipo que combina letras fortes com assinatura cursiva, equilibrando solidez e estilo.",
+    image: "assets/img/portfolio/logo-ormond-imports.jpg",
   },
   {
     title: "Fluxo de caixa sob controle",
