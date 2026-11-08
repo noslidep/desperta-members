@@ -46,8 +46,8 @@ window.PROJECTS = [
     title: "Alanna Semijoias",
     client: "Semijoias",
     category: "Identidade Visual",
-    description: "Logotipo com diamante coroado e tipografia refinada, transmitindo delicadeza e valor.",
-    images: ["assets/img/portfolio/mockup-alanna-semijoias.jpg", "assets/img/portfolio/logo-alanna-semijoias.jpg"],
+    description: "Logotipo com diamante coroado e tipografia refinada, transmitindo delicadeza e valor. Aplicado em embalagens, papelaria e site.",
+    images: ["assets/img/portfolio/mockup-alanna-semijoias.jpg", "assets/img/portfolio/logo-alanna-semijoias.jpg", "assets/img/portfolio/site-alanna-semijoias.jpg"],
   },
   {
     title: "Hidratante facial",
@@ -74,8 +74,8 @@ window.PROJECTS = [
     title: "Nicole Fontes",
     client: "Dermatologia & Estética",
     category: "Identidade Visual",
-    description: "Monograma em caligrafia dentro de um selo circular, unindo sofisticação e cuidado.",
-    images: ["assets/img/portfolio/mockup-nicole-fontes.jpg", "assets/img/portfolio/logo-nicole-fontes.jpg"],
+    description: "Monograma em caligrafia dentro de um selo circular, unindo sofisticação e cuidado. Aplicado em papelaria, comunicação visual e site.",
+    images: ["assets/img/portfolio/mockup-nicole-fontes.jpg", "assets/img/portfolio/logo-nicole-fontes.jpg", "assets/img/portfolio/site-nicole-fontes.jpg"],
   },
   {
     title: "Retrato para podcast",
@@ -109,8 +109,8 @@ window.PROJECTS = [
     title: "Ormond Imports",
     client: "",
     category: "Identidade Visual",
-    description: "Logotipo que combina letras fortes com assinatura cursiva, equilibrando solidez e estilo.",
-    images: ["assets/img/portfolio/mockup-ormond-imports.jpg", "assets/img/portfolio/logo-ormond-imports.jpg"],
+    description: "Logotipo que combina letras fortes com assinatura cursiva, equilibrando solidez e estilo. Aplicado em embalagens, papelaria e site.",
+    images: ["assets/img/portfolio/mockup-ormond-imports.jpg", "assets/img/portfolio/logo-ormond-imports.jpg", "assets/img/portfolio/site-ormond-imports.jpg"],
   },
   {
     title: "Fluxo de caixa sob controle",
@@ -134,7 +134,7 @@ window.PROJECTS = [
    --------------------------------------------------------- */
 window.TESTIMONIALS = [
   {
-    text: "Escreva aqui o depoimento de um cliente real sobre a experiência de trabalhar com a ND.",
+    text: "Escreva aqui o depoimento de um cliente real sobre a experiência de trabalhar comigo.",
     name: "Nome do Cliente",
     role: "Empresa / Cargo",
   },

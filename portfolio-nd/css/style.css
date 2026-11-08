@@ -476,3 +476,11 @@ em {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
   .js .reveal { opacity: 1; transform: none; }
 }
+
+/* galeria no celular: controles menores para não cobrir a imagem */
+@media (max-width: 760px) {
+  .gal__count { top: 8px; left: 8px; padding: 3px 8px; font-size: 11px; }
+  .gal__btn { width: 32px; height: 32px; font-size: 20px; }
+  .gal__btn--prev { left: 6px; } .gal__btn--next { right: 6px; }
+  .gal__dots { bottom: 8px; }
+}
