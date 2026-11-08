@@ -13,7 +13,6 @@ window.SITE_CONFIG = {
   instagram: "https://instagram.com/noslidep.design",
   instagramLabel: "@noslidep.design",
 
-  // O vídeo vertical da seção "Em movimento" fica em assets/video/manifesto.mp4
 };
 
 /* ---------------------------------------------------------

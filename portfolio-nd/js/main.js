@@ -311,28 +311,6 @@
   $("#lbNext").addEventListener("click", () => stepLb(1));
   lb.addEventListener("click", (e) => { if (e.target === lb) { stopLbVideo(); closeModal(lb); } });
 
-  /* ---------- Vídeo manifesto: toca sem som ao aparecer; botão liga o som ---------- */
-  const reel = $("#reelVideo");
-  const reelSound = $("#reelSound");
-  if (reel) {
-    new IntersectionObserver(([e]) => {
-      if (e.isIntersecting && !reduceMotion) reel.play().catch(() => {});
-      else reel.pause();
-    }, { threshold: 0.4 }).observe(reel);
-    const setSound = (on) => {
-      reel.muted = !on;
-      reelSound.setAttribute("aria-pressed", String(on));
-      reelSound.classList.toggle("is-on", on);
-      $(".reel__label", reelSound).textContent = on ? "Desativar som" : "Ativar som";
-    };
-    reelSound.addEventListener("click", () => {
-      const on = reel.muted;
-      if (on) { reel.currentTime = 0; reel.play().catch(() => {}); }
-      setSound(on);
-    });
-    reel.addEventListener("click", () => (reel.paused ? reel.play() : reel.pause()));
-  }
-
   document.addEventListener("keydown", (e) => {
     if (!lb.hidden) {
       if (e.key === "Escape") { stopLbVideo(); closeModal(lb); }
