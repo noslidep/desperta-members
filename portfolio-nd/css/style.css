@@ -681,3 +681,10 @@ em {
 .ba__tab:hover { color: var(--text); border-color: rgba(255,255,255,.3); }
 .ba__tab.is-active { background: var(--accent); border-color: var(--accent); color: #fff; }
 .ba__tab:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
+
+/* aviso flutuante (ex.: e-mail copiado) */
+.toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); z-index: 600; transform: translate(-50%, 20px);
+  max-width: calc(100vw - 32px); padding: 12px 20px; border-radius: 999px; background: var(--text); color: var(--bg);
+  font-size: 14px; font-weight: 600; box-shadow: 0 14px 34px -14px rgba(0,0,0,.7); opacity: 0; pointer-events: none;
+  transition: opacity .35s var(--ease), transform .35s var(--ease); overflow-wrap: anywhere; text-align: center; }
+.toast.is-on { opacity: 1; transform: translate(-50%, 0); }

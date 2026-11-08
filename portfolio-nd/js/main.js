@@ -57,6 +57,18 @@
     a.rel = "noopener";
   });
   $$(".js-email").forEach((a) => (a.href = `mailto:${cfg.email || ""}`));
+  // ao clicar no e-mail, copia o endereço (útil para quem não tem app de e-mail configurado)
+  const toast = document.createElement("div");
+  toast.className = "toast"; toast.setAttribute("role", "status"); toast.setAttribute("aria-live", "polite");
+  document.body.appendChild(toast);
+  let toastT;
+  const showToast = (msg) => { toast.textContent = msg; toast.classList.add("is-on"); clearTimeout(toastT); toastT = setTimeout(() => toast.classList.remove("is-on"), 3200); };
+  $$(".js-email").forEach((a) => a.addEventListener("click", () => {
+    const mail = cfg.email || "";
+    const done = () => showToast(`E-mail copiado: ${mail}`);
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(mail).then(done, () => showToast(mail));
+    else showToast(mail);
+  }));
   $$(".js-instagram").forEach((a) => (a.href = cfg.instagram || "#"));
   $$(".js-behance").forEach((a) => (a.href = cfg.behance || "#"));
   $$(".js-phone-label").forEach((el) => (el.textContent = cfg.whatsappLabel || ""));
