@@ -14,7 +14,8 @@ ffmpeg -i original.mov -an -vf "scale=1920:-2" -c:v libx264 -crf 28 -preset slow
 ffmpeg -i original.mov -an -vf "scale=1920:-2" -c:v libvpx-vp9 -crf 38 -b:v 0 hero.webm
 ```
 
-Enquanto não houver vídeo, o site mostra automaticamente um fundo animado com as cores da marca.
+O vídeo atual é a animação do logo ND (10 s, sem áudio). No computador ele aparece à direita do título; no celular, acima do texto.
+Se os arquivos forem removidos, o site mostra automaticamente um fundo animado com as cores da marca.
 
 O **showreel** (botão de play no meio da página) é configurado em `js/data.js` → `showreel`
 (link do YouTube/Vimeo no formato embed, ou um MP4 desta pasta).
